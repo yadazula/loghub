@@ -4,6 +4,6 @@ namespace LogHub.Server.Convertors
 {
   public interface ILogMessageConvertor
   {
-    LogMessage Convert(byte[] payload);
+    LogMessage Convert(RawMessage rawMessage);
   }
 }

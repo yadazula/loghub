@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using LogHub.Server.Buffers;
+using LogHub.Server.Core;
 using NLog;
 
 namespace LogHub.Server.Channels
@@ -11,10 +12,10 @@ namespace LogHub.Server.Channels
   {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     private readonly int port;
-    private readonly IMessageBuffer<byte[]> messageBuffer;
+    private readonly IMessageBuffer<RawMessage> messageBuffer;
     private readonly TcpListener tcpListener;
 
-    public TcpChannelListener(int port, IMessageBuffer<byte[]> messageBuffer)
+    public TcpChannelListener(int port, IMessageBuffer<RawMessage> messageBuffer)
     {
       this.port = port;
       this.messageBuffer = messageBuffer;
@@ -41,7 +42,7 @@ namespace LogHub.Server.Channels
           int read;
           while ((read = stream.Read(bytes, 0, bytes.Length)) != 0)
           {
-            messageBuffer.Post(bytes.Take(read).ToArray());
+            messageBuffer.Post(new RawMessage { Payload = bytes.Take(read).ToArray() });
           }
         }
       }
@@ -54,7 +55,6 @@ namespace LogHub.Server.Channels
     public void Dispose()
     {
       tcpListener.Stop();
-      Logger.Debug("Stopped listening TCP messages on port {0}", port);
     }
   }
 }

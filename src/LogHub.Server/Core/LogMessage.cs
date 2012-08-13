@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace LogHub.Server.Core
 {
@@ -10,7 +11,15 @@ namespace LogHub.Server.Core
     public string Source { get; set; }
     public LogLevel Level { get; set; }
     public string Message { get; set; }
-    public DateTime TimeStamp {  get; set;}
+    public DateTimeOffset TimeStamp {  get; set;}
     public IDictionary<string, object> Properties {  get; set;}
+
+    [JsonIgnore]
+    public Guid TrackingId { get; set; }
+
+    public bool IsValid()
+    {
+      return (!string.IsNullOrWhiteSpace(Host) && !string.IsNullOrWhiteSpace(Message));
+    }
   }
 }

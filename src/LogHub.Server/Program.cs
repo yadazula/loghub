@@ -1,8 +1,4 @@
 ﻿using System;
-using LogHub.Server.Buffers;
-using LogHub.Server.Channels;
-using LogHub.Server.Convertors;
-using LogHub.Server.Handlers;
 
 namespace LogHub.Server
 {
@@ -10,15 +6,10 @@ namespace LogHub.Server
   {
     static void Main()
     {
-      ILogMessageHandler throughputCounter = new ThroughputCounter();
-      ILogMessageConvertor logMessageConvertor = new LogMessageConvertor();
-      IBufferConsumer<byte[]> rawMessageBufferConsumer = new InputBufferConsumer(logMessageConvertor, throughputCounter);
-      IMessageBuffer<byte[]> rawMessageBuffer = new BatchMessageBuffer<byte[]>(rawMessageBufferConsumer);
-
-      using (var listener = new UdpChannelListener(11000, rawMessageBuffer))
+      using (var bootstrapper = new Bootstrapper())
       {
-        listener.Listen();
-        Console.WriteLine("Started listening");
+        bootstrapper.Start();
+        Console.WriteLine("LogHub server started.");
         Console.ReadLine();
       }
     }

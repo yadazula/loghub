@@ -20,6 +20,11 @@ namespace LogHub.Server.Handlers
       }, null, 5000, 5000);
     }
 
+    public string Name
+    {
+      get { return "Throughput Counter"; }
+    }
+
     public bool Handle(LogMessage logMessage)
     {
       Interlocked.Increment(ref throughputCount);

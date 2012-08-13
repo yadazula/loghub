@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using LogHub.Server.Buffers;
+using LogHub.Server.Core;
 using NLog;
 
 namespace LogHub.Server.Channels
@@ -10,11 +11,11 @@ namespace LogHub.Server.Channels
   {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     private readonly int port;
-    private readonly IMessageBuffer<byte[]> messageBuffer;
+    private readonly IMessageBuffer<RawMessage> messageBuffer;
     private readonly UdpClient udpClient;
     private IPEndPoint ipEndPoint;
 
-    public UdpChannelListener(int port, IMessageBuffer<byte[]> messageBuffer)
+    public UdpChannelListener(int port, IMessageBuffer<RawMessage> messageBuffer)
     {
       this.port = port;
       this.messageBuffer = messageBuffer;
@@ -43,10 +44,10 @@ namespace LogHub.Server.Channels
 
     private void ReceiveAsync(IAsyncResult ar)
     {
-      byte[] message;
+      byte[] payload;
       try
       {
-        message = udpClient.EndReceive(ar, ref ipEndPoint);
+        payload = udpClient.EndReceive(ar, ref ipEndPoint);
         udpClient.BeginReceive(ReceiveAsync, null);
       }
       catch (Exception)
@@ -54,7 +55,7 @@ namespace LogHub.Server.Channels
         return;
       }
 
-      messageBuffer.Post(message);
+      messageBuffer.Post(new RawMessage { Payload = payload });
     }
   }
 }
