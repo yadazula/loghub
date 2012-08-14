@@ -1,0 +1,19 @@
+server
+------------------------
+counters
+blacklist
+chunked messages
+tcp & http channel
+log4net appender
+fix max chunk size
+scheduled tasks
+bug - ravendb closed but no error logged
+
+
+client
+------------------------
+saved searches
+retention
+archive
+notification
+user management
