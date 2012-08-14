@@ -1,0 +1,10 @@
+receive raw message
+add to process buffer
+process buffer handler => 
+	validate message
+	uncompress message to json string
+	convert json to logevent model
+	apply filters (counters, blacklist)
+	add to output buffer		      	
+output buffer handler => 
+	persist to ravendb

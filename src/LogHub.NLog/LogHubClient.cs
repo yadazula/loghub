@@ -45,16 +45,16 @@ namespace LogHub.NLog
 
           udpClient.Send(messageChunkFull, messageChunkFull.Length, hostIp, hostPort);
         }
+
+        return;
       }
-      else
-      {
-        udpClient.Send(compressedMessage, compressedMessage.Length, hostIp, hostPort);
-      }
+      
+      udpClient.Send(compressedMessage, compressedMessage.Length, hostIp, hostPort);
     }
 
     /// <summary>
     /// Chunk header structure is:
-    /// - Chunked GELF ID: 0x1e 0x0f (identifying this message as a chunked GELF message)
+    /// - Chunke ID: 0x1e 0x0f (identifying this message as a chunked message)
     /// - Message ID: 8 bytes (Must be the same for every chunk of this message. Identifying the whole message itself and is used to reassemble the chunks later.)
     /// - Sequence Number: 1 byte (The sequence number of this chunk)
     /// - Total Number: 1 byte (How many chunks does this message consist of in total)

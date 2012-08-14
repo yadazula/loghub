@@ -10,9 +10,9 @@ namespace LogHub.TestClient
 
     private static void Main()
     {
-      for (int i = 0; i < 1; i++)
+      for (int i = 0; i < 3; i++)
       {
-        for (var j = 1; j <= 1000; j++)
+        for (var j = 1; j <= 3000; j++)
         {
           Logger.Debug("message " + i);
         }

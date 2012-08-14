@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using LogHub.Server.Buffers;
 using LogHub.Server.Core;
@@ -40,6 +41,13 @@ namespace LogHub.Server.Channels
     {
       udpClient.Close();
       Logger.Debug("Stopped listening UDP messages on port {0}", port);
+      IPGlobalProperties properties = IPGlobalProperties.GetIPGlobalProperties();
+      var udpStat = properties.GetUdpIPv4Statistics();
+      Logger.Debug("Datagrams Received ...................... : {0}",udpStat.DatagramsReceived);
+      Logger.Debug("Datagrams Sent .......................... : {0}",udpStat.DatagramsSent);
+      Logger.Debug("Incoming Datagrams Discarded ............ : {0}",udpStat.IncomingDatagramsDiscarded);
+      Logger.Debug("Incoming Datagrams With Errors .......... : {0}",udpStat.IncomingDatagramsWithErrors);
+      Logger.Debug("UDP Listeners ........................... : {0}",udpStat.UdpListeners);
     }
 
     private void ReceiveAsync(IAsyncResult ar)
