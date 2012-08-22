@@ -17,3 +17,9 @@ retention
 archive
 notification
 user management
+
+forwarders
+------------------------
+nlog
+log4net
+windows event log
