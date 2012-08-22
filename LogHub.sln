@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.TestClient", "test\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.NLog", "src\LogHub.NLog\LogHub.NLog.csproj", "{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Web", "src\LogHub.Web\LogHub.Web.csproj", "{81324006-2CD8-4175-AEC2-38677E1D5DB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|x86.ActiveCfg = Release|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
