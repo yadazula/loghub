@@ -9,9 +9,10 @@ namespace LogHub.Server.Core
     public string Id { get; set; }
     public string Host { get; set; }
     public string Source { get; set; }
+    public string Logger { get; set; }
     public LogLevel Level { get; set; }
     public string Message { get; set; }
-    public DateTimeOffset TimeStamp {  get; set;}
+    public DateTimeOffset Date {  get; set;}
     public IDictionary<string, object> Properties {  get; set;}
 
     [JsonIgnore]

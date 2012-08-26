@@ -1,0 +1,54 @@
+﻿@using LogHub.Web.Views
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>LogHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")">
+    <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">
+                    <span style="color: whitesmoke">Log</span><span style="color: #ffd322">Hub</span> </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="well sidebar-nav">
+                  <ul class="nav nav-list">
+                    <li class="active"><a href="#"><i class="icon-home icon-white"></i>Dashboard</a></li>
+                    <li><a href="#"><i class="icon-search"></i>Searches</a></li>
+                    <li><a href="#"><i class="icon-wrench"></i>Settings</a></li>
+                  </ul>
+                </div>
+            </div>
+            <div class="span10" id="main">
+            </div>
+        </div>
+    </div>
+    @Html.RenderTemplates("~/Templates/")
+    <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/backbone.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Models/logs.js")"></script>
+    <script src="@Url.Content("~/Scripts/Collections/logs.js")"></script>
+    <script src="@Url.Content("~/Scripts/Views/logs.js")"></script>
+    <script src="@Url.Content("~/Scripts/Routers/router.js")"></script>
+</body>
+</html>

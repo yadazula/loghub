@@ -18,15 +18,14 @@ namespace LogHub.NLog
         logEventInfo.Properties.Add("StackTrace", logEventInfo.Exception.StackTrace);
       }
 
-      logEventInfo.Properties.Add("LoggerName", logEventInfo.LoggerName);
-
       var logHubMessage = new LogHubMessage
       {
         Host = Dns.GetHostName(),
         Message = logEventMessage,
-        TimeStamp = logEventInfo.TimeStamp,
+        Date = logEventInfo.TimeStamp,
         Level = logEventInfo.Level.GetHashCode(),
-        Source = source
+        Source = source,
+        Logger = logEventInfo.LoggerName
       };
 
       foreach (var property in logEventInfo.Properties)
