@@ -20,9 +20,10 @@
         initialize: function () {
             this.model.bind("reset", this.render, this);
         },
-
+        
         render: function (eventName) {
-            $(this.el).html(this.template());
+            var pageInfo = this.model.pageInfo();
+            $(this.el).html(this.template(pageInfo));
             _.each(this.model.models, function (log) {
                 var itemView = new window.loghub.LogListItemView({ model: log });
                 itemView.render();

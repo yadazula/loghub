@@ -4,14 +4,20 @@ $(function () {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
-            '': 'listLogs'
+            '': 'listLogs',
+            'logs?page=:page': 'listLogs'
         },
 
-        listLogs: function () {
-            var logList = new window.loghub.LogList();
-            var logListView = new window.loghub.LogListView({ model: logList });
-            logList.fetch();
-            $('#main').html(logListView.render().el);
+        listLogs: function (page) {
+            if (this.logList) {
+                this.logList.toPage(page);
+                return;
+            }
+
+            this.logList = new window.loghub.LogList(null, { page: page });
+            this.logListView = new window.loghub.LogListView({ model: this.logList });
+            this.logList.fetch();
+            $('#main').html(this.logListView.render().el);
         }
     });
 

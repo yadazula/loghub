@@ -125,6 +125,7 @@
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\LogMessageView.cs" />
+    <Compile Include="Models\PagedView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Templates\log-item.html" />
     <Content Include="Templates\log-list.html" />

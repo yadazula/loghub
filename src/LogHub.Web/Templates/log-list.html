@@ -17,5 +17,23 @@
             <tbody id="log-item-container">
             </tbody>
         </table>
+        
+        <ul class="pager">
+        <% if(pages > 1) { %>
+          <% if(prev) { %>
+            <li class="previous"><a href="#logs?page=<%= prev %>" class="prev">previous</a></li>
+          <% } else { %>
+            <li class="previous disabled"><a href="#">previous</a></li>
+          <% } %>
+
+          <%= range[0] %>..<%= range[1] %> of <%= total %>
+
+          <% if(next) { %>
+            <li class="next"><a href="#logs?page=<%= next %>" class="next">next</a></li>
+          <% } else { %>
+            <li class="next disabled"><a href="#">next</a></li>
+          <% } %>
+        <% } %>
+        </ul>
     </div>
 </div>
