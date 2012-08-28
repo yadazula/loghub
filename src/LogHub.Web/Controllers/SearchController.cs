@@ -6,7 +6,7 @@ using LogHub.Web.Models;
 
 namespace LogHub.Web.Controllers
 {
-  public class LogsController : ApiController
+  public class SearchController : ApiController
   {
     public PagedView<LogMessageView> Get(ushort? page)
     {

@@ -3,10 +3,10 @@
 (function () {
     'use strict';
 
-    loghub.LogListItemView = Backbone.View.extend({
-        el: "#log-item-container",
+    loghub.SearchLogItemView = Backbone.View.extend({
+        el: "#search-log-item-container",
 
-        template: _.template($('#log-item-template').html()),
+        template: _.template($('#search-log-item-template').html()),
 
         render: function (eventName) {
             $(this.el).append(this.template(this.model.toJSON()));
@@ -14,8 +14,8 @@
         }
     });
 
-    loghub.LogListView = Backbone.View.extend({
-        template: _.template($('#log-list-template').html()),
+    loghub.SearchLogListView = Backbone.View.extend({
+        template: _.template($('#search-log-list-template').html()),
 
         initialize: function () {
             this.model.bind("reset", this.render, this);
@@ -25,7 +25,7 @@
             var pageInfo = this.model.pageInfo();
             $(this.el).html(this.template(pageInfo));
             _.each(this.model.models, function (log) {
-                var itemView = new window.loghub.LogListItemView({ model: log });
+                var itemView = new window.loghub.SearchLogItemView({ model: log });
                 itemView.render();
             }, this);
             return this;

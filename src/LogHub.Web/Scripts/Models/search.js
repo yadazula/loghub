@@ -2,6 +2,6 @@
 (function () {
     'use strict';
 
-    loghub.Log = Backbone.Model.extend();
+    loghub.SearchLog = Backbone.Model.extend();
 
 }());

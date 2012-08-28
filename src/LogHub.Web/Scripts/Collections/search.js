@@ -2,9 +2,9 @@
 (function () {
     'use strict';
 
-    loghub.LogList = Backbone.Collection.extend({
-        model: loghub.Log,
-        baseUrl: '/api/logs',
+    loghub.SearchLogList = Backbone.Collection.extend({
+        model: loghub.SearchLog,
+        baseUrl: '/api/search',
         initialize: function(model, options) {
             _.bindAll(this, 'parse', 'url', 'pageInfo', 'nextPage', 'previousPage');
             this.page = options.page || 1;
