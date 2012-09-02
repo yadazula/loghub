@@ -37,19 +37,6 @@ namespace LogHub.Server.Channels
       }
     }
 
-    public void Dispose()
-    {
-      udpClient.Close();
-      Logger.Debug("Stopped listening UDP messages on port {0}", port);
-      IPGlobalProperties properties = IPGlobalProperties.GetIPGlobalProperties();
-      var udpStat = properties.GetUdpIPv4Statistics();
-      Logger.Debug("Datagrams Received ...................... : {0}",udpStat.DatagramsReceived);
-      Logger.Debug("Datagrams Sent .......................... : {0}",udpStat.DatagramsSent);
-      Logger.Debug("Incoming Datagrams Discarded ............ : {0}",udpStat.IncomingDatagramsDiscarded);
-      Logger.Debug("Incoming Datagrams With Errors .......... : {0}",udpStat.IncomingDatagramsWithErrors);
-      Logger.Debug("UDP Listeners ........................... : {0}",udpStat.UdpListeners);
-    }
-
     private void ReceiveAsync(IAsyncResult ar)
     {
       byte[] payload;
@@ -64,6 +51,19 @@ namespace LogHub.Server.Channels
       }
 
       messageBuffer.Post(new RawMessage { Payload = payload });
+    }
+
+    public void Dispose()
+    {
+      udpClient.Close();
+      Logger.Debug("Stopped listening UDP messages on port {0}", port);
+      IPGlobalProperties properties = IPGlobalProperties.GetIPGlobalProperties();
+      var udpStat = properties.GetUdpIPv4Statistics();
+      Logger.Debug("Datagrams Received ...................... : {0}",udpStat.DatagramsReceived);
+      Logger.Debug("Datagrams Sent .......................... : {0}",udpStat.DatagramsSent);
+      Logger.Debug("Incoming Datagrams Discarded ............ : {0}",udpStat.IncomingDatagramsDiscarded);
+      Logger.Debug("Incoming Datagrams With Errors .......... : {0}",udpStat.IncomingDatagramsWithErrors);
+      Logger.Debug("UDP Listeners ........................... : {0}",udpStat.UdpListeners);
     }
   }
 }

@@ -5,24 +5,40 @@ $(function () {
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'showRecentLogs',
+            'dashboard': 'showRecentLogs',
+            'search': 'showSearches',
             'search?p=:page': 'showSearches'
         },
-
+        
         showSearches: function (page) {
-            if (this.SearchLogList) {
-                this.SearchLogList.toPage(page);
-                return;
-            }
+            var searchLogList = new window.loghub.SearchLogList(null, { page: page });
+            var searchLogListView = VM.createView("searchLogListView", function () {
+                return new window.loghub.SearchLogListView({ collection: searchLogList });
+            });
+            
+            $('#main').html(searchLogListView.render().el);
+            searchLogList.fetch();
+            this.highlightItem("#navSearch");
+        },
 
-            this.SearchLogList = new window.loghub.SearchLogList(null, { page: page });
-            this.SearchLogListView = new window.loghub.SearchLogListView({ model: this.SearchLogList });
-            this.SearchLogList.fetch();
-            $('#main').html(this.SearchLogListView.render().el);
+        showRecentLogs: function () {
+            var recentLogList = new window.loghub.RecentLogList;
+            var recentLogListView = VM.createView("recentLogListView", function () {
+                return new window.loghub.RecentLogListView({ collection: recentLogList });
+            });
+            
+            $('#main').html(recentLogListView.render().el);
+            recentLogListView.stream({ interval: 5000 });
+            this.highlightItem("#navDashboard");
         },
         
-        showRecentLogs: function () {
+        highlightItem: function (el) {
+            $('#navList > li').removeClass('active');
+            $('#navList > li > a > i').removeClass('icon-white');
+            $(el).parent().addClass('active');
+            $(el).children().addClass('icon-white');
         }
-        
+
     });
 
     loghub.Router = new AppRouter();

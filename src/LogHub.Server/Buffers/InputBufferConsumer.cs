@@ -1,5 +1,4 @@
-using System.Threading.Tasks;
-using LogHub.Server.Convertors;
+﻿using LogHub.Server.Convertors;
 using LogHub.Server.Core;
 using LogHub.Server.Processors;
 
@@ -16,12 +15,12 @@ namespace LogHub.Server.Buffers
 
     public void Consume(RawMessage[] rawMessages)
     {
-      Parallel.ForEach(rawMessages, rawMessage =>
+      foreach (var rawMessage in rawMessages)
       {
         var messageFormat = rawMessage.GetMessageFormat();
         var messageProcessor = messageProcessorFactory.Get(messageFormat);
         messageProcessor.Process(rawMessage);
-      });
+      }
     }
   }
 }

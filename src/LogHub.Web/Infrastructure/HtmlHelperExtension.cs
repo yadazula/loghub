@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Optimization;
 
-namespace LogHub.Web.Views
+namespace LogHub.Web.Infrastructure
 {
   public static class HtmlHelperExtension
   {

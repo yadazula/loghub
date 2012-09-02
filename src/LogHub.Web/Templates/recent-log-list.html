@@ -1,0 +1,61 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <div class="recent-log-filter-header">Filter</div>
+        <h3>Recent Messages</h3>
+        <div id="recent-log-filter" style="display: none; margin-top: 15px;">
+            <form class="form-horizontal">
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="host">Host</label>
+                    <input type="text" class="controls controls2" name="host">
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="source">Source</label>
+                    <input type="text" name="source" class="controls controls2">
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="level">Min. Level</label>
+                    <select name="level" class="controls controls2">
+                        <option>All</option>
+                        <option>Trace</option>
+                        <option>Debug</option>
+                        <option>Info</option>
+                        <option>Warn</option>
+                        <option>Error</option>
+                        <option>Fatal</option>
+                    </select>
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="message">Message</label>
+                    <input type="text" name="message" class="controls controls2">
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="messageCount">Message Count</label>
+                    <select name="messageCount" class="controls controls2">
+                        <option>50</option>
+                        <option>100</option>
+                        <option>150</option>
+                    </select>
+                </div>
+                <div class="control-group control-group2">
+                    <button class="btn btn-primary" style="margin-left: 170px" type="button" id="recent-log-filter-button">Apply filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="widget-content">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 10%">Date</th>
+                    <th style="width: 10%">Host</th>
+                    <th style="width: 10%">Source</th>
+                    <th style="width: 10%">Logger</th>
+                    <th style="width: 10%">Level</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody id="log-item-container">
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -118,6 +118,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\app.css" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\RecentController.cs" />
+    <Compile Include="Models\RecentLogFilter.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,7 +129,16 @@
     <Compile Include="Models\LogMessageView.cs" />
     <Compile Include="Models\PagedView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Templates\search-log-item.html" />
+    <Content Include="Scripts\Backbone.CollectionBinder.js" />
+    <Content Include="Scripts\Backbone.CollectionBinder.min.js" />
+    <Content Include="Scripts\Backbone.ModelBinder.js" />
+    <Content Include="Scripts\Backbone.ModelBinder.min.js" />
+    <Content Include="Scripts\Models\recent.js" />
+    <Content Include="Scripts\viewmanager.js" />
+    <Content Include="Scripts\Views\recent.js" />
+    <Content Include="Templates\search-log-pager.html" />
+    <Content Include="Templates\recent-log-list.html" />
+    <Content Include="Templates\log-item.html" />
     <Content Include="Templates\search-log-list.html" />
     <Compile Include="Infrastructure\HtmlHelperExtension.cs" />
   </ItemGroup>
@@ -144,18 +155,10 @@
     <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
-    <Content Include="Scripts\Collections\search.js" />
+    <Content Include="Scripts\Models\search.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Models\search.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />

@@ -1,6 +1,6 @@
 ﻿<div class="widget">
     <div class="widget-header">
-        <h3>Messages</h3>
+        <h3>Searches</h3>
     </div>
     <div class="widget-content">
         <table class="table table-condensed table-hover">
@@ -14,26 +14,9 @@
                     <th>Message</th>
                 </tr>
             </thead>
-            <tbody id="search-log-item-container">
+            <tbody id="log-item-container">
             </tbody>
         </table>
-        
-        <ul class="pager">
-        <% if(pages > 1) { %>
-          <% if(prev) { %>
-            <li class="previous"><a href="#search?p=<%= prev %>" class="prev">previous</a></li>
-          <% } else { %>
-            <li class="previous disabled"><a href="#">previous</a></li>
-          <% } %>
-
-          <%= range[0] %>..<%= range[1] %> of <%= total %>
-
-          <% if(next) { %>
-            <li class="next"><a href="#search?p=<%= next %>" class="next">next</a></li>
-          <% } else { %>
-            <li class="next disabled"><a href="#">next</a></li>
-          <% } %>
-        <% } %>
-        </ul>
+        <div id="page-container"></div>
     </div>
 </div>

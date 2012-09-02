@@ -7,6 +7,7 @@ namespace LogHub.Web.Models
     Info,
     Warn,
     Error,
-    Fatal
+    Fatal,
+    All
   }
 }

@@ -3,32 +3,32 @@
 (function () {
     'use strict';
 
-    loghub.SearchLogItemView = Backbone.View.extend({
-        el: "#search-log-item-container",
-
-        template: _.template($('#search-log-item-template').html()),
-
-        render: function (eventName) {
-            $(this.el).append(this.template(this.model.toJSON()));
-            return this;
-        }
-    });
-
     loghub.SearchLogListView = Backbone.View.extend({
         template: _.template($('#search-log-list-template').html()),
 
+        pagerTemplate: _.template($('#search-log-pager-template').html()),
+
         initialize: function () {
-            this.model.bind("reset", this.render, this);
+            var itemTemplate = $('#log-item-template').html();
+            var elManagerFactory = new Backbone.CollectionBinder.ElManagerFactory(itemTemplate, "data-name");
+            this.collectionBinder = new Backbone.CollectionBinder(elManagerFactory);
+            this.collection.bind('reset', this.setPageInfo, this);
         },
         
         render: function (eventName) {
-            var pageInfo = this.model.pageInfo();
-            $(this.el).html(this.template(pageInfo));
-            _.each(this.model.models, function (log) {
-                var itemView = new window.loghub.SearchLogItemView({ model: log });
-                itemView.render();
-            }, this);
+            $(this.el).html(this.template());
+            this.collectionBinder.bind(this.collection, this.$('#log-item-container'));
             return this;
+        },
+        
+        setPageInfo: function () {
+            var pageInfo = this.collection.pageInfo();
+            this.$('#page-container').html(this.pagerTemplate(pageInfo));
+        },
+        
+        close: function () {
+            this.collection.off('reset', this.setPageInfo);
+            this.collectionBinder.unbind();
         }
     });
 }());
