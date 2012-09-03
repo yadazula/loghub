@@ -11,7 +11,7 @@ namespace LogHub.Server.Buffers
     private readonly int autoTriggerBatchPeriod;
     private BufferBlock<TMessage> bufferBlock;
 
-    public BatchMessageBuffer(IBufferConsumer<TMessage> bufferConsumer, int batchSize = 2048, int autoTriggerBatchPeriod = 2000)
+    public BatchMessageBuffer(IBufferConsumer<TMessage> bufferConsumer, int batchSize = 100000, int autoTriggerBatchPeriod = 2000)
     {
       this.bufferConsumer = bufferConsumer;
       this.batchSize = batchSize;
