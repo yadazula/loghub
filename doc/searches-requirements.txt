@@ -1,0 +1,4 @@
+on entry list all logs by date 
+allow user to filter logs
+allow user to save filter
+list saved filters
