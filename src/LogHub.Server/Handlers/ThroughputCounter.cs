@@ -16,7 +16,11 @@ namespace LogHub.Server.Handlers
       {
         var current = Thread.VolatileRead(ref throughputCount);
         Interlocked.Exchange(ref throughputCount, 0);
-        Logger.Debug("Throughput : {0}", current);
+        if (current > 0)
+        {
+          Logger.Info("Throughput : {0}", current);
+        }
+
       }, null, 5000, 5000);
     }
 
