@@ -54,7 +54,7 @@
                     <th>Message</th>
                 </tr>
             </thead>
-            <tbody id="log-item-container">
+            <tbody data-bind="template: {name: 'log-item-template', foreach: logItems}">
             </tbody>
         </table>
     </div>

@@ -29,14 +29,12 @@
         <div class="row-fluid">
             <div class="span2">
                 <div class="well sidebar-nav">
-                    <ul class="nav nav-list" id="navList">
-                        <li><a href="#dashboard" id="navDashboard"><i class="icon-home"></i>Dashboard</a></li>
-                        <li><a href="#search" id="navSearch"><i class="icon-search"></i>Searches</a></li>
-                        <li><a href="#settings" id="navSettings"><i class="icon-wrench"></i>Settings</a></li>
+                    <ul class="nav nav-list" data-bind="foreach: pages">
+                        <li data-bind="css: {active: isActive}"><a data-bind="attr: { href: url }"><i data-bind="attr: {class: icon}"></i><span data-bind="text: name"></span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="span10" id="main">
+            <div class="span10" id="pageContainer">
             </div>
         </div>
     </div>
@@ -44,13 +42,9 @@
     <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/backbone.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/knockout-2.1.0.js")"></script>
-    <script src="@Url.Content("~/Scripts/knockback.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/Models/search.js")"></script>
-    <script src="@Url.Content("~/Scripts/Models/recent.js")"></script>
-    <script src="@Url.Content("~/Scripts/Views/search.js")"></script>
-    <script src="@Url.Content("~/Scripts/Views/recent.js")"></script>
+    <script src="@Url.Content("~/Scripts/sammy-latest.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
+    <script src="@Url.Content("~/Scripts/knockout.mapping-latest.debug.js")"></script>
     <script src="@Url.Content("~/Scripts/app.js")"></script>
 </body>
 </html>
