@@ -1,21 +1,13 @@
 ﻿var loghub = loghub || {};
-loghub.viewmodels = loghub.viewmodels || {};
-
-loghub.viewmodels.Page = function (url, icon, name) {
-    this.url = url;
-    this.icon = icon;
-    this.name = name;
-    this.isActive = ko.observable(false);
-};
 
 loghub.App = function () {
     var self = this;
-    var dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard');
-    var searches = new loghub.viewmodels.Page('#searches', 'icon-search', 'Searches');
-    var settings = new loghub.viewmodels.Page('#settings', 'icon-wrench', 'Settings');
-    self.pages = [dashboard, searches, settings];
+    self.dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard', 'recent-log-list-template');
+    self.searches = new loghub.viewmodels.Page('#searches', 'icon-search', 'Searches', '');
+    self.settings = new loghub.viewmodels.Page('#settings', 'icon-wrench', 'Settings', '');
+    self.pages = [self.dashboard, self.searches, self.settings];
 
-    self.setCurrentPage = function (page, templateName, data) {
+    self.setCurrentPage = function (page, viewModel) {
         if (self.currentPage) {
             self.currentPage.isActive(false);
         }
@@ -24,37 +16,46 @@ loghub.App = function () {
             ko.removeNode(self.currentPageEl);
         }
 
-        if (self.currentPageObservable) {
-            self.currentPageObservable.dispose();
-        }
-
         self.currentPage = page;
         self.currentPage.isActive(true);
 
         var el = $('#pageContainer')[0];
-        self.currentPageObservable = ko.renderTemplate(templateName, data, {}, el);
-        if (el.children.length === 1) {
-            self.currentPageEl = el.children[0];
-        }
+        var observable = ko.renderTemplate(page.template, viewModel, {}, el);
+
+        self.currentPageEl = el.children[0];
+        ko.utils.domNodeDisposal.addDisposeCallback(self.currentPageEl, function () {
+            if (viewModel.dispose) {
+                viewModel.dispose();
+            }
+        });
+
+        observable.dispose();
     };
 
     Sammy(function () {
-        this.get('#dashboard', function () {
-            var log = { Date: 'Host', Host: 'Host', Source: 'Source', Logger: 'Logger', Level: 'Level', Message: 'Message' };
-            var logs = { logItems: [log] }; //TODO : dispose logs
-            self.setCurrentPage(dashboard, 'recent-log-list-template', logs);
+        this.get(self.dashboard.url, function () {
+            if (self.currentPage == self.dashboard) return;
+
+            var recentLogList = new loghub.viewmodels.RecentLogList();
+            recentLogList.load(function () {
+                self.setCurrentPage(self.dashboard, recentLogList);
+            });
         });
 
-        this.get('#searches', function () {
-            self.setCurrentPage(searches,'', {});
+        this.get(self.searches.url, function () {
+            if (self.currentPage == self.searches) return;
+            self.setCurrentPage(self.searches, {});
         });
 
-        this.get('#settings', function () {
-            self.setCurrentPage(settings, '', {});
+        this.get(self.settings.url, function () {
+            if (self.currentPage == self.settings) return;
+            self.setCurrentPage(self.settings, {});
         });
 
         this.get('', function () { this.app.runRoute('get', '#dashboard'); });
     }).run();
 };
 
-ko.applyBindings(new loghub.App());
+$(function () {
+    ko.applyBindings(new loghub.App(), $('pages')[0]);
+});

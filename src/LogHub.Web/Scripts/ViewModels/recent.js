@@ -1,0 +1,74 @@
+﻿var loghub = loghub || {};
+loghub.viewmodels = loghub.viewmodels || {};
+
+loghub.viewmodels.RecentLogList = function () {
+    var self = this;
+
+    self.url = function () {
+        return '/api/recent?' + $.param({
+            host: self.currentFilter.host,
+            source: self.currentFilter.source,
+            level: self.currentFilter.level,
+            message: self.currentFilter.message,
+            messageCount: self.currentFilter.messageCount,
+        });
+    };
+
+    self.filterModel = {
+        host: ko.observable(),
+        source: ko.observable(),
+        level: ko.observable('All'),
+        message: ko.observable(),
+        messageCount: ko.observable('50')
+    };
+
+    self.filterVisible = ko.observable(false);
+
+    self.currentFilter = ko.toJS(self.filterModel);
+
+    self.toggleFilter = function () {
+        var filterVisible = self.filterVisible();
+        self.filterVisible(!filterVisible);
+    };
+
+    self.applyFilter = function () {
+        self.toggleFilter();
+        self.currentFilter = ko.toJS(self.filterModel);
+        self.stream();
+    };
+
+    self.load = function (callback) {
+        loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
+            self.logItems = ko.mapping.fromJS(data);
+            if (callback) callback();
+            self.stream();
+        });
+    };
+
+    self.stream = function () {
+        self.unstream();
+        self.isStreaming = true;
+
+        var startTimer = function () {
+            loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
+                ko.mapping.fromJS(data, self.logItems);
+                if(self.isStreaming) {
+                    self.streamTimer = window.setTimeout(startTimer, 2000);
+                }
+            });
+        };
+
+        startTimer();
+    };
+
+    self.unstream = function() {
+        self.isStreaming = false;
+        if (self.streamTimer) {
+            window.clearTimeout(self.streamTimer);
+        }
+    };
+
+    self.dispose = function () {
+        self.unstream();
+    };
+}

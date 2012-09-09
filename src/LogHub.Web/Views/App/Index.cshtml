@@ -29,7 +29,7 @@
         <div class="row-fluid">
             <div class="span2">
                 <div class="well sidebar-nav">
-                    <ul class="nav nav-list" data-bind="foreach: pages">
+                    <ul class="nav nav-list" data-bind="foreach: pages" id="pages">
                         <li data-bind="css: {active: isActive}"><a data-bind="attr: { href: url }"><i data-bind="attr: {class: icon}"></i><span data-bind="text: name"></span></a></li>
                     </ul>
                 </div>
@@ -45,6 +45,9 @@
     <script src="@Url.Content("~/Scripts/sammy-latest.min.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout.mapping-latest.debug.js")"></script>
+    <script src="@Url.Content("~/Scripts/rest.js")"></script>
+    <script src="@Url.Content("~/Scripts/ViewModels/page.js")"></script>
+    <script src="@Url.Content("~/Scripts/ViewModels/recent.js")"></script>
     <script src="@Url.Content("~/Scripts/app.js")"></script>
 </body>
 </html>
