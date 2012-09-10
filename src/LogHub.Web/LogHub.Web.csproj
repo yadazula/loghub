@@ -116,12 +116,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Scripts\ViewModels\search.js" />
     <Content Include="Scripts\ViewModels\page.js" />
     <Content Include="Scripts\rest.js" />
     <Content Include="Scripts\ViewModels\recent.js" />
     <Content Include="Content\app.css" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\RecentController.cs" />
+    <Compile Include="Models\SearchLogFilter.cs" />
     <Compile Include="Models\RecentLogFilter.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
@@ -130,7 +132,7 @@
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\LogMessageView.cs" />
-    <Compile Include="Models\PagedView.cs" />
+    <Compile Include="Models\PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
@@ -142,7 +144,6 @@
     <Content Include="Scripts\Models\viewmanager.js" />
     <Content Include="Scripts\Models\_recent_view.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Templates\search-log-pager.html" />
     <Content Include="Templates\recent-log-list.html" />
     <Content Include="Templates\log-item.html" />
     <Content Include="Templates\search-log-list.html" />

@@ -1,6 +1,46 @@
 ﻿<div class="widget">
     <div class="widget-header">
-        <h3>Searches</h3>
+        <div data-bind="click: toggleFilter" class="log-filter-header">Filter</div>
+        <h3>All Messages</h3>
+        <div id="recent-log-filter" style="margin-top: 15px;" data-bind="visible : filterVisible">
+            <form class="form-horizontal" data-bind="with: filterModel">
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="host">Host</label>
+                    <input type="text" class="controls controls2" name="host" data-bind="value: host" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="source">Source</label>
+                    <input type="text" name="source" class="controls controls2" data-bind="value: source" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="level">Min. Level</label>
+                    <select name="level" class="controls controls2" data-bind="value: level">
+                        <option value="All">All</option>
+                        <option value="Trace">Trace</option>
+                        <option value="Debug">Debug</option>
+                        <option value="Info">Info</option>
+                        <option value="Warn">Warn</option>
+                        <option value="Error">Error</option>
+                        <option value="Fatal">Fatal</option>
+                    </select>
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="message">Message</label>
+                    <input type="text" name="message" class="controls controls2" data-bind="value: message" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="messageCount">Message Count</label>
+                    <select name="messageCount" class="controls controls2" data-bind="value: messageCount">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                    </select>
+                </div>
+                <div class="control-group control-group2">
+                    <button class="btn btn-primary" style="margin-left: 170px" type="button" data-bind="click: $root.applyFilter">Apply filter</button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="widget-content">
         <table class="table table-condensed table-hover">
@@ -14,9 +54,12 @@
                     <th>Message</th>
                 </tr>
             </thead>
-            <tbody id="log-item-container">
+            <tbody data-bind="template: {name: 'log-item-template', foreach: logItems}">
             </tbody>
         </table>
-        <div id="page-container"></div>
+        <ul class="pager" data-bind="visible: pages > 1">
+            <li class="previous" data-bind="visible: prev"><a data-bind="attr: { href: '#search?p=' + prev }">previous</a></li>
+            <li class="next" data-bind="visible: next"><a data-bind="attr: { href: '#search?p=' + next }">next</a></li>
+        </ul>
     </div>
 </div>

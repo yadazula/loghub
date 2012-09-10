@@ -3,7 +3,7 @@
 loghub.App = function () {
     var self = this;
     self.dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard', 'recent-log-list-template');
-    self.searches = new loghub.viewmodels.Page('#searches', 'icon-search', 'Searches', '');
+    self.searches = new loghub.viewmodels.Page('#search', 'icon-search', 'Searches', 'search-log-list-template');
     self.settings = new loghub.viewmodels.Page('#settings', 'icon-wrench', 'Settings', '');
     self.pages = [self.dashboard, self.searches, self.settings];
 
@@ -30,6 +30,8 @@ loghub.App = function () {
         });
 
         observable.dispose();
+
+        $('.show-tooltip').tooltip();
     };
 
     Sammy(function () {
@@ -43,8 +45,14 @@ loghub.App = function () {
         });
 
         this.get(self.searches.url, function () {
-            if (self.currentPage == self.searches) return;
-            self.setCurrentPage(self.searches, {});
+            if (self.currentPage != self.searches)
+                self.viewModel = new loghub.viewmodels.SearchLogList();
+            
+            self.viewModel.currentFilter.page = this.params['p'] || 1;
+            self.viewModel.load(function () {
+                if (self.currentPage != self.searches)
+                    self.setCurrentPage(self.searches, self.viewModel);
+            });
         });
 
         this.get(self.settings.url, function () {

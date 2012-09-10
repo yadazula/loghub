@@ -8,17 +8,16 @@ namespace LogHub.Web.Controllers
 {
   public class SearchController : ApiController
   {
-    public PagedView<LogMessageView> Get(ushort? page)
+    public PagedResult<LogMessageView> Get([FromUri]SearchLogFilter searchLogFilter)
     {
-      var pagedView = new PagedView<LogMessageView>
+      var result = new PagedResult<LogMessageView>
       {
-        Page = page ?? 1,
-        PerPage = 30,
+        Page = searchLogFilter.Page ?? 1,
         Total = 300,
         Models = GetModels()
       };
 
-      return pagedView;
+      return result;
     }
 
     private IEnumerable<LogMessageView> GetModels()

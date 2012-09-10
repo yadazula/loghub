@@ -5,13 +5,7 @@ loghub.viewmodels.RecentLogList = function () {
     var self = this;
 
     self.url = function () {
-        return '/api/recent?' + $.param({
-            host: self.currentFilter.host,
-            source: self.currentFilter.source,
-            level: self.currentFilter.level,
-            message: self.currentFilter.message,
-            messageCount: self.currentFilter.messageCount,
-        });
+        return '/api/recent?' + $.param(self.currentFilter);
     };
 
     self.filterModel = {
@@ -53,7 +47,7 @@ loghub.viewmodels.RecentLogList = function () {
             loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
                 ko.mapping.fromJS(data, self.logItems);
                 if(self.isStreaming) {
-                    self.streamTimer = window.setTimeout(startTimer, 2000);
+                    self.streamTimer = window.setTimeout(startTimer, 5000);
                 }
             });
         };
