@@ -38,7 +38,11 @@ loghub.viewmodels.SearchLogList = function () {
 
     self.load = function (callback) {
         loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
-            self.logItems = ko.mapping.fromJS(data.Models);
+            if (self.logItems)
+                ko.mapping.fromJS(data.Models, self.logItems);
+            else
+                self.logItems = ko.mapping.fromJS(data.Models);
+            
             self.page = data.Page;
             self.total = data.Total;
             self.pages(Math.ceil(self.total / self.currentFilter.messageCount));

@@ -10,7 +10,7 @@ namespace LogHub.Web.Controllers
   {
     public IEnumerable<LogMessageView> Get([FromUri]RecentLogFilter recentLogFilter)
     {
-      for (var i = 1; i <= 5; i++)
+      for (var i = 1; i <= 15; i++)
       {
         yield return new LogMessageView
         {

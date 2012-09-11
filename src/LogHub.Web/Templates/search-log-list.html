@@ -57,9 +57,9 @@
             <tbody data-bind="template: {name: 'log-item-template', foreach: logItems}">
             </tbody>
         </table>
-        <ul class="pager" data-bind="visible: pages > 1">
-            <li class="previous" data-bind="visible: prev"><a data-bind="attr: { href: '#search?p=' + prev }">previous</a></li>
-            <li class="next" data-bind="visible: next"><a data-bind="attr: { href: '#search?p=' + next }">next</a></li>
+        <ul class="pager" data-bind="visible: pages() > 1">
+            <li class="previous" data-bind="visible: prev()"><a data-bind="attr: { href: '#search?p=' + prev() }">previous</a></li>
+            <li class="next" data-bind="visible: next()"><a data-bind="attr: { href: '#search?p=' + next() }">next</a></li>
         </ul>
     </div>
 </div>

@@ -22,7 +22,7 @@ namespace LogHub.Web.Controllers
 
     private IEnumerable<LogMessageView> GetModels()
     {
-      for (var i = 1; i <= 5; i++)
+      for (var i = 1; i <= 15; i++)
       {
         yield return new LogMessageView
           {
