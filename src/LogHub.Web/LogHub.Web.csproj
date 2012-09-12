@@ -116,12 +116,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Infrastructure\FakeUserService.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="ViewModels\LoginInput.cs" />
+    <Content Include="Scripts\bindings.js" />
     <Content Include="Scripts\ViewModels\search.js" />
     <Content Include="Scripts\ViewModels\page.js" />
-    <Content Include="Scripts\rest.js" />
+    <Content Include="Scripts\restclient.js" />
     <Content Include="Scripts\ViewModels\recent.js" />
     <Content Include="Content\app.css" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RecentController.cs" />
     <Compile Include="Models\SearchLogFilter.cs" />
     <Compile Include="Models\RecentLogFilter.cs" />
@@ -147,7 +153,7 @@
     <Content Include="Templates\recent-log-list.html" />
     <Content Include="Templates\log-item.html" />
     <Content Include="Templates\search-log-list.html" />
-    <Compile Include="Infrastructure\HtmlHelperExtension.cs" />
+    <Compile Include="Extensions\HtmlHelperExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -179,6 +185,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

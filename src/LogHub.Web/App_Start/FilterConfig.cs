@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using LogHub.Web.Filters;
 
 namespace LogHub.Web
 {
@@ -8,6 +9,7 @@ namespace LogHub.Web
     public static void RegisterGlobalFilters(GlobalFilterCollection filters)
     {
       filters.Add(new HandleErrorAttribute());
+      filters.Add(new CustomAuthorizeAttribute());
     }
   }
 }

@@ -30,8 +30,6 @@ loghub.App = function () {
         });
 
         observable.dispose();
-
-        $('.show-tooltip').tooltip();
     };
 
     Sammy(function () {
@@ -47,7 +45,7 @@ loghub.App = function () {
         this.get(self.searches.url, function () {
             if (self.currentPage != self.searches)
                 self.viewModel = new loghub.viewmodels.SearchLogList();
-            
+
             self.viewModel.currentFilter.page = this.params['p'] || 1;
             self.viewModel.load(function () {
                 if (self.currentPage != self.searches)
