@@ -14,6 +14,11 @@ namespace LogHub.Web.Controllers
     [HttpGet]
     public ActionResult Index()
     {
+      if (Request.IsAuthenticated)
+      {
+        return RedirectToAction("Index", "App");
+      }
+
       return View();
     }
 
@@ -38,6 +43,13 @@ namespace LogHub.Web.Controllers
       Response.AppendCookie(authCookie);
 
       return RedirectToAction("Index", "App");
+    }
+
+    [HttpGet]
+    public ActionResult SignOut()
+    {
+      FormsAuthentication.SignOut();
+      return RedirectToAction("Index");
     }
   }
 }
