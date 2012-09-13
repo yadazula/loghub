@@ -1,13 +1,10 @@
-﻿using System;
-using System.Security.Principal;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using LogHub.Web.Models;
 
 namespace LogHub.Web.Filters
 {
-  public class CustomAuthorizeAttribute : AuthorizeAttribute
+  public class MVCAuthorizeAttribute : AuthorizeAttribute
   {
     protected override bool AuthorizeCore(HttpContextBase httpContext)
     {
@@ -25,39 +22,10 @@ namespace LogHub.Web.Filters
         var authCookie = httpContext.Request.Cookies[cookieName];
         var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
         var formsIdentity = new FormsIdentity(authTicket);
-        var userPrincipal = new CustomPrincipal(formsIdentity, authTicket.UserData);
+        var userPrincipal = new LogHubPrincipal(formsIdentity, authTicket.UserData);
         httpContext.User = userPrincipal;
       }
       return isAuthenticated;
-    }
-  }
-
-  public class CustomPrincipal : IPrincipal
-  {
-    private readonly UserRole currentRole;
-    public IIdentity Identity { get; private set; }
-
-    public CustomPrincipal(IIdentity identity, string role)
-    {
-      currentRole = (UserRole)Enum.Parse(typeof(UserRole), role);
-      Identity = identity;
-    }
-
-    public bool IsInRole(string role)
-    {
-      var targetRole = (UserRole)Enum.Parse(typeof(UserRole), role);
-
-      if (targetRole == currentRole)
-      {
-        return true;
-      }
-
-      if (targetRole == UserRole.Reader && currentRole == UserRole.Administrator)
-      {
-        return true;
-      }
-
-      return false;
     }
   }
 }
