@@ -1,7 +1,7 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
     <div class="widget-header">
         <div data-bind="click: toggleFilter" class="log-filter-header">Filter</div>
-        <h3>All Messages</h3>
+        <h3>Search Messages</h3>
         <div id="recent-log-filter" style="margin-top: 15px;" data-bind="visible : filterVisible">
             <form class="form-horizontal" data-bind="with: filterModel">
                 <div class="control-group control-group2">
@@ -13,7 +13,23 @@
                     <input type="text" name="source" class="controls controls2" data-bind="value: source" />
                 </div>
                 <div class="control-group control-group2">
-                    <label class="control-label2" for="level">Min. Level</label>
+                    <label class="control-label2" for="message">Message</label>
+                    <input type="text" name="message" class="controls controls2" data-bind="value: message" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="dateFrom">Date From</label>
+                    <input type="text" name="dateFrom" style="width: 100px; margin-left: 60px;" data-bind="datepicker: true, value: dateFrom" placeholder="dd-mm-yyyy" />
+                    <span style="margin: 0 8px;">at</span>
+                    <input type="text" style="width: 60px" placeholder="hh:mm" data-bind="value: timeFrom"/>
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="dateTo">Date To</label>
+                    <input type="text" name="dateTo" style="width: 100px; margin-left: 60px;" data-bind="datepicker: true, value: dateTo" placeholder="dd-mm-yyyy" />
+                    <span style="margin: 0 8px;">at</span>
+                    <input type="text" style="width: 60px" placeholder="hh:mm" data-bind="value: timeTo"/>
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="level">Level</label>
                     <select name="level" class="controls controls2" data-bind="value: level">
                         <option value="All">All</option>
                         <option value="Trace">Trace</option>
@@ -23,10 +39,6 @@
                         <option value="Error">Error</option>
                         <option value="Fatal">Fatal</option>
                     </select>
-                </div>
-                <div class="control-group control-group2">
-                    <label class="control-label2" for="message">Message</label>
-                    <input type="text" name="message" class="controls controls2" data-bind="value: message" />
                 </div>
                 <div class="control-group control-group2">
                     <label class="control-label2" for="messageCount">Message Count</label>

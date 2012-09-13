@@ -8,6 +8,7 @@
     <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" />
     <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
     <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/datepicker.css")" rel="stylesheet" type="text/css"/>
     <link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -22,26 +23,24 @@
                 <a class="brand" href="#">LogHub</a>
                 <div class="btn-group pull-right">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="icon-user"></i> Gokhan Demir
+                        <i class="icon-user"></i>&nbsp;Gokhan Demir
                     <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="icon-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="icon-user"></i>&nbsp;Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="@Url.Action("SignOut","Login")"><i class="icon-off"></i> Logout</a></li>
+                        <li><a href="@Url.Action("SignOut", "Login")" id="logout"><i class="icon-off"></i>&nbsp;Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span2">
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list" data-bind="foreach: pages" id="pages">
-                        <li data-bind="css: {active: isActive}"><a data-bind="attr: { href: url }"><i data-bind="attr: {class: icon}"></i><span data-bind="text: name"></span></a></li>
+                        <li data-bind="css: {active: isActive}"><a data-bind="attr: { href: url }"><i data-bind="attr: {class: icon}"></i>&nbsp;<span data-bind="text: name"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -52,6 +51,7 @@
     @Html.RenderTemplates("~/Templates/")
     <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
     <script src="@Url.Content("~/Scripts/sammy-latest.min.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
@@ -62,5 +62,8 @@
     <script src="@Url.Content("~/Scripts/ViewModels/recent.js")"></script>
     <script src="@Url.Content("~/Scripts/ViewModels/search.js")"></script>
     <script src="@Url.Content("~/Scripts/app.js")"></script>
+    <script type="text/javascript">
+        $("#logout").click(function (e) { e.stopImmediatePropagation(); })
+    </script>
 </body>
 </html>

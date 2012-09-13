@@ -122,7 +122,9 @@
     <Compile Include="Infrastructure\FakeUserService.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
+    <Content Include="Content\datepicker.css" />
     <Content Include="Scripts\bindings.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\ViewModels\search.js" />
     <Content Include="Scripts\ViewModels\page.js" />
     <Content Include="Scripts\restclient.js" />

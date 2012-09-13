@@ -11,7 +11,7 @@ namespace LogHub.Web.Extensions
 
     public static IHtmlString RenderTemplates(this HtmlHelper htmlHelper, string path)
     {
-#if !Debug
+#if !DEBUG
       if (Templates == null)
       {
 #endif
@@ -29,11 +29,11 @@ namespace LogHub.Web.Extensions
         }
 
         Templates = stringBuilder.ToString();
-#if !Debug
+#if !DEBUG
       }
 #endif
 
-      return htmlHelper.Raw(Templates);
+        return htmlHelper.Raw(Templates);
     }
   }
 }

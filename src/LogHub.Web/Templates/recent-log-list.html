@@ -1,7 +1,7 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
     <div class="widget-header">
         <div data-bind="click: toggleFilter" class="log-filter-header">Filter</div>
-        <h3>Recent Messages <a href="#" rel="tooltip" title="New messages are fetched automatically every 5 seconds." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
+        <h3>Dashboard <a href="#" rel="tooltip" title="Dashboard shows recent messages. New messages are fetched automatically every 5 seconds." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
         <div id="recent-log-filter" style="margin-top: 15px;" data-bind="visible : filterVisible">
             <form class="form-horizontal" data-bind="with: filterModel">
                 <div class="control-group control-group2">
@@ -11,6 +11,10 @@
                 <div class="control-group control-group2">
                     <label class="control-label2" for="source">Source</label>
                     <input type="text" name="source" class="controls controls2" data-bind="value: source" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="message">Message</label>
+                    <input type="text" name="message" class="controls controls2" data-bind="value: message" />
                 </div>
                 <div class="control-group control-group2">
                     <label class="control-label2" for="level">Min. Level</label>
@@ -23,10 +27,6 @@
                         <option value="Error">Error</option>
                         <option value="Fatal">Fatal</option>
                     </select>
-                </div>
-                <div class="control-group control-group2">
-                    <label class="control-label2" for="message">Message</label>
-                    <input type="text" name="message" class="controls controls2" data-bind="value: message" />
                 </div>
                 <div class="control-group control-group2">
                     <label class="control-label2" for="messageCount">Message Count</label>

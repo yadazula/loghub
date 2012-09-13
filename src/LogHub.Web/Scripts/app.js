@@ -3,9 +3,11 @@
 loghub.App = function () {
     var self = this;
     self.dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard', 'recent-log-list-template');
-    self.searches = new loghub.viewmodels.Page('#search', 'icon-search', 'Searches', 'search-log-list-template');
+    self.searches = new loghub.viewmodels.Page('#search', 'icon-search', 'Search', 'search-log-list-template');
+    self.alerts = new loghub.viewmodels.Page('#alerts', 'icon-bell', 'Alerts', '');
     self.settings = new loghub.viewmodels.Page('#settings', 'icon-wrench', 'Settings', '');
-    self.pages = [self.dashboard, self.searches, self.settings];
+    self.health = new loghub.viewmodels.Page('#health', 'icon-plus-sign', 'Health', '');
+    self.pages = [self.dashboard, self.searches, self.alerts, self.settings, self.health];
 
     self.setCurrentPage = function (page, viewModel) {
         if (self.currentPage) {

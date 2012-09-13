@@ -13,6 +13,10 @@ loghub.viewmodels.SearchLogList = function () {
         source: ko.observable(),
         level: ko.observable('All'),
         message: ko.observable(),
+        dateFrom: ko.observable(),
+        dateTo: ko.observable(),
+        timeFrom: ko.observable(),
+        timeTo: ko.observable(),
         messageCount: ko.observable(50),
         page: ko.observable(1)
     };
