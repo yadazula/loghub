@@ -19,6 +19,8 @@ loghub.viewmodels.RecentLogList = function () {
     self.filterVisible = ko.observable(false);
 
     self.currentFilter = ko.toJS(self.filterModel);
+    
+    self.lastUpdate = ko.observable();
 
     self.toggleFilter = function () {
         var filterVisible = self.filterVisible();
@@ -34,6 +36,7 @@ loghub.viewmodels.RecentLogList = function () {
     self.load = function (callback) {
         loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
             self.logItems = ko.mapping.fromJS(data);
+            self.lastUpdate(new Date());
             if (callback) callback();
             self.stream();
         });
@@ -46,6 +49,7 @@ loghub.viewmodels.RecentLogList = function () {
         var startTimer = function () {
             loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
                 ko.mapping.fromJS(data, self.logItems);
+                self.lastUpdate(new Date());
                 if(self.isStreaming) {
                     self.streamTimer = window.setTimeout(startTimer, 5000);
                 }

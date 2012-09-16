@@ -1,8 +1,13 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
-    <div class="widget-header">
-        <div data-bind="click: toggleFilter" class="log-filter-header">Filter</div>
-        <h3>Dashboard <a href="#" rel="tooltip" title="Dashboard shows recent messages. New messages are fetched automatically every 5 seconds." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
-        <div id="recent-log-filter" style="margin-top: 15px;" data-bind="visible : filterVisible">
+    <div class="widget-header" style="height: 60px;">
+        <div class="pull-left">
+            <h3>Dashboard <a href="#" rel="tooltip" title="Dashboard shows recent messages. New messages are fetched automatically every 5 seconds." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
+            <span style="padding-left: 10px;">Last update : <span data-bind="text: formatDate(lastUpdate())"></span></span>
+        </div>
+        <div class="pull-right widget-action">
+            <button class="btn btn-primary" data-bind="click: toggleFilter">Filter</button>
+        </div>
+        <div style="margin-top: 55px;" data-bind="visible : filterVisible">
             <form class="form-horizontal" data-bind="with: filterModel">
                 <div class="control-group control-group2">
                     <label class="control-label2" for="host">Host</label>
