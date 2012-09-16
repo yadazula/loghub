@@ -11,9 +11,9 @@ loghub.viewmodels.RecentLogList = function () {
     self.filterModel = {
         host: ko.observable(),
         source: ko.observable(),
-        level: ko.observable('All'),
+        level: ko.observable('None'),
         message: ko.observable(),
-        messageCount: ko.observable('50')
+        messageCount: ko.observable('25')
     };
 
     self.filterVisible = ko.observable(false);

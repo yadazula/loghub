@@ -6,16 +6,60 @@ loghub.restClient = new function () {
         $.ajax({
             type: 'GET',
             url: url,
-            statusCode: {
-                200: function (data, textStatus, jqXHR) {
-                    if (callback) callback(data, textStatus, jqXHR);
-                },
-                304: function () {
-                }
+            success: function (value, textStatus, jqXHR) {
+                if (callback) callback(value, textStatus, jqXHR);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Error while getting the resource at " + url + " .");
+                alert("Error while getting the resource at " + url + " .");
             }
         });
     };
+
+    self.post = function (url, data, callback) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "application/json",
+            dataType: "json",
+            data: data,
+            success: function (value, textStatus, jqXHR) {
+                if (callback) callback(value, textStatus, jqXHR);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error while posting the resource at " + url + " .");
+            }
+        });
+    };
+
+    self.put = function (url, data, callback) {
+        $.ajax({
+            type: "PUT",
+            url: url,
+            contentType: "application/json",
+            dataType: "json",
+            data: data,
+            success: function (value, textStatus, jqXHR) {
+                if (callback) callback(value, textStatus, jqXHR);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error while putting the resource at " + url + " .");
+            }
+        });
+    };
+
+    self.delete = function (url, callback) {
+        $.ajax({
+            type: "DELETE",
+            url: url,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (value, textStatus, jqXHR) {
+                if (callback) callback(value, textStatus, jqXHR);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error while deleting the resource at " + url + " .");
+            }
+        });
+    };
+
 };

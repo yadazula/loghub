@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web.Http;
+using LogHub.Web.Infrastructure.AutoMapper;
+using LogHub.Web.Infrastructure.Common;
+using LogHub.Web.Infrastructure.Indexes;
 using LogHub.Web.Models;
+using LogHub.Web.ViewModels;
+using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public class RecentController : ApiController
+  public class RecentController : AbstractApiController
   {
+    public RecentController(IDocumentSession documentSession)
+      : base(documentSession)
+    {
+    }
+
     public IEnumerable<LogMessageView> Get([FromUri]RecentLogFilter recentLogFilter)
     {
-      for (var i = 1; i <= 15; i++)
-      {
-        yield return new LogMessageView
-        {
-          Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-          Host = "localhost",
-          Source = "loghub",
-          Logger = "SomeLogger",
-          Level = LogLevel.Info.ToString(),
-          Message = "Made a dictionary database connection with backend pid 2790 and dsn dbname=ddsreminder_dev user=ddsreminder password=xxxxxxxxxxx host=localhost port=5432"
-        };
-      }
+      var logMessages = DocumentSession.Query<LogMessage, LogMessage_Search>()
+                                 .FilterBy(recentLogFilter)
+                                 .OrderByDescending(x => x.Date)
+                                 .Paging(pageSize: recentLogFilter.MessageCount)
+                                 .ToList()
+                                 .MapTo<LogMessageView>();
+
+      return logMessages;
     }
   }
 }

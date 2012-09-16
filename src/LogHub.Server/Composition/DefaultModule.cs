@@ -19,6 +19,7 @@ namespace LogHub.Server.Composition
       Bind<IDocumentStore>().ToMethod(_ =>
       {
         var store = new DocumentStore { ConnectionStringName = "RavenDB" }.Initialize();
+        store.Conventions.SaveEnumsAsIntegers = true;
         return store;
       }).InSingletonScope();
 

@@ -10,17 +10,12 @@ namespace LogHub.TestClient
 
     private static void Main()
     {
-      for (int i = 0; i < 10; i++)
+      int i = 377; 
+      while(true)
       {
-        for (var j = 1; j <= 3000; j++)
-        {
-          Logger.Debug("message " + i);
-        } 
+        Logger.Debug("message " + (i++));
         Thread.Sleep(500);
       }
-
-      Console.WriteLine("finished sending");
-      Console.ReadLine();
     }
   }
 }

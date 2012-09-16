@@ -2,12 +2,46 @@
 
 loghub.App = function () {
     var self = this;
-    self.dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard', 'recent-log-list-template');
-    self.searches = new loghub.viewmodels.Page('#search', 'icon-search', 'Search', 'search-log-list-template');
-    self.alerts = new loghub.viewmodels.Page('#alerts', 'icon-bell', 'Alerts', '');
-    self.settings = new loghub.viewmodels.Page('#settings', 'icon-wrench', 'Settings', '');
-    self.health = new loghub.viewmodels.Page('#health', 'icon-plus-sign', 'Health', '');
-    self.pages = [self.dashboard, self.searches, self.alerts, self.settings, self.health];
+
+    self.dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogList-template', function (params) {
+        if (self.currentPage == self.dashboard) return;
+
+        self.viewModel = new loghub.viewmodels.RecentLogList();
+        self.viewModel.load(function () {
+            self.setCurrentPage(self.dashboard, self.viewModel);
+        });
+    });
+    
+    self.searches = new loghub.viewmodels.Page('#search', 'icon-search', 'Search', 'SearchLogList-template', function (params) {
+        if (self.currentPage != self.searches)
+            self.viewModel = new loghub.viewmodels.SearchLogList();
+
+        self.viewModel.currentFilter.page = params['p'] || 1;
+        self.viewModel.load(function () {
+            if (self.currentPage != self.searches)
+                self.setCurrentPage(self.searches, self.viewModel);
+        });
+    });
+
+    self.alerts = new loghub.viewmodels.Page('#alerts', 'icon-bell', 'Alerts', '', function (params) {
+    });
+    
+    self.users = new loghub.viewmodels.Page('#users', 'icon-user', 'Users', 'UserList-template', function (params) {
+        if (self.currentPage == self.users) return;
+
+        self.viewModel = new loghub.viewmodels.UserList();
+        self.viewModel.load(function () {
+            self.setCurrentPage(self.users, self.viewModel);
+        });
+    });
+    
+    self.retention = new loghub.viewmodels.Page('#retention', 'icon-trash', 'Retention Settings', '', function (params) {
+    });
+    
+    self.health = new loghub.viewmodels.Page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {
+    });
+    
+    self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.health];
 
     self.setCurrentPage = function (page, viewModel) {
         if (self.currentPage) {
@@ -34,34 +68,8 @@ loghub.App = function () {
         observable.dispose();
     };
 
-    Sammy(function () {
-        this.get(self.dashboard.url, function () {
-            if (self.currentPage == self.dashboard) return;
-
-            var recentLogList = new loghub.viewmodels.RecentLogList();
-            recentLogList.load(function () {
-                self.setCurrentPage(self.dashboard, recentLogList);
-            });
-        });
-
-        this.get(self.searches.url, function () {
-            if (self.currentPage != self.searches)
-                self.viewModel = new loghub.viewmodels.SearchLogList();
-
-            self.viewModel.currentFilter.page = this.params['p'] || 1;
-            self.viewModel.load(function () {
-                if (self.currentPage != self.searches)
-                    self.setCurrentPage(self.searches, self.viewModel);
-            });
-        });
-
-        this.get(self.settings.url, function () {
-            if (self.currentPage == self.settings) return;
-            self.setCurrentPage(self.settings, {});
-        });
-
-        this.get('', function () { this.app.runRoute('get', '#dashboard'); });
-    }).run();
+    loghub.Routes.register(self.pages);
+    loghub.Routes.run(self.dashboard);
 };
 
 $(function () {

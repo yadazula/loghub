@@ -1,7 +1,7 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
     <div class="widget-header">
         <div data-bind="click: toggleFilter" class="log-filter-header">Filter</div>
-        <h3>Dashboard <a href="#" rel="tooltip" title="Dashboard shows recent messages. New messages are fetched automatically every 5 seconds." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
+        <h3>Search Messages</h3>
         <div id="recent-log-filter" style="margin-top: 15px;" data-bind="visible : filterVisible">
             <form class="form-horizontal" data-bind="with: filterModel">
                 <div class="control-group control-group2">
@@ -17,9 +17,21 @@
                     <input type="text" name="message" class="controls controls2" data-bind="value: message" />
                 </div>
                 <div class="control-group control-group2">
-                    <label class="control-label2" for="level">Min. Level</label>
+                    <label class="control-label2" for="dateFrom">Date From</label>
+                    <input type="text" name="dateFrom" style="width: 100px; margin-left: 60px;" data-bind="datepicker: true, value: dateFrom" placeholder="dd-mm-yyyy" />
+                    <span style="margin: 0 8px;">at</span>
+                    <input type="text" style="width: 60px" placeholder="hh:mm" data-bind="value: timeFrom" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="dateTo">Date To</label>
+                    <input type="text" name="dateTo" style="width: 100px; margin-left: 60px;" data-bind="datepicker: true, value: dateTo" placeholder="dd-mm-yyyy" />
+                    <span style="margin: 0 8px;">at</span>
+                    <input type="text" style="width: 60px" placeholder="hh:mm" data-bind="value: timeTo" />
+                </div>
+                <div class="control-group control-group2">
+                    <label class="control-label2" for="level">Level</label>
                     <select name="level" class="controls controls2" data-bind="value: level">
-                        <option value="All">All</option>
+                        <option value="None"></option>
                         <option value="Trace">Trace</option>
                         <option value="Debug">Debug</option>
                         <option value="Info">Info</option>
@@ -31,6 +43,7 @@
                 <div class="control-group control-group2">
                     <label class="control-label2" for="messageCount">Message Count</label>
                     <select name="messageCount" class="controls controls2" data-bind="value: messageCount">
+                        <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                         <option value="150">150</option>
@@ -54,8 +67,12 @@
                     <th>Message</th>
                 </tr>
             </thead>
-            <tbody data-bind="template: {name: 'log-item-template', foreach: logItems}">
+            <tbody data-bind="template: {name: 'LogItem-template', foreach: logItems}">
             </tbody>
         </table>
+        <ul class="pager" data-bind="visible: pages() > 1">
+            <li class="previous" data-bind="visible: prev()"><a data-bind="attr: { href: '#search?p=' + prev() }">previous</a></li>
+            <li class="next" data-bind="visible: next()"><a data-bind="attr: { href: '#search?p=' + next() }">next</a></li>
+        </ul>
     </div>
 </div>

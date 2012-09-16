@@ -1,4 +1,4 @@
-namespace LogHub.Web.Models
+namespace LogHub.Web.ViewModels
 {
   public class LogMessageView
   {

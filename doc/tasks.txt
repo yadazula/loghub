@@ -4,7 +4,6 @@ counters
 blacklist
 chunked messages
 tcp & http channel
-log4net appender
 fix max chunk size
 scheduled tasks
 bug - ravendb closed but no error logged
@@ -13,10 +12,9 @@ bug - ravendb closed but no error logged
 client
 ------------------------
 saved searches
-retention
-archive
-notification
-user management
+log message texts in views
+allow deleting logs manually
+better alert & confirm dialogs
 
 forwarders
 ------------------------

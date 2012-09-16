@@ -1,4 +1,4 @@
-﻿@using LogHub.Web.Extensions
+﻿@using LogHub.Web.Infrastructure.Common
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +23,7 @@
                 <a class="brand" href="#">LogHub</a>
                 <div class="btn-group pull-right">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="icon-user"></i>&nbsp;Gokhan Demir
+                        <i class="icon-user"></i>&nbsp;@ViewBag.User
                     <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -53,7 +53,7 @@
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/sammy-latest.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/sammy.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout.mapping-latest.debug.js")"></script>
     <script src="@Url.Content("~/Scripts/bindings.js")"></script>
@@ -61,9 +61,8 @@
     <script src="@Url.Content("~/Scripts/ViewModels/page.js")"></script>
     <script src="@Url.Content("~/Scripts/ViewModels/recent.js")"></script>
     <script src="@Url.Content("~/Scripts/ViewModels/search.js")"></script>
+    <script src="@Url.Content("~/Scripts/ViewModels/users.js")"></script>
+    <script src="@Url.Content("~/Scripts/routes.js")"></script>
     <script src="@Url.Content("~/Scripts/app.js")"></script>
-    <script type="text/javascript">
-        $("#logout").click(function (e) { e.stopImmediatePropagation(); })
-    </script>
 </body>
 </html>

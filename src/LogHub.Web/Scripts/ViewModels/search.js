@@ -11,13 +11,13 @@ loghub.viewmodels.SearchLogList = function () {
     self.filterModel = {
         host: ko.observable(),
         source: ko.observable(),
-        level: ko.observable('All'),
+        level: ko.observable('None'),
         message: ko.observable(),
         dateFrom: ko.observable(),
         dateTo: ko.observable(),
         timeFrom: ko.observable(),
         timeTo: ko.observable(),
-        messageCount: ko.observable(50),
+        messageCount: ko.observable(25),
         page: ko.observable(1)
     };
 

@@ -6,7 +6,7 @@ namespace LogHub.NLog
 {
   public class LogHubMessageConvertor
   {
-    public string Convert(LogEventInfo logEventInfo, string source)
+    public string Convert(LogEventInfo logEventInfo, string host, string source)
     {
       var logEventMessage = logEventInfo.FormattedMessage;
       if (logEventMessage == null) return null;
@@ -20,12 +20,12 @@ namespace LogHub.NLog
 
       var logHubMessage = new LogHubMessage
       {
-        Host = Dns.GetHostName(),
-        Message = logEventMessage,
-        Date = logEventInfo.TimeStamp,
-        Level = logEventInfo.Level.GetHashCode(),
+        Host = host ?? Dns.GetHostName(),
         Source = source,
-        Logger = logEventInfo.LoggerName
+        Message = logEventMessage,
+        Level = Convert(logEventInfo.Level),
+        Logger = logEventInfo.LoggerName,
+        Date = logEventInfo.TimeStamp
       };
 
       foreach (var property in logEventInfo.Properties)
@@ -39,6 +39,29 @@ namespace LogHub.NLog
 
       var jsonString = JsonConvert.SerializeObject(logHubMessage);
       return jsonString;
+    }
+
+    private static int Convert(LogLevel logEventInfo)
+    {
+      if (logEventInfo == LogLevel.Trace)
+        return 1;
+
+      if (logEventInfo == LogLevel.Debug)
+        return 2;
+
+      if (logEventInfo == LogLevel.Info)
+        return 3;
+
+      if (logEventInfo == LogLevel.Warn)
+        return 4;
+
+      if (logEventInfo == LogLevel.Error)
+        return 5;
+
+      if (logEventInfo == LogLevel.Fatal)
+        return 6;
+
+      return 0;
     }
   }
 }

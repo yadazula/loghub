@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks.Dataflow;
+using NLog;
 
 namespace LogHub.Server.Buffers
 {
@@ -26,18 +27,11 @@ namespace LogHub.Server.Buffers
       var batcherBlock = new BatchBlock<TMessage>(batchSize);
       batcherBlock.LinkTo(messageHandlerBlock);
 
-      var timer = new Timer(_ => batcherBlock.TriggerBatch());
-      Func<TMessage, TMessage> autoTriggerBatch = value =>
-      {
-        timer.Change(autoTriggerBatchPeriod, Timeout.Infinite);
-        return value;
-      };
-
-      var timingBlock = new TransformBlock<TMessage, TMessage>(autoTriggerBatch);
-      timingBlock.LinkTo(batcherBlock);
+      var timer = new Timer(_ => batcherBlock.TriggerBatch())
+                      .Change(autoTriggerBatchPeriod, autoTriggerBatchPeriod);
 
       bufferBlock = new BufferBlock<TMessage>();
-      bufferBlock.LinkTo(timingBlock);
+      bufferBlock.LinkTo(batcherBlock);
     }
 
     public void Post(TMessage message)

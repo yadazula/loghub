@@ -1,8 +1,7 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using LogHub.Web.Filters;
 
-namespace LogHub.Web
+namespace LogHub.Web.App_Start
 {
   public class FilterConfig
   {

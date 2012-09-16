@@ -1,39 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Web.Http;
+using LogHub.Web.Infrastructure.AutoMapper;
+using LogHub.Web.Infrastructure.Common;
+using LogHub.Web.Infrastructure.Indexes;
 using LogHub.Web.Models;
+using LogHub.Web.ViewModels;
+using Raven.Client;
+using Raven.Client.Linq;
 
 namespace LogHub.Web.Controllers
 {
-  public class SearchController : ApiController
+  public class SearchController : AbstractApiController
   {
+    public SearchController(IDocumentSession documentSession)
+      : base(documentSession)
+    {
+    }
+
     public PagedResult<LogMessageView> Get([FromUri]SearchLogFilter searchLogFilter)
     {
+      RavenQueryStatistics stats;
+      var logMessages = DocumentSession.Query<LogMessage, LogMessage_Search>()
+                                 .Statistics(out stats)
+                                 .FilterBy(searchLogFilter)
+                                 .OrderByDescending(x => x.Date)
+                                 .Paging(searchLogFilter.Page, searchLogFilter.MessageCount)
+                                 .ToList()
+                                 .MapTo<LogMessageView>();
+
       var result = new PagedResult<LogMessageView>
       {
         Page = searchLogFilter.Page ?? 1,
-        Total = 300,
-        Models = GetModels()
+        Total = stats.TotalResults,
+        Models = logMessages
       };
 
       return result;
-    }
-
-    private IEnumerable<LogMessageView> GetModels()
-    {
-      for (var i = 1; i <= 15; i++)
-      {
-        yield return new LogMessageView
-          {
-            Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-            Host = "localhost",
-            Source = "loghub",
-            Logger = "SomeLogger",
-            Level = LogLevel.Info.ToString(),
-            Message = "Made a dictionary database connection with backend pid 2790 and dsn dbname=ddsreminder_dev user=ddsreminder password=xxxxxxxxxxx host=localhost port=5432"
-          };
-      }
     }
   }
 }

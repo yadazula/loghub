@@ -1,16 +1,24 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using LogHub.Web.Infrastructure;
 using LogHub.Web.Models;
 using LogHub.Web.ViewModels;
+using Raven.Client;
+using Raven.Client.Document;
 
 namespace LogHub.Web.Controllers
 {
   [AllowAnonymous]
-  public class LoginController : Controller
+  public class LoginController : AbstractController
   {
+    public LoginController(IDocumentSession documentSession)
+      : base(documentSession)
+    {
+    }
+
     [HttpGet]
     public ActionResult Index()
     {
@@ -31,8 +39,10 @@ namespace LogHub.Web.Controllers
         return RedirectToAction("Index");
       }
 
-      var user = FakeUserService.Get(loginInput.Username, loginInput.Password);
-      if (user == null)
+      var user = DocumentSession.Query<User>()
+                                .FirstOrDefault(x => x.Username == loginInput.Username);
+
+      if (user == null || !user.ValidatePassword(loginInput.Password))
       {
         TempData["HasErrors"] = true;
         return RedirectToAction("Index");

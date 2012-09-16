@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LogHub.Web.Extensions
+namespace LogHub.Web.Infrastructure.Common
 {
   public static class HtmlHelperExtension
   {

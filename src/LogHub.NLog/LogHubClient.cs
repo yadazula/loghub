@@ -22,7 +22,7 @@ namespace LogHub.NLog
       udpClient = new UdpClient();
     }
 
-    public void Send(string hostIp, int hostPort, string message)
+    public void Send(string serverIp, int serverPort, string message)
     {
       var compressedMessage = CompressMessage(message);
 
@@ -43,13 +43,13 @@ namespace LogHub.NLog
           messageChunkHeader.CopyTo(messageChunkFull, 0);
           messageChunkData.CopyTo(messageChunkFull, messageChunkHeader.Length);
 
-          udpClient.Send(messageChunkFull, messageChunkFull.Length, hostIp, hostPort);
+          udpClient.Send(messageChunkFull, messageChunkFull.Length, serverIp, serverPort);
         }
 
         return;
       }
       
-      udpClient.Send(compressedMessage, compressedMessage.Length, hostIp, hostPort);
+      udpClient.Send(compressedMessage, compressedMessage.Length, serverIp, serverPort);
     }
 
     /// <summary>

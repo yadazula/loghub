@@ -9,8 +9,9 @@ namespace LogHub.NLog
     private readonly LogHubMessageConvertor logHubMessageConvertor;
     private readonly LogHubClient logHubClient;
 
-    public string HostIp { get; set; }
-    public int HostPort { get; set; }
+    public string ServerIp { get; set; }
+    public int ServerPort { get; set; }
+    public string Host { get; set; }
     public string Source { get; set; }
 
     public LogHubTarget()
@@ -21,9 +22,9 @@ namespace LogHub.NLog
 
     protected override void Write(LogEventInfo logEvent)
     {
-      var logHubMessage = logHubMessageConvertor.Convert(logEvent, Source);
+      var logHubMessage = logHubMessageConvertor.Convert(logEvent, Host, Source);
       if(string.IsNullOrWhiteSpace(logHubMessage)) return;
-      logHubClient.Send(HostIp, HostPort, logHubMessage);
+      logHubClient.Send(ServerIp, ServerPort, logHubMessage);
     }
 
     protected override void CloseTarget()

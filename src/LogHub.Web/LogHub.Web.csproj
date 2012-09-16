@@ -39,8 +39,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.1.267\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
@@ -58,9 +84,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -102,6 +125,9 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -114,17 +140,34 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AbstractApiController.cs" />
+    <Compile Include="Controllers\AbstractController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
-    <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Filters\MVCAuthorizeAttribute.cs" />
     <Compile Include="Filters\LogHubPrincipal.cs" />
+    <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
+    <Compile Include="Infrastructure\Common\ObjectExtensions.cs" />
+    <Compile Include="Infrastructure\Common\QueryableExtensions.cs" />
     <Compile Include="Infrastructure\FakeUserService.cs" />
+    <Compile Include="Infrastructure\Indexes\LogMessage_Search.cs" />
+    <Compile Include="Infrastructure\Composition\DefaultModule.cs" />
+    <Compile Include="Infrastructure\Composition\DependencyResolver.cs" />
+    <Compile Include="Infrastructure\Composition\DependencyScope.cs" />
+    <Compile Include="ViewModels\AbstractLogFilter.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
+    <Compile Include="ViewModels\UserInput.cs" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Scripts\bindings.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\routes.js" />
+    <Content Include="Scripts\ViewModels\users.js" />
     <Content Include="Scripts\ViewModels\search.js" />
     <Content Include="Scripts\ViewModels\page.js" />
     <Content Include="Scripts\restclient.js" />
@@ -133,31 +176,29 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RecentController.cs" />
-    <Compile Include="Models\SearchLogFilter.cs" />
-    <Compile Include="Models\RecentLogFilter.cs" />
+    <Compile Include="ViewModels\SearchLogFilter.cs" />
+    <Compile Include="ViewModels\RecentLogFilter.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />
-    <Compile Include="Models\LogMessageView.cs" />
-    <Compile Include="Models\PagedResult.cs" />
+    <Compile Include="ViewModels\LogMessageView.cs" />
+    <Compile Include="ViewModels\PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
-    <Content Include="Scripts\Models\_recent.js" />
     <Content Include="Scripts\sammy-latest.min.js" />
     <Content Include="Scripts\sammy.js" />
-    <Content Include="Scripts\Models\viewmanager.js" />
-    <Content Include="Scripts\Models\_recent_view.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Templates\recent-log-list.html" />
-    <Content Include="Templates\log-item.html" />
-    <Content Include="Templates\search-log-list.html" />
-    <Compile Include="Extensions\HtmlHelperExtension.cs" />
+    <Content Include="Templates\UserList.html" />
+    <Content Include="Templates\RecentLogList.html" />
+    <Content Include="Templates\LogItem.html" />
+    <Content Include="Templates\SearchLogList.html" />
+    <Compile Include="Infrastructure\Common\HtmlHelperExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -171,13 +212,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
-    <Content Include="Scripts\Models\_search.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
-    <Content Include="Scripts\Models\_app.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
-    <Content Include="Scripts\Models\_search_view.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -191,11 +229,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -215,7 +253,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4564</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3496/</IISUrl>
+          <IISUrl>http://localhost:8081/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
