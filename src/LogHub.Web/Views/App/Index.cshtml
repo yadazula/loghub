@@ -48,6 +48,18 @@
             </div>
         </div>
     </div>
+    <div class="modal hide fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="confirmModalLabel">Confirm Delete</h3>
+        </div>
+        <div class="modal-body" data-bind="text: message">
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <button class="btn btn-danger" data-bind="click: onDelete">Delete</button>
+        </div>
+    </div>
     @Html.RenderTemplates("~/Templates/")
     <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>

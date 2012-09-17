@@ -73,5 +73,5 @@ loghub.app = function () {
 };
 
 $(function () {
-    ko.applyBindings(new loghub.app(), $('pages')[0]);
+    ko.applyBindings(new loghub.app(), $('#pages')[0]);
 });

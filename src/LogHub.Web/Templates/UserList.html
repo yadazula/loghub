@@ -29,7 +29,7 @@
                         <a href="#" data-bind="click: $parent.edit">Edit</a>
                     </td>
                     <td>
-                        <a href="#" data-bind="click: $parent.delete">Delete</a>
+                        <a href="#" data-bind="confirmDelete: $parent.delete, confirmMessage: 'Are you sure you want to delete user \'' + username() + '\' ?'">Delete</a>
                     </td>
                 </tr>
             </tbody>
@@ -89,7 +89,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button class="btn btn-primary" data-bind="click: $parent.save">Save</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true" data-bind="disable: isLoading">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: $parent.save, disable: isLoading">Save</button>
+        <img src="./images/loader.gif" data-bind="visible: isLoading" alt=""/>
     </div>
 </div>

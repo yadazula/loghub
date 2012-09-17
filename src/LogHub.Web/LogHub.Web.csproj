@@ -164,6 +164,7 @@
     <Compile Include="ViewModels\LoginInput.cs" />
     <Compile Include="ViewModels\UserInput.cs" />
     <Content Include="Content\datepicker.css" />
+    <Content Include="Images\loader.gif" />
     <Content Include="Scripts\bindings.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\utils.js" />

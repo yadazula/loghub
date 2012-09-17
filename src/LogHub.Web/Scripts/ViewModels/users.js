@@ -14,7 +14,8 @@ loghub.viewmodels.userList = function () {
             password: ko.observable(),
             passwordAgain: ko.observable(),
             isNew: ko.observable(true),
-            validationErrors: ko.observable()
+            validationErrors: ko.observable(),
+            isLoading: ko.observable(false)
         });
 
         $('#userModal').modal('show');
@@ -26,6 +27,7 @@ loghub.viewmodels.userList = function () {
         user.passwordAgain = null;
         user.validationErrors = null;
         user.isNew = false;
+        user.isLoading = false;
 
         var clonedUser = ko.mapping.fromJS(user);
         self.currentUser(clonedUser);
@@ -33,11 +35,6 @@ loghub.viewmodels.userList = function () {
     };
 
     self.delete = function (user) {
-        var confirmed = confirm("Really delete this user ?");
-
-        if (!confirmed)
-            return;
-
         loghub.restClient.delete('/api/users?username=' + user.username(), {
             success: function () {
                 self.refresh();
@@ -67,11 +64,15 @@ loghub.viewmodels.userList = function () {
         }
 
         var data = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain'] });
-        
+        user.isLoading(true);
+
         if (user.isNew()) {
             loghub.restClient.post('/api/users', data, {
                 success: function () {
                     self.refresh();
+                },
+                error: function () {
+                    user.isLoading(false);
                 }
             });
 
@@ -81,6 +82,9 @@ loghub.viewmodels.userList = function () {
         loghub.restClient.put('/api/users', data, {
             success: function () {
                 self.refresh();
+            },
+            error: function () {
+                user.isLoading(false);
             }
         });
     };
