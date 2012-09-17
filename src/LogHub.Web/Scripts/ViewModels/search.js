@@ -3,7 +3,7 @@ loghub.viewmodels = loghub.viewmodels || {};
 
 loghub.viewmodels.searchLogList = function () {
     var self = this;
-    
+
     self.url = function () {
         return '/api/search?' + $.param(self.currentFilter);
     };
@@ -41,18 +41,22 @@ loghub.viewmodels.searchLogList = function () {
     };
 
     self.load = function (callback) {
-        loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
-            if (self.logItems)
-                ko.mapping.fromJS(data.Models, self.logItems);
-            else
-                self.logItems = ko.mapping.fromJS(data.Models);
-            
-            self.page = data.Page;
-            self.total = data.Total;
-            self.pages(Math.ceil(self.total / self.currentFilter.messageCount));
-            self.prev((self.page > 1) ? (self.page - 1) : 0);
-            self.next((self.page < self.pages()) ? (self.page + 1) : 0);
-            if (callback) callback();
+        loghub.restClient.read(self.url(), {
+            success: function (data) {
+                if (self.logItems)
+                    ko.mapping.fromJS(data.Models, self.logItems);
+                else
+                    self.logItems = ko.mapping.fromJS(data.Models);
+
+                self.page = data.Page;
+                self.total = data.Total;
+                self.pages(Math.ceil(self.total / self.currentFilter.messageCount));
+                self.prev((self.page > 1) ? (self.page - 1) : 0);
+                self.next((self.page < self.pages()) ? (self.page + 1) : 0);
+            },
+            complete: function () {
+                if (callback) callback();
+            }
         });
     };
 };

@@ -5,7 +5,7 @@ using System.Web.Http.Dependencies;
 using Ninject.Parameters;
 using Ninject.Syntax;
 
-namespace LogHub.Web.Infrastructure.Composition
+namespace LogHub.Web.Infrastructure.Modules
 {
   public class DependencyScope : IDependencyScope
   {

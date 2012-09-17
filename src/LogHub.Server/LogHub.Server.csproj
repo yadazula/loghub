@@ -72,7 +72,7 @@
     <Compile Include="Buffers\IBufferConsumer.cs" />
     <Compile Include="Buffers\OutputBufferConsumer.cs" />
     <Compile Include="Buffers\InputBufferConsumer.cs" />
-    <Compile Include="Composition\DefaultModule.cs" />
+    <Compile Include="Modules\DefaultModule.cs" />
     <Compile Include="Convertors\IMessageConvertor.cs" />
     <Compile Include="Convertors\LogMessageConvertor.cs" />
     <Compile Include="Convertors\MessageFormat.cs" />

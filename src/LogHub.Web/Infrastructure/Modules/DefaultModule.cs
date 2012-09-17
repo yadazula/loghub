@@ -8,7 +8,7 @@ using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 
-namespace LogHub.Web.Infrastructure.Composition
+namespace LogHub.Web.Infrastructure.Modules
 {
   public class DefaultModule : NinjectModule
   {

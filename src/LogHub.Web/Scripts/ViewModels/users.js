@@ -38,8 +38,10 @@ loghub.viewmodels.userList = function () {
         if (!confirmed)
             return;
 
-        loghub.restClient.delete('/api/users?username=' + user.username(), function () {
-            self.refresh();
+        loghub.restClient.delete('/api/users?username=' + user.username(), {
+            success: function () {
+                self.refresh();
+            }
         });
     };
 
@@ -64,17 +66,22 @@ loghub.viewmodels.userList = function () {
             return;
         }
 
-        var json = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain'] });
-        if (user.IsNew()) {
-            loghub.restClient.post('/api/users', json, function () {
-                self.refresh();
+        var data = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain'] });
+        
+        if (user.isNew()) {
+            loghub.restClient.post('/api/users', data, {
+                success: function () {
+                    self.refresh();
+                }
             });
 
             return;
         }
 
-        loghub.restClient.put('/api/users', json, function () {
-            self.refresh();
+        loghub.restClient.put('/api/users', data, {
+            success: function () {
+                self.refresh();
+            }
         });
     };
 
@@ -85,13 +92,16 @@ loghub.viewmodels.userList = function () {
     };
 
     self.load = function (callback) {
-        loghub.restClient.read('/api/users', function (users) {
-            if (self.users)
-                ko.mapping.fromJS(users, self.users);
-            else
-                self.users = ko.mapping.fromJS(users);
-
-            if (callback) callback();
+        loghub.restClient.read('/api/users', {
+            success: function (data) {
+                if (self.users)
+                    ko.mapping.fromJS(data, self.users);
+                else
+                    self.users = ko.mapping.fromJS(data);
+            },
+            complete: function () {
+                if (callback) callback();
+            }
         });
     };
 }

@@ -2,63 +2,77 @@
 
 loghub.restClient = new function () {
     var self = this;
+    
+    self.callbackProxy = function(callback) {
+        this.success = function(data, textStatus, jqXHR) {
+            if (callback && callback.success)
+                callback.success(data, textStatus, jqXHR);
+        };
+
+        this.error = function(jqXHR, textStatus, errorThrown) {
+            if (callback && callback.error)
+                callback.error(jqXHR, textStatus, errorThrown);
+        };
+
+        this.complete = function(jqXHR, textStatus) {
+            if (callback && callback.complete)
+                callback.complete(jqXHR, textStatus);
+        };
+    };
+
     self.read = function (url, callback) {
+        var proxy = new self.callbackProxy(callback);
+        
         $.ajax({
             type: 'GET',
             url: url,
-            success: function (value, textStatus, jqXHR) {
-                if (callback) callback(value, textStatus, jqXHR);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Error while getting the resource at " + url + " .");
-            }
+            success: proxy.success,
+            error: proxy.error,
+            complete: proxy.complete
         });
     };
 
     self.post = function (url, data, callback) {
+        var proxy = new self.callbackProxy(callback);
+        
         $.ajax({
             type: "POST",
             url: url,
             contentType: "application/json",
             dataType: "json",
             data: data,
-            success: function (value, textStatus, jqXHR) {
-                if (callback) callback(value, textStatus, jqXHR);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Error while posting the resource at " + url + " .");
-            }
+            success: proxy.success,
+            error: proxy.error,
+            complete: proxy.complete
         });
     };
 
     self.put = function (url, data, callback) {
+        var proxy = new self.callbackProxy(callback);
+        
         $.ajax({
             type: "PUT",
             url: url,
             contentType: "application/json",
             dataType: "json",
             data: data,
-            success: function (value, textStatus, jqXHR) {
-                if (callback) callback(value, textStatus, jqXHR);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Error while putting the resource at " + url + " .");
-            }
+            success: proxy.success,
+            error: proxy.error,
+            complete: proxy.complete
         });
     };
 
     self.delete = function (url, callback) {
+        var proxy = new self.callbackProxy(callback);
+        
         $.ajax({
             type: "DELETE",
             url: url,
             contentType: "application/json",
             dataType: "json",
-            success: function (value, textStatus, jqXHR) {
-                if (callback) callback(value, textStatus, jqXHR);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Error while deleting the resource at " + url + " .");
-            }
+            success: proxy.success,
+            error: proxy.error,
+            complete: proxy.complete
         });
     };
 

@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 using LogHub.Web.Filters;
-using LogHub.Web.Infrastructure.Composition;
+using LogHub.Web.Infrastructure.Modules;
 using Newtonsoft.Json.Serialization;
 
 namespace LogHub.Web.App_Start

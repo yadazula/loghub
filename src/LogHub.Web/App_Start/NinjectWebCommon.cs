@@ -1,4 +1,4 @@
-using LogHub.Web.Infrastructure.Composition;
+using LogHub.Web.Infrastructure.Modules;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Stop")]

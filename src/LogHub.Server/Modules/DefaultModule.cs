@@ -10,7 +10,7 @@ using Ninject.Modules;
 using Raven.Client;
 using Raven.Client.Document;
 
-namespace LogHub.Server.Composition
+namespace LogHub.Server.Modules
 {
   public class DefaultModule : NinjectModule
   {

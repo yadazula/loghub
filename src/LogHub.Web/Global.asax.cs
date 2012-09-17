@@ -1,13 +1,8 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using LogHub.Web.App_Start;
 using LogHub.Web.Infrastructure.AutoMapper;
-using LogHub.Web.Models;
-using Ninject;
-using Raven.Client;
-using DependencyResolver = LogHub.Web.Infrastructure.Composition.DependencyResolver;
 
 namespace LogHub.Web
 {

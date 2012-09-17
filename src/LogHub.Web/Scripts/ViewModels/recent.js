@@ -19,8 +19,10 @@ loghub.viewmodels.recentLogList = function () {
     self.filterVisible = ko.observable(false);
 
     self.currentFilter = ko.toJS(self.filterModel);
-    
+
     self.lastUpdate = ko.observable();
+
+    self.isLoading = ko.observable(false);
 
     self.toggleFilter = function () {
         var filterVisible = self.filterVisible();
@@ -34,11 +36,15 @@ loghub.viewmodels.recentLogList = function () {
     };
 
     self.load = function (callback) {
-        loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
-            self.logItems = ko.mapping.fromJS(data);
-            self.lastUpdate(new Date());
-            if (callback) callback();
-            self.stream();
+        loghub.restClient.read(self.url(), {
+            success: function (data) {
+                self.logItems = ko.mapping.fromJS(data);
+                self.lastUpdate(new Date());
+                self.stream();
+            },
+            complete: function () {
+                if (callback) callback();
+            }
         });
     };
 
@@ -47,19 +53,23 @@ loghub.viewmodels.recentLogList = function () {
         self.isStreaming = true;
 
         var startTimer = function () {
-            loghub.restClient.read(self.url(), function (data, textStatus, jqXHR) {
-                ko.mapping.fromJS(data, self.logItems);
-                self.lastUpdate(new Date());
-                if(self.isStreaming) {
-                    self.streamTimer = window.setTimeout(startTimer, 5000);
-                }
+            loghub.restClient.read(self.url(), {
+               success: function (data) {
+                   ko.mapping.fromJS(data, self.logItems);
+               },
+               complete: function () {
+                   self.lastUpdate(new Date());
+                   if (self.isStreaming) {
+                       self.streamTimer = window.setTimeout(startTimer, 5000);
+                   }
+               }
             });
         };
 
         startTimer();
     };
 
-    self.unstream = function() {
+    self.unstream = function () {
         self.isStreaming = false;
         if (self.streamTimer) {
             window.clearTimeout(self.streamTimer);

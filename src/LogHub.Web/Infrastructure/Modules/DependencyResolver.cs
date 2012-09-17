@@ -1,7 +1,7 @@
 ﻿using System.Web.Http.Dependencies;
 using Ninject;
 
-namespace LogHub.Web.Infrastructure.Composition
+namespace LogHub.Web.Infrastructure.Modules
 {
   public class DependencyResolver : DependencyScope, IDependencyResolver
   {

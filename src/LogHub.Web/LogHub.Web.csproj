@@ -154,11 +154,10 @@
     <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Common\ObjectExtensions.cs" />
     <Compile Include="Infrastructure\Common\QueryableExtensions.cs" />
-    <Compile Include="Infrastructure\FakeUserService.cs" />
     <Compile Include="Infrastructure\Indexes\LogMessage_Search.cs" />
-    <Compile Include="Infrastructure\Composition\DefaultModule.cs" />
-    <Compile Include="Infrastructure\Composition\DependencyResolver.cs" />
-    <Compile Include="Infrastructure\Composition\DependencyScope.cs" />
+    <Compile Include="Infrastructure\Modules\DefaultModule.cs" />
+    <Compile Include="Infrastructure\Modules\DependencyResolver.cs" />
+    <Compile Include="Infrastructure\Modules\DependencyScope.cs" />
     <Compile Include="ViewModels\AbstractLogFilter.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
