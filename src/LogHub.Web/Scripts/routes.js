@@ -1,6 +1,6 @@
 ﻿var loghub = loghub || {};
 
-loghub.Routes = new function () {
+loghub.routes = new function () {
     var sammy = Sammy();
 
     this.register = function (pages) {

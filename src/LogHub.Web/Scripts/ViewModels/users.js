@@ -1,20 +1,20 @@
 ﻿var loghub = loghub || {};
 loghub.viewmodels = loghub.viewmodels || {};
 
-loghub.viewmodels.UserList = function () {
+loghub.viewmodels.userList = function () {
     var self = this;
     self.currentUser = ko.observable();
 
     self.create = function () {
         self.currentUser({
-            Username: ko.observable(),
-            Email: ko.observable(),
-            Name: ko.observable(),
-            Role: ko.observable('1'),
-            Password: ko.observable(),
-            PasswordAgain: ko.observable(),
-            IsNew: ko.observable(true),
-            ValidationErrors: ko.observable()
+            username: ko.observable(),
+            email: ko.observable(),
+            name: ko.observable(),
+            role: ko.observable('1'),
+            password: ko.observable(),
+            passwordAgain: ko.observable(),
+            isNew: ko.observable(true),
+            validationErrors: ko.observable()
         });
 
         $('#userModal').modal('show');
@@ -22,10 +22,10 @@ loghub.viewmodels.UserList = function () {
 
     self.edit = function (userVM) {
         var user = ko.mapping.toJS(userVM);
-        user.Password = null;
-        user.PasswordAgain = null;
-        user.ValidationErrors = null;
-        user.IsNew = false;
+        user.password = null;
+        user.passwordAgain = null;
+        user.validationErrors = null;
+        user.isNew = false;
 
         var clonedUser = ko.mapping.fromJS(user);
         self.currentUser(clonedUser);
@@ -38,33 +38,33 @@ loghub.viewmodels.UserList = function () {
         if (!confirmed)
             return;
 
-        loghub.restClient.delete('/api/users?username=' + user.Username(), function () {
+        loghub.restClient.delete('/api/users?username=' + user.username(), function () {
             self.refresh();
         });
     };
 
     self.save = function (user) {
-        if (!user.Username()) {
-            user.ValidationErrors('Username can not be empty !');
+        if (!user.username()) {
+            user.validationErrors('Username can not be empty !');
             return;
         }
 
-        if (!user.Name()) {
-            user.ValidationErrors('Name can not be empty !');
+        if (!user.name()) {
+            user.validationErrors('Name can not be empty !');
             return;
         }
 
-        if (user.IsNew() && (!user.Password() || !user.PasswordAgain())) {
-            user.ValidationErrors('Password can not be empty !');
+        if (user.isNew() && (!user.password() || !user.passwordAgain())) {
+            user.validationErrors('Password can not be empty !');
             return;
         }
 
-        if (user.Password() != user.PasswordAgain()) {
-            user.ValidationErrors('Passwords are not match !');
+        if (user.password() != user.passwordAgain()) {
+            user.validationErrors('Passwords are not match !');
             return;
         }
 
-        var json = ko.mapping.toJSON(user, { ignore: ['IsNew', 'ValidationErrors', 'PasswordAgain'] });
+        var json = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain'] });
         if (user.IsNew()) {
             loghub.restClient.post('/api/users', json, function () {
                 self.refresh();

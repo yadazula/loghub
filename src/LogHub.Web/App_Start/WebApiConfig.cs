@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using LogHub.Web.Filters;
 using LogHub.Web.Infrastructure.Composition;
+using Newtonsoft.Json.Serialization;
 
 namespace LogHub.Web.App_Start
 {
@@ -10,7 +11,10 @@ namespace LogHub.Web.App_Start
     {
       config.DependencyResolver = new DependencyResolver(NinjectWebCommon.Kernel);
 
-      config.Filters.Add( new ApiAuthorizeAttribute());
+      config.Filters.Add(new ApiAuthorizeAttribute());
+      config.Filters.Add(new ValidationFilterAttribute());
+
+      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
       config.Routes.MapHttpRoute(
           name: "DefaultApi",

@@ -1,20 +1,20 @@
 ﻿var loghub = loghub || {};
 
-loghub.App = function () {
+loghub.app = function () {
     var self = this;
 
-    self.dashboard = new loghub.viewmodels.Page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogList-template', function (params) {
+    self.dashboard = new loghub.viewmodels.page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogList-template', function (params) {
         if (self.currentPage == self.dashboard) return;
 
-        self.viewModel = new loghub.viewmodels.RecentLogList();
+        self.viewModel = new loghub.viewmodels.recentLogList();
         self.viewModel.load(function () {
             self.setCurrentPage(self.dashboard, self.viewModel);
         });
     });
     
-    self.searches = new loghub.viewmodels.Page('#search', 'icon-search', 'Search', 'SearchLogList-template', function (params) {
+    self.searches = new loghub.viewmodels.page('#search', 'icon-search', 'Search', 'SearchLogList-template', function (params) {
         if (self.currentPage != self.searches)
-            self.viewModel = new loghub.viewmodels.SearchLogList();
+            self.viewModel = new loghub.viewmodels.searchLogList();
 
         self.viewModel.currentFilter.page = params['p'] || 1;
         self.viewModel.load(function () {
@@ -23,22 +23,22 @@ loghub.App = function () {
         });
     });
 
-    self.alerts = new loghub.viewmodels.Page('#alerts', 'icon-bell', 'Alerts', '', function (params) {
+    self.alerts = new loghub.viewmodels.page('#alerts', 'icon-bell', 'Alerts', '', function (params) {
     });
     
-    self.users = new loghub.viewmodels.Page('#users', 'icon-user', 'Users', 'UserList-template', function (params) {
+    self.users = new loghub.viewmodels.page('#users', 'icon-user', 'Users', 'UserList-template', function (params) {
         if (self.currentPage == self.users) return;
 
-        self.viewModel = new loghub.viewmodels.UserList();
+        self.viewModel = new loghub.viewmodels.userList();
         self.viewModel.load(function () {
             self.setCurrentPage(self.users, self.viewModel);
         });
     });
     
-    self.retention = new loghub.viewmodels.Page('#retention', 'icon-trash', 'Retention Settings', '', function (params) {
+    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention Settings', '', function (params) {
     });
     
-    self.health = new loghub.viewmodels.Page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {
+    self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {
     });
     
     self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.health];
@@ -68,10 +68,10 @@ loghub.App = function () {
         observable.dispose();
     };
 
-    loghub.Routes.register(self.pages);
-    loghub.Routes.run(self.dashboard);
+    loghub.routes.register(self.pages);
+    loghub.routes.run(self.dashboard);
 };
 
 $(function () {
-    ko.applyBindings(new loghub.App(), $('pages')[0]);
+    ko.applyBindings(new loghub.app(), $('pages')[0]);
 });

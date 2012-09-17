@@ -21,10 +21,10 @@
             </thead>
             <tbody data-bind="foreach: users">
                 <tr>
-                    <td data-bind="text: Username"></td>
-                    <td data-bind="text: Email"></td>
-                    <td data-bind="text: Name"></td>
-                    <td data-bind="text: Role() == 1 ? 'Reader' : 'Administrator'"></td>
+                    <td data-bind="text: username"></td>
+                    <td data-bind="text: email"></td>
+                    <td data-bind="text: name"></td>
+                    <td data-bind="text: role() == 1 ? 'Reader' : 'Administrator'"></td>
                     <td>
                         <a href="#" data-bind="click: $parent.edit">Edit</a>
                     </td>
@@ -40,35 +40,35 @@
 <div class="modal hide fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true" data-bind="with: currentUser">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="userModalLabel" data-bind="text: IsNew() ? 'New User' : 'Edit User'"></h3>
+        <h3 id="userModalLabel" data-bind="text: isNew() ? 'New User' : 'Edit User'"></h3>
     </div>
     <div class="modal-body">
-        <div class="alert alert-error" data-bind="visible: ValidationErrors, text: ValidationErrors">
+        <div class="alert alert-error" data-bind="visible: validationErrors, text: validationErrors">
         </div>
         <form class="form-horizontal">
             <div class="control-group">
                 <label class="control-label" for="inputUsername">Username</label>
                 <div class="controls">
-                    <label style="padding-top: 5px;" data-bind="visible: !IsNew(), text: Username"></label>
-                    <input type="text" id="inputUsername" placeholder="Username" data-bind="visible: IsNew, value: Username">
+                    <label style="padding-top: 5px;" data-bind="visible: !isNew(), text: username"></label>
+                    <input type="text" id="inputUsername" placeholder="Username" data-bind="visible: isNew, value: username">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputEmail">Email</label>
                 <div class="controls">
-                    <input type="text" id="inputEmail" placeholder="Email" data-bind="value: Email">
+                    <input type="text" id="inputEmail" placeholder="Email" data-bind="value: email">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputName">Name</label>
                 <div class="controls">
-                    <input type="text" id="inputName" placeholder="Name" data-bind="value: Name">
+                    <input type="text" id="inputName" placeholder="Name" data-bind="value: name">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputRole">Role</label>
                 <div class="controls">
-                    <select name="inputRole" data-bind="value: Role">
+                    <select name="inputRole" data-bind="value: role">
                         <option value="1">Reader</option>
                         <option value="2">Administrator</option>
                     </select>
@@ -77,13 +77,13 @@
             <div class="control-group">
                 <label class="control-label" for="inputPassword">Password</label>
                 <div class="controls">
-                    <input type="password" id="inputPassword" placeholder="Password" data-bind="value: Password">
+                    <input type="password" id="inputPassword" placeholder="Password" data-bind="value: password">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPasswordAgain">Confirm Password</label>
                 <div class="controls">
-                    <input type="password" id="inputPasswordAgain" placeholder="Confirm Password" data-bind="value: PasswordAgain">
+                    <input type="password" id="inputPasswordAgain" placeholder="Confirm Password" data-bind="value: passwordAgain">
                 </div>
             </div>
         </form>

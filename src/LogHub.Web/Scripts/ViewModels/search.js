@@ -1,7 +1,7 @@
 ﻿var loghub = loghub || {};
 loghub.viewmodels = loghub.viewmodels || {};
 
-loghub.viewmodels.SearchLogList = function () {
+loghub.viewmodels.searchLogList = function () {
     var self = this;
     
     self.url = function () {

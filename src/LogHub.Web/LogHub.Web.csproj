@@ -149,6 +149,7 @@
     <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="Filters\MVCAuthorizeAttribute.cs" />
     <Compile Include="Filters\LogHubPrincipal.cs" />
+    <Compile Include="Filters\ValidationFilterAttribute.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Common\ObjectExtensions.cs" />
@@ -166,6 +167,7 @@
     <Content Include="Content\datepicker.css" />
     <Content Include="Scripts\bindings.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\utils.js" />
     <Content Include="Scripts\routes.js" />
     <Content Include="Scripts\ViewModels\users.js" />
     <Content Include="Scripts\ViewModels\search.js" />

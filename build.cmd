@@ -5,6 +5,7 @@ if '%1'=='-help' goto help
 if '%1'=='-h' goto help
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command "& '.\psake.ps1' '.\default.ps1' %*; if ($psake.build_success -eq $false) { exit 1 } else { exit 0 }"
+pause
 goto :eof
 
 :help
