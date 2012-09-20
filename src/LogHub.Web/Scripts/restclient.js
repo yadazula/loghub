@@ -9,9 +9,12 @@ loghub.restClient = new function () {
                 callback.success(data, textStatus, jqXHR);
         };
 
-        this.error = function(jqXHR, textStatus, errorThrown) {
+        this.error = function (jqXHR, textStatus, errorThrown) {
             if (callback && callback.error)
                 callback.error(jqXHR, textStatus, errorThrown);
+
+            var message = 'Status : {0} ({1}) {2} Response : {3} {2}'.format(jqXHR.status, jqXHR.statusText,'<br / >', jqXHR.responseText);
+            loghub.errorHandler.show(message);
         };
 
         this.complete = function(jqXHR, textStatus) {

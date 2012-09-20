@@ -6,9 +6,9 @@
     <title>LogHub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" />
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
-    <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css"/>
-    <link href="@Url.Content("~/Content/datepicker.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/bootstrap/css/datepicker.css")" rel="stylesheet" type="text/css"/>
     <link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -60,10 +60,21 @@
             <button class="btn btn-danger" data-bind="click: onDelete">Delete</button>
         </div>
     </div>
+    <div class="modal hide fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="errorModalLabel">Error</h3>
+        </div>
+      <div class="modal-body text-error" data-bind="html: message">
+      </div>
+        <div class="modal-footer">
+            <button class="btn" data-bind="click: hide">Close</button>
+        </div>
+    </div>
     @Html.RenderTemplates("~/Templates/")
     <script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
     <script src="@Url.Content("~/Scripts/sammy.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>

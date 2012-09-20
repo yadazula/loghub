@@ -1,6 +1,6 @@
 ﻿var loghub = loghub || {};
 
-loghub.app = function () {
+loghub.app = new function () {
     var self = this;
 
     self.dashboard = new loghub.viewmodels.page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogList-template', function (params) {
@@ -67,11 +67,28 @@ loghub.app = function () {
 
         observable.dispose();
     };
-
+    
     loghub.routes.register(self.pages);
     loghub.routes.run(self.dashboard);
 };
 
+loghub.errorHandler = new function () {
+    var self = this;
+
+    self.message = ko.observable();
+
+    self.show = function (error) {
+        self.message(error);
+        $('#errorModal').modal('show');
+    };
+
+    self.hide = function() {
+        self.message();
+        $('#errorModal').modal('hide');
+    };
+};
+
 $(function () {
-    ko.applyBindings(new loghub.app(), $('#pages')[0]);
+    ko.applyBindings(loghub.app, $('#pages')[0]);
+    ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
 });
