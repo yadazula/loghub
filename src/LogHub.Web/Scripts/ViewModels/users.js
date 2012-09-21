@@ -3,24 +3,36 @@ loghub.viewmodels = loghub.viewmodels || {};
 
 loghub.viewmodels.userList = function () {
     var self = this;
-    self.currentUser = ko.observable();
+    self.currentUser = ko.observable({
+        username: ko.observable().extend({ required: { message: 'Please enter a username.' } }),
+        email: ko.observable(),
+        name: ko.observable().extend({ required: { message: 'Please enter a name.' } }),
+        role: ko.observable('1'),
+        password: ko.observable(),
+        passwordAgain: ko.observable(),
+        isNew: ko.observable(true),
+        validationErrors: ko.observable(),
+        isLoading: ko.observable(false)
+    });
 
     self.create = function () {
-        self.currentUser({
-            username: ko.observable(),
-            email: ko.observable(),
-            name: ko.observable(),
-            role: ko.observable('1'),
-            password: ko.observable(),
-            passwordAgain: ko.observable(),
-            isNew: ko.observable(true),
-            validationErrors: ko.observable(),
-            isLoading: ko.observable(false)
-        });
-
+        //self.currentUser({
+        //    username: ko.observable().extend({ required: { message: 'Please enter an username.' } }),
+        //    email: ko.observable(),
+        //    name: ko.observable().extend({ required: { message: 'Please enter a name.' } }),
+        //    role: ko.observable('1'),
+        //    password: ko.observable(),
+        //    passwordAgain: ko.observable(),
+        //    isNew: ko.observable(true),
+        //    validationErrors: ko.observable(),
+        //    isLoading: ko.observable(false)
+        //});
+        
         $('#userModal').modal('show');
     };
-
+    
+    self.errors = ko.validation.group(self.currentUser());
+    
     self.edit = function (userVM) {
         var user = ko.mapping.toJS(userVM);
         user.password = null;
@@ -43,15 +55,11 @@ loghub.viewmodels.userList = function () {
     };
 
     self.save = function (user) {
-        if (!user.username()) {
-            user.validationErrors('Username can not be empty !');
+        if (self.errors().length > 0) {
+            user.validationErrors(' ');
+            self.errors.showAllMessages();
             return;
-        }
-
-        if (!user.name()) {
-            user.validationErrors('Name can not be empty !');
-            return;
-        }
+        } 
 
         if (user.isNew() && (!user.password() || !user.passwordAgain())) {
             user.validationErrors('Password can not be empty !');

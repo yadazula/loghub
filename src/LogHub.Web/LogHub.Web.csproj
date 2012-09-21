@@ -175,6 +175,9 @@
     <Content Include="Images\loader.gif" />
     <Content Include="Scripts\bindings.js" />
     <Content Include="Content\bootstrap\js\bootstrap-datepicker.js" />
+    <Content Include="Scripts\errorHandler.js" />
+    <Content Include="Scripts\knockout.validation.debug.js" />
+    <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\utils.js" />
     <Content Include="Scripts\routes.js" />
     <Content Include="Scripts\ViewModels\users.js" />

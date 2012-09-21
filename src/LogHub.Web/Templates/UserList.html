@@ -43,8 +43,11 @@
         <h3 id="userModalLabel" data-bind="text: isNew() ? 'New User' : 'Edit User'"></h3>
     </div>
     <div class="modal-body">
-        <div class="alert alert-error" data-bind="visible: validationErrors, text: validationErrors">
+        <div class="alert alert-error">
+            <p data-bind="validationMessage: username"></p>
+            <p data-bind="validationMessage: name"></p>
         </div>
+        
         <form class="form-horizontal">
             <div class="control-group">
                 <label class="control-label" for="inputUsername">Username</label>

@@ -71,24 +71,3 @@ loghub.app = new function () {
     loghub.routes.register(self.pages);
     loghub.routes.run(self.dashboard);
 };
-
-loghub.errorHandler = new function () {
-    var self = this;
-
-    self.message = ko.observable();
-
-    self.show = function (error) {
-        self.message(error);
-        $('#errorModal').modal('show');
-    };
-
-    self.hide = function() {
-        self.message();
-        $('#errorModal').modal('hide');
-    };
-};
-
-$(function () {
-    ko.applyBindings(loghub.app, $('#pages')[0]);
-    ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
-});
