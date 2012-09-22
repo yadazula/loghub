@@ -79,7 +79,6 @@
     <script src="@Url.Content("~/Scripts/sammy.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
     <script src="@Url.Content("~/Scripts/knockout.mapping-latest.debug.js")"></script>
-    <script src="@Url.Content("~/Scripts/knockout.validation.debug.js")"></script>
     <script src="@Url.Content("~/Scripts/bindings.js")"></script>
     <script src="@Url.Content("~/Scripts/restclient.js")"></script>
     <script src="@Url.Content("~/Scripts/utils.js")"></script>
@@ -92,10 +91,6 @@
     <script src="@Url.Content("~/Scripts/app.js")"></script>
     <script type="text/javascript">
         $(function () {
-            ko.validation.configure({
-                insertMessages: false,
-            });
-            
             ko.applyBindings(loghub.app, $('#pages')[0]);
             ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
         });

@@ -3,44 +3,32 @@ loghub.viewmodels = loghub.viewmodels || {};
 
 loghub.viewmodels.userList = function () {
     var self = this;
-    self.currentUser = ko.observable({
-        username: ko.observable().extend({ required: { message: 'Please enter a username.' } }),
-        email: ko.observable(),
-        name: ko.observable().extend({ required: { message: 'Please enter a name.' } }),
-        role: ko.observable('1'),
-        password: ko.observable(),
-        passwordAgain: ko.observable(),
-        isNew: ko.observable(true),
-        validationErrors: ko.observable(),
-        isLoading: ko.observable(false)
-    });
+    self.currentUser = ko.observable();
 
     self.create = function () {
-        //self.currentUser({
-        //    username: ko.observable().extend({ required: { message: 'Please enter an username.' } }),
-        //    email: ko.observable(),
-        //    name: ko.observable().extend({ required: { message: 'Please enter a name.' } }),
-        //    role: ko.observable('1'),
-        //    password: ko.observable(),
-        //    passwordAgain: ko.observable(),
-        //    isNew: ko.observable(true),
-        //    validationErrors: ko.observable(),
-        //    isLoading: ko.observable(false)
-        //});
-        
+        self.currentUser({
+            username: ko.observable(),
+            email: ko.observable(),
+            name: ko.observable(),
+            role: ko.observable('1'),
+            password: ko.observable(),
+            passwordAgain: ko.observable(),
+            isNew: ko.observable(true),
+            validationErrors: ko.observable([]),
+            isLoading: ko.observable(false)
+        });
+
         $('#userModal').modal('show');
     };
-    
-    self.errors = ko.validation.group(self.currentUser());
-    
+
     self.edit = function (userVM) {
         var user = ko.mapping.toJS(userVM);
         user.password = null;
         user.passwordAgain = null;
-        user.validationErrors = null;
         user.isNew = false;
         user.isLoading = false;
-
+        user.validationErrors = [];
+        
         var clonedUser = ko.mapping.fromJS(user);
         self.currentUser(clonedUser);
         $('#userModal').modal('show');
@@ -54,25 +42,38 @@ loghub.viewmodels.userList = function () {
         });
     };
 
-    self.save = function (user) {
-        if (self.errors().length > 0) {
-            user.validationErrors(' ');
-            self.errors.showAllMessages();
-            return;
-        } 
-
-        if (user.isNew() && (!user.password() || !user.passwordAgain())) {
-            user.validationErrors('Password can not be empty !');
-            return;
+    self.validate = function (user) {
+        var validationErrors = [];
+        if (!user.username()) {
+            validationErrors.push('Please enter a username.');
         }
 
-        if (user.password() != user.passwordAgain()) {
-            user.validationErrors('Passwords are not match !');
-            return;
+        if (!user.email()) {
+            validationErrors.push('Please enter a email.');
+        }
+        else if (!loghub.utils.isEmail(user.email())) {
+            validationErrors.push('Please enter a valid email.');
         }
 
-        user.validationErrors();
+        if (!user.name()) {
+            validationErrors.push('Please enter a name.');
+        }
         
+        if (user.isNew() && (!user.password() || !user.passwordAgain())) {
+            validationErrors.push('Please enter a password.');
+        }
+        else if (user.password() != user.passwordAgain()) {
+            validationErrors.push('Passwords are not match.');
+        }
+
+        user.validationErrors(validationErrors);
+        return validationErrors.length == 0;
+    };
+
+    self.save = function (user) {
+        if (!self.validate(user))
+            return;
+
         var data = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain'] });
         user.isLoading(true);
 

@@ -35,7 +35,7 @@ namespace LogHub.Web.Controllers
 
       if (user.IsNotNull())
       {
-        throw new HttpResponseException(HttpStatusCode.BadRequest);
+        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Username is used by another user."));
       }
 
       user = userInput.MapTo<User>();
@@ -69,7 +69,7 @@ namespace LogHub.Web.Controllers
       }
 
       var user = DocumentSession.Query<User>()
-                                .FirstOrDefault(x => x.Username == username);
+                                .Single(x => x.Username == username);
 
       DocumentSession.Delete(user);
     }
