@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LogHub.Web.Models;
+using LogHub.Core.Models;
 using LogHub.Web.ViewModels;
 
 namespace LogHub.Web.Infrastructure.AutoMapper

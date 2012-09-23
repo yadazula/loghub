@@ -2,8 +2,8 @@
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using LogHub.Core.Models;
 using LogHub.Server.Buffers;
-using LogHub.Server.Core;
 using NLog;
 
 namespace LogHub.Server.Channels

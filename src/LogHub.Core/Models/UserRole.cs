@@ -1,4 +1,4 @@
-namespace LogHub.Web.Models
+namespace LogHub.Core.Models
 {
   public enum UserRole
   {

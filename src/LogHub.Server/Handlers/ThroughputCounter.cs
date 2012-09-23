@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using LogHub.Server.Core;
+using LogHub.Core.Models;
 using NLog;
 
 namespace LogHub.Server.Handlers

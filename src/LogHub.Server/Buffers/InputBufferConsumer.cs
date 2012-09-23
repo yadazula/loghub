@@ -1,5 +1,5 @@
-﻿using LogHub.Server.Convertors;
-using LogHub.Server.Core;
+﻿using LogHub.Core.Models;
+using LogHub.Server.Convertors;
 using LogHub.Server.Processors;
 
 namespace LogHub.Server.Buffers

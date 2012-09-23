@@ -156,15 +156,12 @@
     <Compile Include="Filters\ValidationFilterAttribute.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
-    <Compile Include="Infrastructure\Common\ObjectExtensions.cs" />
     <Compile Include="Infrastructure\Common\QueryableExtensions.cs" />
     <Compile Include="Infrastructure\Indexes\LogMessage_Search.cs" />
     <Compile Include="Infrastructure\Modules\DefaultModule.cs" />
     <Compile Include="Infrastructure\Modules\DependencyResolver.cs" />
     <Compile Include="Infrastructure\Modules\DependencyScope.cs" />
     <Compile Include="ViewModels\AbstractLogFilter.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserRole.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
     <Compile Include="ViewModels\UserInput.cs" />
     <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
@@ -198,8 +195,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LogLevel.cs" />
-    <Compile Include="Models\LogMessage.cs" />
     <Compile Include="ViewModels\LogMessageView.cs" />
     <Compile Include="ViewModels\PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,11 +232,19 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogHub.Core\LogHub.Core.csproj">
+      <Project>{c7f34118-e705-41a0-bfb4-5cc53d6ab49c}</Project>
+      <Name>LogHub.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

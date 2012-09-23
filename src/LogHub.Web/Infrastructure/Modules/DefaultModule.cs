@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using LogHub.Web.Infrastructure.Indexes;
 using LogHub.Web.Infrastructure.Modules.Tasks;
-using LogHub.Web.Models;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using LogHub.Web.Models;
+using LogHub.Core.Models;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 

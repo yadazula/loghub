@@ -1,6 +1,6 @@
 using System;
 using System.Security.Principal;
-using LogHub.Web.Models;
+using LogHub.Core.Models;
 
 namespace LogHub.Web.Filters
 {

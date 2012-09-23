@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using LogHub.Core.Extensions;
+using LogHub.Core.Models;
 using LogHub.Web.Infrastructure.Common;
-using LogHub.Web.Models;
 using Raven.Client;
 
 namespace LogHub.Web.Controllers

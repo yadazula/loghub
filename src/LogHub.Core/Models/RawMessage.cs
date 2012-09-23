@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogHub.Server.Core
+namespace LogHub.Core.Models
 {
   public class RawMessage
   {

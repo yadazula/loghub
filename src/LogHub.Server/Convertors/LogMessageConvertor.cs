@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
-using LogHub.Server.Core;
+using LogHub.Core.Models;
 using Newtonsoft.Json;
 
 namespace LogHub.Server.Convertors
@@ -12,7 +12,6 @@ namespace LogHub.Server.Convertors
     {
       var json = GetJson(rawMessage);
       var logMessage = JsonConvert.DeserializeObject<LogMessage>(json);
-      logMessage.TrackingId = rawMessage.TrackingId;
       return logMessage;
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace LogHub.Web.Models
+namespace LogHub.Core.Models
 {
   public class LogMessage
   {
@@ -12,7 +12,15 @@ namespace LogHub.Web.Models
     public string Logger { get; set; }
     public LogLevel Level { get; set; }
     public string Message { get; set; }
-    public DateTimeOffset Date { get; set; }
-    public IDictionary<string, object> Properties { get; set; }
+    public DateTimeOffset Date {  get; set;}
+    public IDictionary<string, object> Properties {  get; set;}
+
+    [JsonIgnore]
+    public Guid TrackingId { get; set; }
+
+    public bool IsValid()
+    {
+      return (!string.IsNullOrWhiteSpace(Host) && !string.IsNullOrWhiteSpace(Message));
+    }
   }
 }

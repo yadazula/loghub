@@ -1,5 +1,5 @@
 using System.Linq;
-using LogHub.Web.Models;
+using LogHub.Core.Models;
 using Raven.Client;
 
 namespace LogHub.Web.Infrastructure.Modules.Tasks

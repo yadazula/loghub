@@ -77,12 +77,9 @@
     <Compile Include="Convertors\LogMessageConvertor.cs" />
     <Compile Include="Convertors\MessageFormat.cs" />
     <Compile Include="Convertors\MessageFormatExtensions.cs" />
-    <Compile Include="Core\LogLevel.cs" />
-    <Compile Include="Core\LogMessage.cs" />
     <Compile Include="Channels\TcpChannelListener.cs" />
     <Compile Include="Buffers\BatchMessageBuffer.cs" />
     <Compile Include="Buffers\IMessageBuffer.cs" />
-    <Compile Include="Core\RawMessage.cs" />
     <Compile Include="Handlers\ILogMessageHandler.cs" />
     <Compile Include="Handlers\ThroughputCounter.cs" />
     <Compile Include="Processors\ChunkedMessageProcessor.cs" />
@@ -103,7 +100,15 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogHub.Core\LogHub.Core.csproj">
+      <Project>{c7f34118-e705-41a0-bfb4-5cc53d6ab49c}</Project>
+      <Name>LogHub.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

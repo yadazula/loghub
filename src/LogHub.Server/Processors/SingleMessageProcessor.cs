@@ -1,7 +1,7 @@
 ﻿using System;
+using LogHub.Core.Models;
 using LogHub.Server.Buffers;
 using LogHub.Server.Convertors;
-using LogHub.Server.Core;
 using LogHub.Server.Handlers;
 using NLog;
 

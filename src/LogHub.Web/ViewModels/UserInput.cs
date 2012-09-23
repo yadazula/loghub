@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using LogHub.Web.Models;
+using LogHub.Core.Models;
 
 namespace LogHub.Web.ViewModels
 {

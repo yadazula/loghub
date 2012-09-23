@@ -1,4 +1,4 @@
-namespace LogHub.Server.Core
+namespace LogHub.Core.Models
 {
   public enum LogLevel
   {

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using LogHub.Core.Extensions;
+using LogHub.Core.Models;
 using LogHub.Web.Infrastructure.AutoMapper;
 using LogHub.Web.Infrastructure.Common;
-using LogHub.Web.Models;
 using LogHub.Web.ViewModels;
 using Raven.Client;
 
@@ -63,7 +64,7 @@ namespace LogHub.Web.Controllers
 
     public void Delete(string username)
     {
-      if (username == Models.User.UndeletableAdminUser)
+      if (username == Core.Models.User.UndeletableAdminUser)
       {
         throw new HttpResponseException(HttpStatusCode.BadRequest);
       }

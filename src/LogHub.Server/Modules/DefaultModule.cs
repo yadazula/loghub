@@ -1,8 +1,8 @@
 ﻿using System.Configuration;
+using LogHub.Core.Models;
 using LogHub.Server.Buffers;
 using LogHub.Server.Channels;
 using LogHub.Server.Convertors;
-using LogHub.Server.Core;
 using LogHub.Server.Handlers;
 using LogHub.Server.Processors;
 using Ninject;

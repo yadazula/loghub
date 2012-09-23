@@ -1,6 +1,6 @@
-﻿namespace LogHub.Web.Infrastructure.Common
+﻿namespace LogHub.Core.Extensions
 {
-  public static class CommonExtensions
+  public static class ObjectExtensions
   {
     public static bool IsNull(this object @object)
     {

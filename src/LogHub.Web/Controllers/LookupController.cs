@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using LogHub.Core.Extensions;
+using LogHub.Core.Models;
 using LogHub.Web.Infrastructure.Common;
-using LogHub.Web.Models;
 using LogHub.Web.ViewModels;
 using Raven.Client;
 using Raven.Client.Linq;

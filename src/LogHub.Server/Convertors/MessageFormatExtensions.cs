@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using LogHub.Server.Core;
+using LogHub.Core.Models;
 
 namespace LogHub.Server.Convertors
 {

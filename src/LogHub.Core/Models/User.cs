@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace LogHub.Web.Models
+namespace LogHub.Core.Models
 {
   public class User
   {

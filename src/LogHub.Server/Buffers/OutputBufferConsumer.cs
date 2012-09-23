@@ -1,4 +1,4 @@
-﻿using LogHub.Server.Core;
+﻿using LogHub.Core.Models;
 using NLog;
 using Raven.Client;
 

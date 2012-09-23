@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Http;
+using LogHub.Core.Models;
 using LogHub.Web.Infrastructure.AutoMapper;
 using LogHub.Web.Infrastructure.Common;
 using LogHub.Web.Infrastructure.Indexes;
-using LogHub.Web.Models;
 using LogHub.Web.ViewModels;
 using Raven.Client;
 
