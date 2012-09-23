@@ -35,7 +35,13 @@ loghub.app = new function () {
         });
     });
     
-    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention Settings', '', function (params) {
+    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention Settings', 'RetentionSettings-template', function (params) {
+        if (self.currentPage == self.retention) return;
+
+        self.viewModel = new loghub.viewmodels.retentionList();
+        self.viewModel.load(function () {
+            self.setCurrentPage(self.retention, self.viewModel);
+        });
     });
     
     self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {

@@ -146,6 +146,7 @@
     <Compile Include="Controllers\AbstractApiController.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
+    <Compile Include="Controllers\RetentionController.cs" />
     <Compile Include="Infrastructure\Modules\Tasks\CheckIfAdminUserExist.cs" />
     <Compile Include="Infrastructure\Modules\Tasks\IStartupTask.cs" />
     <Compile Include="ViewModels\LookupFilter.cs" />
@@ -180,6 +181,7 @@
     <Content Include="Scripts\errorHandler.js" />
     <Content Include="Scripts\utils.js" />
     <Content Include="Scripts\routes.js" />
+    <Content Include="Scripts\ViewModels\retention.js" />
     <Content Include="Scripts\ViewModels\users.js" />
     <Content Include="Scripts\ViewModels\search.js" />
     <Content Include="Scripts\ViewModels\page.js" />
@@ -205,6 +207,7 @@
     <Content Include="Scripts\sammy-latest.min.js" />
     <Content Include="Scripts\sammy.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Templates\RetentionSettings.html" />
     <Content Include="Templates\UserList.html" />
     <Content Include="Templates\RecentLogList.html" />
     <Content Include="Templates\LogItem.html" />

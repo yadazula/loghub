@@ -66,7 +66,7 @@ namespace LogHub.Web.Controllers
     {
       if (username == Core.Models.User.UndeletableAdminUser)
       {
-        throw new HttpResponseException(HttpStatusCode.BadRequest);
+        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Can not delete admin user !"));
       }
 
       var user = DocumentSession.Query<User>()

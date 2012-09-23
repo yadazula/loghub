@@ -4,6 +4,12 @@
   padding-bottom: 40px;
 }
 
+.typeahead
+{
+  z-index: 3000;
+}
+
+
 .form-horizontal .control-label
 {
   font-weight: bold;
@@ -68,8 +74,9 @@
   border-top-right-radius: 0;
 }
 
-.widget-action {
-  padding-right: 10px; 
+.widget-action
+{
+  padding-right: 10px;
   padding-top: 5px;
 }
 

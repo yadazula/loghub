@@ -74,7 +74,7 @@ loghub.viewmodels.userList = function () {
         if (!self.validate(user))
             return;
 
-        var data = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain'] });
+        var data = ko.mapping.toJSON(user, { ignore: ['isNew', 'validationErrors', 'passwordAgain', 'isLoading'] });
         user.isLoading(true);
 
         if (user.isNew()) {

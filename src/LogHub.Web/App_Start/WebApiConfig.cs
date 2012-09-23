@@ -15,7 +15,6 @@ namespace LogHub.Web.App_Start
       config.Filters.Add(new ValidationFilterAttribute());
 
       config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
       config.Routes.MapHttpRoute(
           name: "DefaultApi",
           routeTemplate: "api/{controller}/{id}",
