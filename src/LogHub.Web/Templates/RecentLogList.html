@@ -11,11 +11,11 @@
             <form class="form-horizontal" data-bind="with: filterModel">
                 <div class="control-group control-group2">
                     <label class="control-label2" for="host">Host</label>
-                    <input type="text" class="controls controls2" name="host" data-bind="value: host" />
+                    <input type="text" class="controls controls2" name="host" data-bind="autoComplete: {target: host, source: loghub.lookups.getHosts}" />
                 </div>
                 <div class="control-group control-group2">
                     <label class="control-label2" for="source">Source</label>
-                    <input type="text" name="source" class="controls controls2" data-bind="value: source" />
+                    <input type="text" name="source" class="controls controls2" data-bind="autoComplete: {target: source, source: loghub.lookups.getSources}" />
                 </div>
                 <div class="control-group control-group2">
                     <label class="control-label2" for="message">Message</label>

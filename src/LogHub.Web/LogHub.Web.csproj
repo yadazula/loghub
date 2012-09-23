@@ -145,6 +145,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AbstractApiController.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
+    <Compile Include="Controllers\LookupController.cs" />
+    <Compile Include="ViewModels\LookupFilter.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="Filters\MVCAuthorizeAttribute.cs" />
@@ -175,6 +177,7 @@
     <Content Include="Images\loader.gif" />
     <Content Include="Scripts\bindings.js" />
     <Content Include="Content\bootstrap\js\bootstrap-datepicker.js" />
+    <Content Include="Scripts\lookups.js" />
     <Content Include="Scripts\errorHandler.js" />
     <Content Include="Scripts\utils.js" />
     <Content Include="Scripts\routes.js" />
