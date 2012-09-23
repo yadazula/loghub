@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using LogHub.Web.Infrastructure.Modules;
+using LogHub.Web.Infrastructure.Modules.Tasks;
+using Ninject.Modules;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -55,7 +59,32 @@ namespace LogHub.Web.App_Start
     /// <param name="kernel">The kernel.</param>
     private static void RegisterServices(IKernel kernel)
     {
-      kernel.Load<DefaultModule>();
+      RegisterModules(kernel);
+      ExecuteStartupTasks(kernel);
+    }
+
+    private static void RegisterModules(IKernel kernel)
+    {
+      var types = typeof(NinjectWebCommon).Assembly.GetTypes();
+      var typeNinjectModule = typeof(INinjectModule);
+      var ninjectModules = types.Where(x => x.IsClass && typeNinjectModule.IsAssignableFrom(x));
+      foreach (var ninjectModule in ninjectModules)
+      {
+        var instance = (INinjectModule)Activator.CreateInstance(ninjectModule);
+        kernel.Load(instance);
+      }
+    }
+
+    private static void ExecuteStartupTasks(IKernel kernel)
+    {
+      var types = typeof(NinjectWebCommon).Assembly.GetTypes();
+      var typeStartupTask = typeof(IStartupTask);
+      var startupTasks = types.Where(x => x.IsClass && typeStartupTask.IsAssignableFrom(x));
+      foreach (var startupTask in startupTasks)
+      {
+        var o = (IStartupTask)kernel.Get(startupTask);
+        o.Execute();
+      }
     }
 
     public static IKernel Kernel

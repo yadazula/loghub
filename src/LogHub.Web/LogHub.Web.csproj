@@ -146,6 +146,8 @@
     <Compile Include="Controllers\AbstractApiController.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
+    <Compile Include="Infrastructure\Modules\Tasks\CheckIfAdminUserExist.cs" />
+    <Compile Include="Infrastructure\Modules\Tasks\IStartupTask.cs" />
     <Compile Include="ViewModels\LookupFilter.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
