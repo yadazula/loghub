@@ -22,7 +22,7 @@ loghub.viewmodels.retentionList = function () {
         item.isNew = false;
         item.isLoading = false;
         item.validationErrors = [];
-        
+
         var clonedItem = ko.mapping.fromJS(item);
         self.currentItem(clonedItem);
         $('#retentionModal').modal('show');
@@ -47,7 +47,7 @@ loghub.viewmodels.retentionList = function () {
         } else if (!loghub.utils.isNumber(item.days())) {
             validationErrors.push('Days must be a number bigger than 0.');
         }
-           
+
         item.validationErrors(validationErrors);
         return validationErrors.length == 0;
     };
@@ -59,20 +59,7 @@ loghub.viewmodels.retentionList = function () {
         var data = ko.mapping.toJSON(item, { ignore: ['isNew', 'validationErrors', 'isLoading'] });
         item.isLoading(true);
 
-        if (item.isNew()) {
-            loghub.restClient.post('/api/retention', data, {
-                success: function () {
-                    self.refresh();
-                },
-                error: function () {
-                    item.isLoading(false);
-                }
-            });
-
-            return;
-        }
-
-        loghub.restClient.put('/api/retention', data, {
+        loghub.restClient.post('/api/retention', data, {
             success: function () {
                 self.refresh();
             },

@@ -12,6 +12,7 @@ namespace LogHub.Server.Convertors
     {
       var json = GetJson(rawMessage);
       var logMessage = JsonConvert.DeserializeObject<LogMessage>(json);
+      logMessage.Date = DateTime.Now.AddDays(-6);
       return logMessage;
     }
 

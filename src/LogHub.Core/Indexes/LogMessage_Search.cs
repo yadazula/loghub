@@ -3,7 +3,7 @@ using LogHub.Core.Models;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
-namespace LogHub.Web.Infrastructure.Indexes
+namespace LogHub.Core.Indexes
 {
   public class LogMessage_Search : AbstractIndexCreationTask<LogMessage>
   {

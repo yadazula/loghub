@@ -34,7 +34,7 @@ namespace LogHub.TestClient
             break;
         }
 
-        Thread.Sleep(500);
+        Thread.Sleep(50);
       }
     }
   }

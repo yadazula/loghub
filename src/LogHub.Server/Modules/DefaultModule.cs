@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Buffers;
 using LogHub.Server.Channels;
@@ -11,6 +13,7 @@ using Ninject;
 using Ninject.Modules;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Client.Indexes;
 
 namespace LogHub.Server.Modules
 {
@@ -22,6 +25,7 @@ namespace LogHub.Server.Modules
       {
         var store = new DocumentStore { ConnectionStringName = "RavenDB" }.Initialize();
         store.Conventions.SaveEnumsAsIntegers = true;
+        IndexCreation.CreateIndexes(typeof(LogMessage_Search).Assembly, store);
         return store;
       }).InSingletonScope();
 
@@ -85,7 +89,22 @@ namespace LogHub.Server.Modules
 
       Bind<IBackgroundTask>()
         .To<RetentionBackgroundTask>()
-        .InSingletonScope();
+        .InSingletonScope()
+        .WithConstructorArgument("archiverFactory", x =>
+          {
+            Func<IArchiveSetting, ILogArchiver> archiverFactory = y =>
+            {
+              if (y is AmazonGlacierArchiveSetting)
+                return new AmazonGlacierArchiver((AmazonGlacierArchiveSetting) y);
+
+              if (y is DiskArchiveSetting)
+                return new DiskArchiver((DiskArchiveSetting) y);
+
+              throw new ArgumentException(string.Format("No archiver found for {0}",y.GetType()));
+            };
+
+            return archiverFactory;
+          });
     }
   }
 }

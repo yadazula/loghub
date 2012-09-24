@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Tasks;
 using NLog;
@@ -18,11 +19,13 @@ namespace LogHub.Server.Retention
   public class RetentionBackgroundTask : IBackgroundTask
   {
     private readonly IDocumentStore documentStore;
+    private readonly Func<IArchiveSetting, ILogArchiver> archiverFactory;
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-    public RetentionBackgroundTask(IDocumentStore documentStore)
+    public RetentionBackgroundTask(IDocumentStore documentStore, Func<IArchiveSetting, ILogArchiver> archiverFactory)
     {
       this.documentStore = documentStore;
+      this.archiverFactory = archiverFactory;
     }
 
     public TimeSpan Period
@@ -39,7 +42,7 @@ namespace LogHub.Server.Retention
         foreach (var retentionSetting in retentionSettings)
         {
           Archive(retentionSetting);
-          //Delete(retentionSetting);
+          Delete(retentionSetting);
         }
       }
     }
@@ -51,10 +54,15 @@ namespace LogHub.Server.Retention
         return;
       }
 
-      var file = ExportToLocalFile(retentionSetting);
+      var file = Export(retentionSetting);
+      foreach (var archiveSetting in retentionSetting.ArchiveSettings)
+      {
+        var archiver = archiverFactory(archiveSetting);
+        archiver.Archive(file);
+      }
     }
 
-    private string ExportToLocalFile(RetentionSetting retentionSetting)
+    private string Export(RetentionSetting retentionSetting)
     {
       var filename = GenerateSafeFilename(retentionSetting.Source);
       var path = string.Format("{0}.{1}.gz", DateTime.UtcNow.ToString("yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture), filename);
@@ -82,7 +90,7 @@ namespace LogHub.Server.Retention
       {
         using (var documentSession = documentStore.OpenSession())
         {
-          var messages = documentSession.Query<LogMessage>("LogMessage/Search")
+          var messages = documentSession.Query<LogMessage, LogMessage_Search>()
                                         .Where(x => x.Source == retentionSetting.Source && x.Date < cutoff)
                                         .Skip(readMessages)
                                         .Take(1024)
@@ -104,11 +112,11 @@ namespace LogHub.Server.Retention
       using (var documentSession = documentStore.OpenSession())
       {
         var cutoff = DateTimeOffset.Now.AddDays(-retentionSetting.Days);
-        var query = documentSession.Query<LogMessage>("LogMessage/Search")
+        var query = documentSession.Query<LogMessage, LogMessage_Search>()
                                    .Where(x => x.Source == retentionSetting.Source && x.Date < cutoff)
                                    .ToString();
 
-        documentStore.DatabaseCommands.DeleteByIndex("LogMessage/Search", new IndexQuery { Query = query });
+        documentStore.DatabaseCommands.DeleteByIndex(new LogMessage_Search().IndexName, new IndexQuery { Query = query });
       }
     }
 

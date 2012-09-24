@@ -33,16 +33,6 @@ namespace LogHub.Web.Controllers
 
     public void Post(RetentionSetting retentionSetting)
     {
-      Save(retentionSetting);
-    }
-
-    public void Put(RetentionSetting retentionSetting)
-    {
-      Save(retentionSetting);
-    }
-
-    private void Save(RetentionSetting retentionSetting)
-    {
       var user = DocumentSession.Query<User>().Single(x => x.Username == User.Identity.Name);
       retentionSetting.CreatedBy = DocumentSession.Advanced.GetDocumentId(user);
       retentionSetting.CreatedAt = DateTimeOffset.Now;

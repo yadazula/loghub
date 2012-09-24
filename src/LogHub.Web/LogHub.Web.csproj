@@ -158,7 +158,6 @@
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Common\QueryableExtensions.cs" />
-    <Compile Include="Infrastructure\Indexes\LogMessage_Search.cs" />
     <Compile Include="Infrastructure\Modules\DefaultModule.cs" />
     <Compile Include="Infrastructure\Modules\DependencyResolver.cs" />
     <Compile Include="Infrastructure\Modules\DependencyScope.cs" />
