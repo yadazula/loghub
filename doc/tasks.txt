@@ -14,7 +14,6 @@ client
 saved searches
 log message texts in views
 allow deleting logs manually
-better alert & confirm dialogs
 
 forwarders
 ------------------------

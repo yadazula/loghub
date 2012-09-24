@@ -15,9 +15,9 @@ namespace LogHub.Web.Controllers
     {
     }
 
-    public IEnumerable<LogRetention> Get()
+    public IEnumerable<RetentionSetting> Get()
     {
-      var items = DocumentSession.Query<LogRetention>()
+      var items = DocumentSession.Query<RetentionSetting>()
                                  .Customize(x => x.WaitForNonStaleResultsAsOfNow())
                                  .Include(x => x.CreatedBy)
                                  .ToList();
@@ -31,27 +31,29 @@ namespace LogHub.Web.Controllers
       return items;
     }
 
-    public void Post(LogRetention logRetention)
+    public void Post(RetentionSetting retentionSetting)
     {
-      Save(logRetention);
+      Save(retentionSetting);
     }
 
-    public void Put(LogRetention logRetention)
+    public void Put(RetentionSetting retentionSetting)
     {
-      Save(logRetention);
+      Save(retentionSetting);
     }
 
-    private void Save(LogRetention logRetention)
+    private void Save(RetentionSetting retentionSetting)
     {
       var user = DocumentSession.Query<User>().Single(x => x.Username == User.Identity.Name);
-      logRetention.CreatedBy = DocumentSession.Advanced.GetDocumentId(user);
-      logRetention.CreatedAt = DateTimeOffset.Now;
-      DocumentSession.Store(logRetention);
+      retentionSetting.CreatedBy = DocumentSession.Advanced.GetDocumentId(user);
+      retentionSetting.CreatedAt = DateTimeOffset.Now;
+      retentionSetting.ArchiveSettings.Add(new DiskArchiveSetting { Path = "Path" });
+      retentionSetting.ArchiveSettings.Add(new AmazonGlacierArchiveSetting { AWSAccessKey = "AWSAccessKey", AWSSecretKey = "AWSSecretKey", Vault = "Vault" });
+      DocumentSession.Store(retentionSetting);
     }
 
     public void Delete(string id)
     {
-      var item = DocumentSession.Load<LogRetention>(id);
+      var item = DocumentSession.Load<RetentionSetting>(id);
       DocumentSession.Delete(item);
     }
   }

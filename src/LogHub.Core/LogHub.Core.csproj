@@ -43,9 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Models\AmazonGlacierArchiveSetting.cs" />
+    <Compile Include="Models\DiskArchiveSetting.cs" />
+    <Compile Include="Models\IArchiveSetting.cs" />
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />
-    <Compile Include="Models\LogRetention.cs" />
+    <Compile Include="Models\RetentionSetting.cs" />
     <Compile Include="Models\RawMessage.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />

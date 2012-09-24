@@ -5,6 +5,8 @@ using LogHub.Server.Channels;
 using LogHub.Server.Convertors;
 using LogHub.Server.Handlers;
 using LogHub.Server.Processors;
+using LogHub.Server.Retention;
+using LogHub.Server.Tasks;
 using Ninject;
 using Ninject.Modules;
 using Raven.Client;
@@ -76,6 +78,14 @@ namespace LogHub.Server.Modules
         .To<UdpChannelListener>()
         .InSingletonScope()
         .WithConstructorArgument("port", int.Parse(ConfigurationManager.AppSettings["UdpListenPort"]));
+
+      Bind<IBackgroundTaskExecuter>()
+        .To<DefaultBackgroundTaskExecuter>()
+        .InSingletonScope();
+
+      Bind<IBackgroundTask>()
+        .To<RetentionBackgroundTask>()
+        .InSingletonScope();
     }
   }
 }
