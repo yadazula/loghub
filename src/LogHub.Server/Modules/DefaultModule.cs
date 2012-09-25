@@ -2,12 +2,12 @@
 using System.Configuration;
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
+using LogHub.Server.Archiving;
 using LogHub.Server.Buffers;
 using LogHub.Server.Channels;
 using LogHub.Server.Convertors;
 using LogHub.Server.Handlers;
 using LogHub.Server.Processors;
-using LogHub.Server.Retention;
 using LogHub.Server.Tasks;
 using Ninject;
 using Ninject.Modules;
@@ -83,24 +83,39 @@ namespace LogHub.Server.Modules
         .InSingletonScope()
         .WithConstructorArgument("port", int.Parse(ConfigurationManager.AppSettings["UdpListenPort"]));
 
-      Bind<IBackgroundTaskExecuter>()
-        .To<DefaultBackgroundTaskExecuter>()
+      Bind<IScheduledTaskExecuter>()
+        .To<ScheduledTaskExecuter>()
         .InSingletonScope();
 
-      Bind<IBackgroundTask>()
-        .To<RetentionBackgroundTask>()
+      Bind<AmazonGlacierArchiver>()
+        .ToSelf()
+        .InSingletonScope();
+
+      Bind<AmazonS3Archiver>()
+        .ToSelf()
+        .InSingletonScope();
+
+      Bind<DiskArchiver>()
+        .ToSelf()
+        .InSingletonScope();
+
+      Bind<IScheduledTask>()
+        .To<RetentionScheduledTask>()
         .InSingletonScope()
         .WithConstructorArgument("archiverFactory", x =>
           {
             Func<IArchiveSetting, ILogArchiver> archiverFactory = y =>
             {
               if (y is AmazonGlacierArchiveSetting)
-                return new AmazonGlacierArchiver((AmazonGlacierArchiveSetting) y);
+                return x.Kernel.Get<AmazonGlacierArchiver>();
+
+              if (y is AmazonS3Setting)
+                return x.Kernel.Get<AmazonS3Archiver>();
 
               if (y is DiskArchiveSetting)
-                return new DiskArchiver((DiskArchiveSetting) y);
+                return x.Kernel.Get<DiskArchiver>();
 
-              throw new ArgumentException(string.Format("No archiver found for {0}",y.GetType()));
+              throw new ArgumentException(string.Format("No archiver found for {0}", y.GetType()));
             };
 
             return archiverFactory;

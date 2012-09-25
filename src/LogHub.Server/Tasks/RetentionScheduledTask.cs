@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
-using LogHub.Server.Tasks;
+using LogHub.Server.Archiving;
 using NLog;
 using Newtonsoft.Json;
 using Raven.Abstractions.Data;
@@ -14,15 +13,14 @@ using Raven.Client;
 using Raven.Client.Linq;
 using Raven.Json.Linq;
 
-namespace LogHub.Server.Retention
+namespace LogHub.Server.Tasks
 {
-  public class RetentionBackgroundTask : IBackgroundTask
+  public class RetentionScheduledTask : IScheduledTask
   {
     private readonly IDocumentStore documentStore;
     private readonly Func<IArchiveSetting, ILogArchiver> archiverFactory;
-    private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-    public RetentionBackgroundTask(IDocumentStore documentStore, Func<IArchiveSetting, ILogArchiver> archiverFactory)
+    public RetentionScheduledTask(IDocumentStore documentStore, Func<IArchiveSetting, ILogArchiver> archiverFactory)
     {
       this.documentStore = documentStore;
       this.archiverFactory = archiverFactory;
@@ -41,7 +39,11 @@ namespace LogHub.Server.Retention
 
         foreach (var retentionSetting in retentionSettings)
         {
-          Archive(retentionSetting);
+          if (retentionSetting.ArchiveSettings.Any())
+          {
+            Archive(retentionSetting);
+          }
+          
           Delete(retentionSetting);
         }
       }
@@ -49,17 +51,14 @@ namespace LogHub.Server.Retention
 
     private void Archive(RetentionSetting retentionSetting)
     {
-      if (!retentionSetting.ArchiveSettings.Any())
-      {
-        return;
-      }
-
-      var file = Export(retentionSetting);
+      var filePath = Export(retentionSetting);
       foreach (var archiveSetting in retentionSetting.ArchiveSettings)
       {
         var archiver = archiverFactory(archiveSetting);
-        archiver.Archive(file);
+        archiver.Archive(archiveSetting, filePath);
       }
+
+      File.Delete(filePath);
     }
 
     private string Export(RetentionSetting retentionSetting)
@@ -79,19 +78,19 @@ namespace LogHub.Server.Retention
         streamWriter.Flush();
       }
 
-      return path;
+      return Path.Combine(Environment.CurrentDirectory, path);
     }
 
     private void ExportDocuments(RetentionSetting retentionSetting, JsonTextWriter jsonWriter)
     {
-      var cutoff = DateTimeOffset.Now.AddDays(-retentionSetting.Days);
+      var cutoffDate = DateTimeOffset.Now.AddDays(-retentionSetting.Days);
       var readMessages = 0;
       while (true)
       {
         using (var documentSession = documentStore.OpenSession())
         {
           var messages = documentSession.Query<LogMessage, LogMessage_Search>()
-                                        .Where(x => x.Source == retentionSetting.Source && x.Date < cutoff)
+                                        .Where(x => x.Source == retentionSetting.Source && x.Date < cutoffDate)
                                         .Skip(readMessages)
                                         .Take(1024)
                                         .ToList();

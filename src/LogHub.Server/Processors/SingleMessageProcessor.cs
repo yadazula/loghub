@@ -25,18 +25,18 @@ namespace LogHub.Server.Processors
     {
       try
       {
-        Logger.Debug("Starting to process message [{0}].", rawMessage.TrackingId);
+        Logger.Debug("Starting to process message [{0}]", rawMessage.TrackingId);
         var logMessage = logMessageConvertor.Convert(rawMessage);
 
         if (!logMessage.IsValid())
         {
-          Logger.Debug("Skipping incomplete message [{0}].", logMessage.TrackingId);
+          Logger.Debug("Skipping incomplete message [{0}]", logMessage.TrackingId);
           return;
         }
 
         foreach (var handler in handlers)
         {
-          Logger.Debug("Applying handler [{0}] on message [{1}].", handler.Name, logMessage.TrackingId);
+          Logger.Debug("Applying handler [{0}] on message [{1}]", handler.Name, logMessage.TrackingId);
           var discard = !handler.Handle(logMessage);
 
           if (discard)
@@ -51,7 +51,7 @@ namespace LogHub.Server.Processors
       }
       catch (Exception exception)
       {
-        Logger.ErrorException(string.Format("Exception thrown while processing message [{0}].", rawMessage.TrackingId), exception);
+        Logger.ErrorException(string.Format("Exception thrown while processing message [{0}]", rawMessage.TrackingId), exception);
       }
     }
   }

@@ -12,7 +12,7 @@ namespace LogHub.Server
     private readonly IKernel kernel;
     private readonly IChannelListener channelListener;
     private readonly IDocumentStore documentStore;
-    private readonly IBackgroundTaskExecuter backgroundTaskExecuter;
+    private readonly IScheduledTaskExecuter scheduledTaskExecuter;
 
     public Bootstrapper()
     {
@@ -20,11 +20,11 @@ namespace LogHub.Server
       kernel.Load<DefaultModule>();
       channelListener = kernel.Get<IChannelListener>();
       documentStore = kernel.Get<IDocumentStore>();
-      backgroundTaskExecuter = kernel.Get<IBackgroundTaskExecuter>();
-      var backgroundTasks = kernel.GetAll<IBackgroundTask>();
+      scheduledTaskExecuter = kernel.Get<IScheduledTaskExecuter>();
+      var backgroundTasks = kernel.GetAll<IScheduledTask>();
       foreach (var backgroundTask in backgroundTasks)
       {
-        backgroundTaskExecuter.Register(backgroundTask);
+        scheduledTaskExecuter.Register(backgroundTask);
       }
     }
 
@@ -35,7 +35,7 @@ namespace LogHub.Server
 
     public void Dispose()
     {
-      backgroundTaskExecuter.Dispose();
+      scheduledTaskExecuter.Dispose();
       channelListener.Dispose();
       documentStore.Dispose();
     }

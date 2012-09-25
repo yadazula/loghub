@@ -4,6 +4,7 @@ namespace LogHub.Core.Models
   {
     public string AWSAccessKey { get; set; }
     public string AWSSecretKey { get; set; }
+    public string RegionName { get; set; }
     public string Vault { get; set; }
   }
 }

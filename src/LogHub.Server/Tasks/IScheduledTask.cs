@@ -2,7 +2,7 @@
 
 namespace LogHub.Server.Tasks
 {
-  public interface IBackgroundTask
+  public interface IScheduledTask
   {
     TimeSpan Period { get; }
     void Execute();

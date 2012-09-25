@@ -16,19 +16,19 @@ namespace LogHub.Server.Buffers
 
     public void Consume(LogMessage[] logMessages)
     {
-      Logger.Debug("Saving {0} messages to ravendb.", logMessages.Length);
+      Logger.Debug("Saving {0} messages to ravendb", logMessages.Length);
 
       using (var session = documentStore.OpenSession())
       {
         foreach (var logMessage in logMessages)
         {
-          Logger.Debug("Storing message [{0}].", logMessage.TrackingId);
+          Logger.Debug("Storing message [{0}]", logMessage.TrackingId);
           session.Store(logMessage);
         }
         session.SaveChanges();
       }
 
-      Logger.Debug("Saved {0} messages to ravendb.", logMessages.Length);
+      Logger.Debug("Saved {0} messages to ravendb", logMessages.Length);
     }
   }
 }

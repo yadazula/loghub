@@ -9,6 +9,18 @@ loghub.viewmodels.retentionList = function () {
         self.currentItem({
             source: ko.observable(),
             days: ko.observable(),
+            archiveEnabled: ko.observable(false),
+            archiveDisk: ko.observable(false),
+            diskPath: ko.observable(),
+            archiveGlacier: ko.observable(false),
+            glacierAccessKey: ko.observable(),
+            glacierSecretKey: ko.observable(),
+            glacierRegion: ko.observable(),
+            glacierVault: ko.observable(),
+            archiveS3: ko.observable(false),
+            s3AccessKey: ko.observable(),
+            s3SecretKey: ko.observable(),
+            s3Bucket: ko.observable(),
             isNew: ko.observable(true),
             validationErrors: ko.observable([]),
             isLoading: ko.observable(false)
@@ -56,7 +68,7 @@ loghub.viewmodels.retentionList = function () {
         if (!self.validate(item))
             return;
 
-        var data = ko.mapping.toJSON(item, { ignore: ['isNew', 'validationErrors', 'isLoading'] });
+        var data = ko.mapping.toJSON(item, { ignore: ['isNew', 'validationErrors', 'isLoading', 'archiveEnabled'] });
         item.isLoading(true);
 
         loghub.restClient.post('/api/retention', data, {
