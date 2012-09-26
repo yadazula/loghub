@@ -71,63 +71,67 @@
             </div>
             <div data-bind="visible: archiveEnabled">
                 <ul class="nav nav-tabs">
+                    <li class="active"><a href="#disk" data-toggle="tab" id="mytab">Archive To Disk</a></li>
+                    <li><a href="#glacier" data-toggle="tab">Archive To Amazon Glacier</a></li>
+                    <li><a href="#s3" data-toggle="tab">Archive To Amazon S3</a></li>
                 </ul>
-                <div class="control-group">
-                    <label class="control-label">Archive To Disk</label>
-                    <div class="controls">
-                        <input type="checkbox" data-bind="checked: archiveDisk">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="disk">
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputDiskPath">Path</label>
+                            <div class="controls">
+                                <input type="text" id="inputDiskPath" placeholder="Path" data-bind="value: diskPath">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="glacier">
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputGlacierAccessKey">Access Key</label>
+                            <div class="controls">
+                                <input type="text" id="inputGlacierAccessKey" placeholder="Access Key" data-bind="value: glacierAccessKey">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputGlacierSecretKey">Secret Key</label>
+                            <div class="controls">
+                                <input type="text" id="inputGlacierSecretKey" placeholder="Secret Key" data-bind="value: glacierSecretKey">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputGlacierRegion">Region</label>
+                            <div class="controls">
+                                <input type="text" id="inputGlacierRegion" placeholder="Region" data-bind="value: glacierRegion">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputGlacierVault">Vault</label>
+                            <div class="controls">
+                                <input type="text" id="inputGlacierVault" placeholder="Vault" data-bind="value: glacierVault">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="s3">
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputS3AccessKey">Access Key</label>
+                            <div class="controls">
+                                <input type="text" id="inputS3AccessKey" placeholder="Access Key" data-bind="value: s3AccessKey">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputS3SecretKey">Secret Key</label>
+                            <div class="controls">
+                                <input type="text" id="inputS3SecretKey" placeholder="Secret Key" data-bind="value: s3SecretKey">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="font-weight: normal" for="inputS3Bucket">Bucket</label>
+                            <div class="controls">
+                                <input type="text" id="inputS3Bucket" placeholder="Bucket" data-bind="value: s3Bucket">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div data-bind="visible: archiveDisk">
-                    <label class="control-label" style="font-weight: normal" for="inputDiskPath">Path</label>
-                    <div class="controls">
-                        <input type="text" id="inputDiskPath" placeholder="Path" data-bind="value: diskPath">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Archive To Amazon Glacier</label>
-                    <div class="controls">
-                        <input type="checkbox" data-bind="checked: archiveGlacier">
-                    </div>
-                </div>
-                <div data-bind="visible: archiveGlacier">
-                    <label class="control-label" style="font-weight: normal" for="inputGlacierAccessKey">Access Key</label>
-                    <div class="controls">
-                        <input type="text" id="inputGlacierAccessKey" placeholder="Access Key" data-bind="value: glacierAccessKey">
-                    </div>
-                    <label class="control-label" style="font-weight: normal" for="inputGlacierSecretKey">Secret Key</label>
-                    <div class="controls">
-                        <input type="text" id="inputGlacierSecretKey" placeholder="Secret Key" data-bind="value: glacierSecretKey">
-                    </div>
-                    <label class="control-label" style="font-weight: normal" for="inputGlacierRegion">Region</label>
-                    <div class="controls">
-                        <input type="text" id="inputGlacierRegion" placeholder="Region" data-bind="value: glacierRegion">
-                    </div>
-                    <label class="control-label" style="font-weight: normal" for="inputGlacierVault">Vault</label>
-                    <div class="controls">
-                        <input type="text" id="inputGlacierVault" placeholder="Vault" data-bind="value: glacierVault">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Archive To Amazon S3</label>
-                    <div class="controls">
-                        <input type="checkbox" data-bind="checked: archiveS3">
-                    </div>
-                </div>
-                <div data-bind="visible: archiveS3">
-                    <label class="control-label" style="font-weight: normal" for="inputS3AccessKey">Access Key</label>
-                    <div class="controls">
-                        <input type="text" id="inputS3AccessKey" placeholder="Access Key" data-bind="value: s3AccessKey">
-                    </div>
-                    <label class="control-label" style="font-weight: normal" for="inputS3SecretKey">Secret Key</label>
-                    <div class="controls">
-                        <input type="text" id="inputS3SecretKey" placeholder="Secret Key" data-bind="value: s3SecretKey">
-                    </div>
-                    <label class="control-label" style="font-weight: normal" for="inputS3Bucket">Bucket</label>
-                    <div class="controls">
-                        <input type="text" id="inputS3Bucket" placeholder="Bucket" data-bind="value: s3Bucket">
-                    </div>
-                </div>
+
             </div>
         </form>
     </div>
