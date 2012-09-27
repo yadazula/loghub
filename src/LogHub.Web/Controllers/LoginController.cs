@@ -12,7 +12,7 @@ using Raven.Client.Document;
 namespace LogHub.Web.Controllers
 {
   [AllowAnonymous]
-  public class LoginController : AbstractController
+  public class LoginController : AbstractMvcController
   {
     public LoginController(IDocumentSession documentSession)
       : base(documentSession)

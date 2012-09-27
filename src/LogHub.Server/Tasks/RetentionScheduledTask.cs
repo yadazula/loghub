@@ -35,35 +35,34 @@ namespace LogHub.Server.Tasks
     {
       using (var documentSession = documentStore.OpenSession())
       {
-        var archiveSettings = documentSession.Query<ArchiveSettings>().FirstOrDefault();
-        var retentionSettings = documentSession.Query<RetentionSetting>();
+        var retentions = documentSession.Query<Retention>();
 
-        foreach (var retentionSetting in retentionSettings)
+        foreach (var retention in retentions)
         {
-          if (retentionSetting.NeedsArchiving)
+          if (retention.NeedsArchiving)
           {
-            Archive(retentionSetting, archiveSettings);
+            Archive(retention);
           }
 
-          Delete(retentionSetting);
+          Delete(retention);
         }
       }
     }
 
-    private void Archive(RetentionSetting retentionSetting, ArchiveSettings archiveSettings)
+    private void Archive(Retention retention)
     {
-      var filePath = Export(retentionSetting);
+      var filePath = Export(retention);
       foreach (var logArchiver in logArchivers)
       {
-          logArchiver.Archive(retentionSetting, archiveSettings, filePath);
+          logArchiver.Archive(retention, filePath);
       }
 
       File.Delete(filePath);
     }
 
-    private string Export(RetentionSetting retentionSetting)
+    private string Export(Retention retention)
     {
-      var filename = GenerateSafeFilename(retentionSetting.Source);
+      var filename = GenerateSafeFilename(retention.Source);
       var path = string.Format("{0}.{1}.gz", DateTime.UtcNow.ToString("yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture), filename);
 
       using (var streamWriter = new StreamWriter(new GZipStream(File.Create(path), CompressionMode.Compress)))
@@ -72,7 +71,7 @@ namespace LogHub.Server.Tasks
         jsonWriter.WriteStartObject();
         jsonWriter.WritePropertyName("Docs");
         jsonWriter.WriteStartArray();
-        ExportDocuments(retentionSetting, jsonWriter);
+        ExportDocuments(retention, jsonWriter);
         jsonWriter.WriteEndArray();
         jsonWriter.WriteEndObject();
         streamWriter.Flush();
@@ -81,16 +80,16 @@ namespace LogHub.Server.Tasks
       return Path.Combine(Environment.CurrentDirectory, path);
     }
 
-    private void ExportDocuments(RetentionSetting retentionSetting, JsonTextWriter jsonWriter)
+    private void ExportDocuments(Retention retention, JsonTextWriter jsonWriter)
     {
-      var cutoffDate = DateTimeOffset.Now.AddDays(-retentionSetting.Days);
+      var cutoffDate = DateTimeOffset.Now.AddDays(-retention.Days);
       var readMessages = 0;
       while (true)
       {
         using (var documentSession = documentStore.OpenSession())
         {
           var messages = documentSession.Query<LogMessage, LogMessage_Search>()
-                                        .Where(x => x.Source == retentionSetting.Source && x.Date < cutoffDate)
+                                        .Where(x => x.Source == retention.Source && x.Date < cutoffDate)
                                         .Skip(readMessages)
                                         .Take(1024)
                                         .ToList();
@@ -106,13 +105,13 @@ namespace LogHub.Server.Tasks
       }
     }
 
-    private void Delete(RetentionSetting retentionSetting)
+    private void Delete(Retention retention)
     {
       using (var documentSession = documentStore.OpenSession())
       {
-        var cutoff = DateTimeOffset.Now.AddDays(-retentionSetting.Days);
+        var cutoff = DateTimeOffset.Now.AddDays(-retention.Days);
         var query = documentSession.Query<LogMessage, LogMessage_Search>()
-                                   .Where(x => x.Source == retentionSetting.Source && x.Date < cutoff)
+                                   .Where(x => x.Source == retention.Source && x.Date < cutoff)
                                    .ToString();
 
         documentStore.DatabaseCommands.DeleteByIndex(new LogMessage_Search().IndexName, new IndexQuery { Query = query });

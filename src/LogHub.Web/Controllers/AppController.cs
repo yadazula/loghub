@@ -2,12 +2,11 @@
 using System.Web.Mvc;
 using LogHub.Core.Extensions;
 using LogHub.Core.Models;
-using LogHub.Web.Infrastructure.Common;
 using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public class AppController : AbstractController
+  public class AppController : AbstractMvcController
   {
     public AppController(IDocumentSession documentSession)
       : base(documentSession)

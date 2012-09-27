@@ -1,19 +1,25 @@
 using System.IO;
 using Amazon.Glacier.Transfer;
 using LogHub.Core.Models;
+using Raven.Client;
 
 namespace LogHub.Server.Archiving
 {
-  public class AmazonGlacierArchiver : ILogArchiver
+  public class AmazonGlacierArchiver : AbstractLogArchiver
   {
-    public void Archive(RetentionSetting retentionSetting, ArchiveSettings setting, string filePath)
+    public AmazonGlacierArchiver(IDocumentSession documentSession)
+      : base(documentSession)
     {
-      if (!retentionSetting.ArchiveToGlacier)
+    }
+
+    public override void Archive(Retention retention, string filePath)
+    {
+      if (!retention.ArchiveToGlacier)
         return;
 
-      using (var transferManager = new ArchiveTransferManager(setting.GlacierAWSAccessKey, setting.GlacierAWSSecretKey, Amazon.RegionEndpoint.GetBySystemName(setting.GlacierRegionName)))
+      using (var transferManager = new ArchiveTransferManager(Settings.Archive.GlacierAccessKey, Settings.Archive.GlacierSecretKey, Amazon.RegionEndpoint.GetBySystemName(Settings.Archive.GlacierRegionName)))
       {
-        transferManager.Upload(setting.GlacierVault, Path.GetFileNameWithoutExtension(filePath), filePath);
+        transferManager.Upload(Settings.Archive.GlacierVault, Path.GetFileNameWithoutExtension(filePath), filePath);
       }
     }
   }

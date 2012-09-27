@@ -14,13 +14,6 @@ loghub.viewmodels.retentionList = function () {
             archiveToDisk: ko.observable(false),
             archiveToGlacier: ko.observable(false),
             archiveToS3: ko.observable(false),
-            //glacierAccessKey: ko.observable(),
-            //glacierSecretKey: ko.observable(),
-            //glacierRegion: ko.observable(),
-            //glacierVault: ko.observable(),
-            //s3AccessKey: ko.observable(),
-            //s3SecretKey: ko.observable(),
-            //s3Bucket: ko.observable(),
             isNew: ko.observable(true),
             validationErrors: ko.observable([]),
             isLoading: ko.observable(false)

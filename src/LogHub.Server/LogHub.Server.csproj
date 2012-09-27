@@ -68,6 +68,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Archiving\AbstractLogArchiver.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Buffers\IBufferConsumer.cs" />
     <Compile Include="Buffers\OutputBufferConsumer.cs" />

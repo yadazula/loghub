@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LogHub.Core.Models
 {
-  public class RetentionSetting
+  public class Retention
   {
     public string Id { get; set; }
     public string Source { get; set; }

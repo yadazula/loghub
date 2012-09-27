@@ -1,17 +1,23 @@
 using System.IO;
 using LogHub.Core.Models;
+using Raven.Client;
 
 namespace LogHub.Server.Archiving
 {
-  public class DiskArchiver : ILogArchiver
+  public class DiskArchiver : AbstractLogArchiver
   {
-    public void Archive(RetentionSetting retentionSetting, ArchiveSettings setting, string filePath)
+    public DiskArchiver(IDocumentSession documentSession)
+      : base(documentSession)
     {
-      if (!retentionSetting.ArchiveToDisk)
+    }
+
+    public override void Archive(Retention retention, string filePath)
+    {
+      if (!retention.ArchiveToDisk)
         return;
 
       var fileName = Path.GetFileName(filePath);
-      var destFileName = Path.Combine(setting.DiskPath, fileName);
+      var destFileName = Path.Combine(Settings.Archive.DiskPath, fileName);
       File.Copy(filePath, destFileName);
     }
   }

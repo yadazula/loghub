@@ -11,10 +11,13 @@
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
-                    <th style="width: 20%">Source</th>
-                    <th style="width: 20%">Delete Logs After</th>
-                    <th style="width: 20%">Created By</th>
-                    <th style="width: 20%">Created At</th>
+                    <th style="width: 15%">Source</th>
+                    <th style="width: 15%">Delete Logs After</th>
+                    <th style="width: 15%">Archive To Glacier</th>
+                    <th style="width: 15%">Archive To S3</th>
+                    <th style="width: 15%">Archive To Local Disk</th>
+                    <th style="width: 15%">Created By</th>
+                    <th style="width: 10%">Created At</th>
                     <th style="width: 10%"></th>
                     <th style="width: 10%"></th>
                 </tr>
@@ -23,6 +26,9 @@
                 <tr>
                     <td data-bind="text: source"></td>
                     <td data-bind="text: days() + ' Days'"></td>
+                    <td><input type="checkbox" disabled="disabled" data-bind="checked: archiveToDisk"></td>
+                    <td><input type="checkbox" disabled="disabled" data-bind="checked: archiveToS3"></td>
+                    <td><input type="checkbox" disabled="disabled" data-bind="checked: archiveToDisk"></td>
                     <td data-bind="text: createdBy"></td>
                     <td data-bind="text: createdAt"></td>
                     <td>
@@ -81,65 +87,6 @@
                     <input type="checkbox" data-bind="checked: archiveToDisk">
                 </div>
             </div>
-            <!--<div data-bind="visible: archiveEnabled">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#disk" data-toggle="tab" id="mytab">Archive To Disk</a></li>
-                    <li><a href="#glacier" data-toggle="tab">Archive To Amazon Glacier</a></li>
-                    <li><a href="#s3" data-toggle="tab">Archive To Amazon S3</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="disk">
-                        
-                    </div>
-                    <div class="tab-pane" id="glacier">
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputGlacierAccessKey">Access Key</label>
-                            <div class="controls">
-                                <input type="text" id="inputGlacierAccessKey" placeholder="Access Key" data-bind="value: glacierAccessKey">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputGlacierSecretKey">Secret Key</label>
-                            <div class="controls">
-                                <input type="text" id="inputGlacierSecretKey" placeholder="Secret Key" data-bind="value: glacierSecretKey">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputGlacierRegion">Region</label>
-                            <div class="controls">
-                                <input type="text" id="inputGlacierRegion" placeholder="Region" data-bind="value: glacierRegion">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputGlacierVault">Vault</label>
-                            <div class="controls">
-                                <input type="text" id="inputGlacierVault" placeholder="Vault" data-bind="value: glacierVault">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="s3">
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputS3AccessKey">Access Key</label>
-                            <div class="controls">
-                                <input type="text" id="inputS3AccessKey" placeholder="Access Key" data-bind="value: s3AccessKey">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputS3SecretKey">Secret Key</label>
-                            <div class="controls">
-                                <input type="text" id="inputS3SecretKey" placeholder="Secret Key" data-bind="value: s3SecretKey">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputS3Bucket">Bucket</label>
-                            <div class="controls">
-                                <input type="text" id="inputS3Bucket" placeholder="Bucket" data-bind="value: s3Bucket">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>-->
         </form>
     </div>
     <div class="modal-footer">

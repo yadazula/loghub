@@ -15,36 +15,25 @@ namespace LogHub.Web.Controllers
     {
     }
 
-    public IEnumerable<RetentionSetting> Get()
+    public IEnumerable<Retention> Get()
     {
-      var items = DocumentSession.Query<RetentionSetting>()
+      var items = DocumentSession.Query<Retention>()
                                  .Customize(x => x.WaitForNonStaleResultsAsOfNow())
-                                 .Include(x => x.CreatedBy)
                                  .ToList();
-
-      foreach (var item in items)
-      {
-        DocumentSession.Advanced.Evict(item);
-        item.CreatedBy = DocumentSession.Load<User>(item.CreatedBy).Name;
-      }
 
       return items;
     }
 
-    public void Post(RetentionSetting retentionSetting)
+    public void Post(Retention retention)
     {
-      var user = DocumentSession.Query<User>().Single(x => x.Username == User.Identity.Name);
-      retentionSetting.CreatedBy = DocumentSession.Advanced.GetDocumentId(user);
-      retentionSetting.CreatedAt = DateTimeOffset.Now;
-      //retentionSetting.ArchiveSettings.Add(new DiskArchiveSetting { Path = @"C:\Users\gokhandemir\Desktop" });
-      //retentionSetting.ArchiveSettings.Add(new AmazonS3Setting { AWSAccessKey = "AKIAIXQSV4VZIIW4MPLA", AWSSecretKey = "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", BucketName = "YadazulaBucket" });
-      //retentionSetting.ArchiveSettings.Add(new AmazonGlacierArchiveSetting { AWSAccessKey = "AKIAIXQSV4VZIIW4MPLA", AWSSecretKey = "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", Vault = "loghub", RegionName = "us-east-1" });
-      DocumentSession.Store(retentionSetting);
+      retention.CreatedBy = User.Identity.Name;
+      retention.CreatedAt = DateTimeOffset.Now;
+      DocumentSession.Store(retention);
     }
 
     public void Delete(string id)
     {
-      var item = DocumentSession.Load<RetentionSetting>(id);
+      var item = DocumentSession.Load<Retention>(id);
       DocumentSession.Delete(item);
     }
   }

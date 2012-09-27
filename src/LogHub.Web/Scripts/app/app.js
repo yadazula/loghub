@@ -44,7 +44,13 @@ loghub.app = new function () {
         });
     });
     
-    self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', '', function (params) {
+    self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', 'Settings-template', function (params) {
+        if (self.currentPage == self.settings) return;
+
+        self.viewModel = new loghub.viewmodels.Settings();
+        self.viewModel.load(function () {
+            self.setCurrentPage(self.settings, self.viewModel);
+        });
     });
 
     self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {

@@ -3,11 +3,11 @@ using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public abstract class AbstractController  : Controller
+  public abstract class AbstractMvcController  : Controller
   {
     protected readonly IDocumentSession DocumentSession;
 
-    protected AbstractController(IDocumentSession documentSession)
+    protected AbstractMvcController(IDocumentSession documentSession)
     {
       DocumentSession = documentSession;
     }
