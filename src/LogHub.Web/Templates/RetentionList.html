@@ -1,7 +1,7 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
     <div class="widget-header">
         <div class="pull-left">
-            <h3>Retention Settings</h3>
+            <h3>Retention & Archiving</h3>
         </div>
         <div class="pull-right widget-action">
             <button class="btn btn-primary" data-bind="click: create">Create new entry</button>
@@ -64,12 +64,24 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Archive Deleted Logs</label>
+                <label class="control-label">Archive To Glacier</label>
                 <div class="controls">
-                    <input type="checkbox" data-bind="checked: archiveEnabled">
+                    <input type="checkbox" data-bind="checked: archiveToGlacier">
                 </div>
             </div>
-            <div data-bind="visible: archiveEnabled">
+            <div class="control-group">
+                <label class="control-label">Archive To S3</label>
+                <div class="controls">
+                    <input type="checkbox" data-bind="checked: archiveToS3">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Archive To Local Disk</label>
+                <div class="controls">
+                    <input type="checkbox" data-bind="checked: archiveToDisk">
+                </div>
+            </div>
+            <!--<div data-bind="visible: archiveEnabled">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#disk" data-toggle="tab" id="mytab">Archive To Disk</a></li>
                     <li><a href="#glacier" data-toggle="tab">Archive To Amazon Glacier</a></li>
@@ -77,12 +89,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="disk">
-                        <div class="control-group">
-                            <label class="control-label" style="font-weight: normal" for="inputDiskPath">Path</label>
-                            <div class="controls">
-                                <input type="text" id="inputDiskPath" placeholder="Path" data-bind="value: diskPath">
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="tab-pane" id="glacier">
                         <div class="control-group">
@@ -132,7 +139,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>-->
         </form>
     </div>
     <div class="modal-footer">

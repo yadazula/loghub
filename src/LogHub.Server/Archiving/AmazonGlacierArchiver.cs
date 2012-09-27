@@ -4,13 +4,16 @@ using LogHub.Core.Models;
 
 namespace LogHub.Server.Archiving
 {
-  public class AmazonGlacierArchiver : AbstractLogArchiver<AmazonGlacierArchiveSetting>
+  public class AmazonGlacierArchiver : ILogArchiver
   {
-    protected override void Archive(AmazonGlacierArchiveSetting setting, string filePath)
+    public void Archive(RetentionSetting retentionSetting, ArchiveSettings setting, string filePath)
     {
-      using (var transferManager = new ArchiveTransferManager(setting.AWSAccessKey, setting.AWSSecretKey, Amazon.RegionEndpoint.GetBySystemName(setting.RegionName)))
+      if (!retentionSetting.ArchiveToGlacier)
+        return;
+
+      using (var transferManager = new ArchiveTransferManager(setting.GlacierAWSAccessKey, setting.GlacierAWSSecretKey, Amazon.RegionEndpoint.GetBySystemName(setting.GlacierRegionName)))
       {
-        transferManager.Upload(setting.Vault, Path.GetFileNameWithoutExtension(filePath), filePath);
+        transferManager.Upload(setting.GlacierVault, Path.GetFileNameWithoutExtension(filePath), filePath);
       }
     }
   }

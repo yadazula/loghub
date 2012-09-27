@@ -87,39 +87,24 @@ namespace LogHub.Server.Modules
         .To<ScheduledTaskExecuter>()
         .InSingletonScope();
 
-      Bind<AmazonGlacierArchiver>()
-        .ToSelf()
-        .InSingletonScope();
+      Bind<ILogArchiver>()
+        .To<AmazonGlacierArchiver>()
+        .InSingletonScope()
+        .Named("AmazonGlacierArchiver");
 
-      Bind<AmazonS3Archiver>()
-        .ToSelf()
-        .InSingletonScope();
+      Bind<ILogArchiver>()
+        .To<AmazonS3Archiver>()
+        .InSingletonScope()
+        .Named("AmazonS3Archiver");
 
-      Bind<DiskArchiver>()
-        .ToSelf()
-        .InSingletonScope();
+      Bind<ILogArchiver>()
+        .To<DiskArchiver>()
+        .InSingletonScope()
+        .Named("DiskArchiver");
 
       Bind<IScheduledTask>()
         .To<RetentionScheduledTask>()
-        .InSingletonScope()
-        .WithConstructorArgument("archiverFactory", x =>
-          {
-            Func<IArchiveSetting, ILogArchiver> archiverFactory = y =>
-            {
-              if (y is AmazonGlacierArchiveSetting)
-                return x.Kernel.Get<AmazonGlacierArchiver>();
-
-              if (y is AmazonS3Setting)
-                return x.Kernel.Get<AmazonS3Archiver>();
-
-              if (y is DiskArchiveSetting)
-                return x.Kernel.Get<DiskArchiver>();
-
-              throw new ArgumentException(string.Format("No archiver found for {0}", y.GetType()));
-            };
-
-            return archiverFactory;
-          });
+        .InSingletonScope();
     }
   }
 }

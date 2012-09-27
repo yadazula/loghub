@@ -4,15 +4,18 @@ using LogHub.Core.Models;
 
 namespace LogHub.Server.Archiving
 {
-  public class AmazonS3Archiver : AbstractLogArchiver<AmazonS3Setting>
+  public class AmazonS3Archiver : ILogArchiver
   {
-    protected override void Archive(AmazonS3Setting setting, string filePath)
+    public void Archive(RetentionSetting retentionSetting, ArchiveSettings setting, string filePath)
     {
-      using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(setting.AWSAccessKey, setting.AWSSecretKey))
+      if (!retentionSetting.ArchiveToS3)
+        return;
+
+      using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(setting.S3AWSAccessKey, setting.S3AWSSecretKey))
       {
         var putObjectRequest = new PutObjectRequest();
         putObjectRequest.WithFilePath(filePath)
-                        .WithBucketName(setting.BucketName)
+                        .WithBucketName(setting.S3BucketName)
                         .WithKey(Path.GetFileNameWithoutExtension(filePath));
 
         client.PutObject(putObjectRequest);

@@ -8,13 +8,18 @@ namespace LogHub.Core.Models
     public string Id { get; set; }
     public string Source { get; set; }
     public ushort Days { get; set; }
-    public IList<IArchiveSetting> ArchiveSettings { get; set; }
+    public bool ArchiveToGlacier { get; set; }
+    public bool ArchiveToS3 { get; set; }
+    public bool ArchiveToDisk { get; set; }
     public string CreatedBy { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
 
-    public RetentionSetting()
+    public bool NeedsArchiving
     {
-      ArchiveSettings = new List<IArchiveSetting>();
+      get
+      {
+        return (ArchiveToS3 || ArchiveToGlacier || ArchiveToDisk);
+      }
     }
   }
 }

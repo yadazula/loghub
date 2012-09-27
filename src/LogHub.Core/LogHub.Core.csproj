@@ -54,10 +54,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Indexes\LogMessage_Search.cs" />
-    <Compile Include="Models\AmazonGlacierArchiveSetting.cs" />
-    <Compile Include="Models\AmazonS3Setting.cs" />
-    <Compile Include="Models\DiskArchiveSetting.cs" />
-    <Compile Include="Models\IArchiveSetting.cs" />
+    <Compile Include="Models\ArchiveSettings.cs" />
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\RetentionSetting.cs" />

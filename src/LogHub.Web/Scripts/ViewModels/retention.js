@@ -5,22 +5,22 @@ loghub.viewmodels.retentionList = function () {
     var self = this;
     self.currentItem = ko.observable();
 
+    self.url = '/api/retention';
+
     self.create = function () {
         self.currentItem({
             source: ko.observable(),
             days: ko.observable(),
-            archiveEnabled: ko.observable(false),
-            archiveDisk: ko.observable(false),
-            diskPath: ko.observable(),
-            archiveGlacier: ko.observable(false),
-            glacierAccessKey: ko.observable(),
-            glacierSecretKey: ko.observable(),
-            glacierRegion: ko.observable(),
-            glacierVault: ko.observable(),
-            archiveS3: ko.observable(false),
-            s3AccessKey: ko.observable(),
-            s3SecretKey: ko.observable(),
-            s3Bucket: ko.observable(),
+            archiveToDisk: ko.observable(false),
+            archiveToGlacier: ko.observable(false),
+            archiveToS3: ko.observable(false),
+            //glacierAccessKey: ko.observable(),
+            //glacierSecretKey: ko.observable(),
+            //glacierRegion: ko.observable(),
+            //glacierVault: ko.observable(),
+            //s3AccessKey: ko.observable(),
+            //s3SecretKey: ko.observable(),
+            //s3Bucket: ko.observable(),
             isNew: ko.observable(true),
             validationErrors: ko.observable([]),
             isLoading: ko.observable(false)
@@ -41,7 +41,7 @@ loghub.viewmodels.retentionList = function () {
     };
 
     self.delete = function (item) {
-        loghub.restClient.delete('/api/retention?id=' + item.id(), {
+        loghub.restClient.delete(self.url + '?id=' + item.id(), {
             success: function () {
                 self.refresh();
             }
@@ -68,10 +68,10 @@ loghub.viewmodels.retentionList = function () {
         if (!self.validate(item))
             return;
 
-        var data = ko.mapping.toJSON(item, { ignore: ['isNew', 'validationErrors', 'isLoading', 'archiveEnabled'] });
+        var data = ko.mapping.toJSON(item, { ignore: ['isNew', 'validationErrors', 'isLoading'] });
         item.isLoading(true);
 
-        loghub.restClient.post('/api/retention', data, {
+        loghub.restClient.post(self.url, data, {
             success: function () {
                 self.refresh();
             },
@@ -88,7 +88,7 @@ loghub.viewmodels.retentionList = function () {
     };
 
     self.load = function (callback) {
-        loghub.restClient.read('/api/retention', {
+        loghub.restClient.read(self.url, {
             success: function (data) {
                 if (self.items)
                     ko.mapping.fromJS(data, self.items);

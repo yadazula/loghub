@@ -206,7 +206,7 @@
     <Content Include="Scripts\sammy-latest.min.js" />
     <Content Include="Scripts\sammy.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Templates\RetentionSettings.html" />
+    <Content Include="Templates\RetentionList.html" />
     <Content Include="Templates\UserList.html" />
     <Content Include="Templates\RecentLogList.html" />
     <Content Include="Templates\LogItem.html" />

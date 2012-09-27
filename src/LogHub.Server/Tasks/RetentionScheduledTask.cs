@@ -18,12 +18,12 @@ namespace LogHub.Server.Tasks
   public class RetentionScheduledTask : IScheduledTask
   {
     private readonly IDocumentStore documentStore;
-    private readonly Func<IArchiveSetting, ILogArchiver> archiverFactory;
+    private readonly ILogArchiver[] logArchivers;
 
-    public RetentionScheduledTask(IDocumentStore documentStore, Func<IArchiveSetting, ILogArchiver> archiverFactory)
+    public RetentionScheduledTask(IDocumentStore documentStore, ILogArchiver[] logArchivers)
     {
       this.documentStore = documentStore;
-      this.archiverFactory = archiverFactory;
+      this.logArchivers = logArchivers;
     }
 
     public TimeSpan Period
@@ -35,27 +35,27 @@ namespace LogHub.Server.Tasks
     {
       using (var documentSession = documentStore.OpenSession())
       {
+        var archiveSettings = documentSession.Query<ArchiveSettings>().FirstOrDefault();
         var retentionSettings = documentSession.Query<RetentionSetting>();
 
         foreach (var retentionSetting in retentionSettings)
         {
-          if (retentionSetting.ArchiveSettings.Any())
+          if (retentionSetting.NeedsArchiving)
           {
-            Archive(retentionSetting);
+            Archive(retentionSetting, archiveSettings);
           }
-          
+
           Delete(retentionSetting);
         }
       }
     }
 
-    private void Archive(RetentionSetting retentionSetting)
+    private void Archive(RetentionSetting retentionSetting, ArchiveSettings archiveSettings)
     {
       var filePath = Export(retentionSetting);
-      foreach (var archiveSetting in retentionSetting.ArchiveSettings)
+      foreach (var logArchiver in logArchivers)
       {
-        var archiver = archiverFactory(archiveSetting);
-        archiver.Archive(archiveSetting, filePath);
+          logArchiver.Archive(retentionSetting, archiveSettings, filePath);
       }
 
       File.Delete(filePath);

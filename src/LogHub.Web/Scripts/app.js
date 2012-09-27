@@ -35,7 +35,7 @@ loghub.app = new function () {
         });
     });
     
-    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention Settings', 'RetentionSettings-template', function (params) {
+    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention & Archiving', 'RetentionList-template', function (params) {
         if (self.currentPage == self.retention) return;
 
         self.viewModel = new loghub.viewmodels.retentionList();
@@ -44,10 +44,13 @@ loghub.app = new function () {
         });
     });
     
+    self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', '', function (params) {
+    });
+
     self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {
     });
     
-    self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.health];
+    self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings, self.health];
 
     self.setCurrentPage = function (page, viewModel) {
         if (self.currentPage) {
