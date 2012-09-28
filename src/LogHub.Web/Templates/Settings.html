@@ -11,6 +11,11 @@
         </ul>
         <div class="tab-content" data-bind="with: item">
             <div class="tab-pane active" id="notification">
+                <div class="alert alert-error" data-bind="visible: $parent.validationErrors().length > 0">
+                    <ul data-bind="foreach: $parent.validationErrors">
+                        <li data-bind="text: $data"></li>
+                    </ul>
+                </div>
                 <form class="form-horizontal">
                     <legend>Smtp</legend>
                     <div class="control-group">
@@ -34,7 +39,7 @@
                     <div class="control-group">
                         <label class="control-label" style="font-weight: normal" for="inputPassword">Password</label>
                         <div class="controls">
-                            <input type="text" id="inputPassword" placeholder="Password" data-bind="value: notification.smtpPassword">
+                            <input type="password" id="inputPassword" data-bind="value: notification.smtpPassword">
                         </div>
                     </div>
                     <div class="control-group">
@@ -44,9 +49,16 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputFromAddress">From Address</label>
+                        <label class="control-label" style="font-weight: normal" for="inputFromAddress">Sender Email</label>
                         <div class="controls">
-                            <input type="text" id="inputFromAddress" placeholder="From Address" data-bind="value: notification.fromAddress">
+                            <input type="text" id="inputFromAddress" placeholder="Sender Email" data-bind="value: notification.fromAddress">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <button class="btn btn-primary" data-bind="click: $parent.saveNotification, disable: $parent.isLoading">Save</button>
+                            <img src="./images/loader.gif" data-bind="visible: $parent.isLoading" alt="" />
                         </div>
                     </div>
                 </form>
@@ -104,12 +116,15 @@
                             <input type="text" id="inputDiskPath" placeholder="Path" data-bind="value: archive.diskPath">
                         </div>
                     </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <button class="btn btn-primary" data-bind="click: $parent.save, disable: $parent.isLoading">Save</button>
+                            <img src="./images/loader.gif" data-bind="visible: $parent.isLoading" alt="" />
+                        </div>
+                    </div>
                 </form>
             </div>
-        </div>
-        <div>
-            <button class="btn btn-primary" data-bind="click: save, disable: isLoading">Save</button>
-            <img src="./images/loader.gif" data-bind="visible: isLoading" alt="" />
         </div>
     </div>
 </div>

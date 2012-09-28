@@ -4,7 +4,7 @@ using System.Web.Security;
 
 namespace LogHub.Web.Filters
 {
-  public class MVCAuthorizeAttribute : AuthorizeAttribute
+  public class MvcAuthorizeAttribute : AuthorizeAttribute
   {
     protected override bool AuthorizeCore(HttpContextBase httpContext)
     {

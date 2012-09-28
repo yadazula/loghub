@@ -6,9 +6,9 @@ using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public class AppController : AbstractMvcController
+  public class HomeController : AbstractMvcController
   {
-    public AppController(IDocumentSession documentSession)
+    public HomeController(IDocumentSession documentSession)
       : base(documentSession)
     {
     }

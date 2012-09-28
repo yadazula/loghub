@@ -24,7 +24,7 @@ namespace LogHub.Web.Controllers
     {
       if (Request.IsAuthenticated)
       {
-        return RedirectToAction("Index", "App");
+        return RedirectToAction("Index", "Home");
       }
 
       return View();
@@ -52,7 +52,7 @@ namespace LogHub.Web.Controllers
       var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
       Response.AppendCookie(authCookie);
 
-      return RedirectToAction("Index", "App");
+      return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]

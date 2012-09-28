@@ -8,7 +8,7 @@ namespace LogHub.Web.App_Start
     public static void RegisterGlobalFilters(GlobalFilterCollection filters)
     {
       filters.Add(new HandleErrorAttribute());
-      filters.Add(new MVCAuthorizeAttribute());
+      filters.Add(new MvcAuthorizeAttribute());
     }
   }
 }
