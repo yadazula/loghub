@@ -60,7 +60,10 @@
         </div>
     </div>
     <div class="widget-content">
-        <table class="table table-condensed table-hover">
+        <div class="alert alert-info" data-bind="visible: logItems().length == 0">
+            No log message found.
+        </div>
+        <table class="table table-condensed table-hover" data-bind="visible: logItems().length > 0">
             <thead>
                 <tr>
                     <th style="width: 10%">Date</th>

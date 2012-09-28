@@ -8,7 +8,10 @@
         </div>
     </div>
     <div class="widget-content">
-        <table class="table table-condensed table-hover">
+        <div class="alert alert-info" data-bind="visible: items.length == 0">
+            No retention entry found.
+        </div>
+        <table class="table table-condensed table-hover" data-bind="visible: items.length > 0">
             <thead>
                 <tr>
                     <th style="width: 15%">Source</th>
@@ -26,9 +29,12 @@
                 <tr>
                     <td data-bind="text: source"></td>
                     <td data-bind="text: days() + ' Days'"></td>
-                    <td><input type="checkbox" disabled="disabled" data-bind="checked: archiveToDisk"></td>
-                    <td><input type="checkbox" disabled="disabled" data-bind="checked: archiveToS3"></td>
-                    <td><input type="checkbox" disabled="disabled" data-bind="checked: archiveToDisk"></td>
+                    <td>
+                        <input type="checkbox" disabled="disabled" data-bind="checked: archiveToDisk"></td>
+                    <td>
+                        <input type="checkbox" disabled="disabled" data-bind="checked: archiveToS3"></td>
+                    <td>
+                        <input type="checkbox" disabled="disabled" data-bind="checked: archiveToDisk"></td>
                     <td data-bind="text: createdBy"></td>
                     <td data-bind="text: createdAt"></td>
                     <td>
