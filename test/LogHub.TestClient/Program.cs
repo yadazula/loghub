@@ -11,7 +11,7 @@ namespace LogHub.TestClient
     private static void Main()
     {
       var random = new Random();
-      int i = 377;
+      int i = 0;
       while (true)
       {
         var level = random.Next(1, 5);

@@ -96,6 +96,7 @@
     <Compile Include="Archiving\AmazonS3Archiver.cs" />
     <Compile Include="Archiving\DiskArchiver.cs" />
     <Compile Include="Archiving\ILogArchiver.cs" />
+    <Compile Include="Tasks\NotificationScheduledTask.cs" />
     <Compile Include="Tasks\RetentionScheduledTask.cs" />
     <Compile Include="Tasks\ScheduledTaskExecuter.cs" />
     <Compile Include="Tasks\IScheduledTask.cs" />

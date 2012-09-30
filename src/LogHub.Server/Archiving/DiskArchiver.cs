@@ -6,8 +6,8 @@ namespace LogHub.Server.Archiving
 {
   public class DiskArchiver : AbstractLogArchiver
   {
-    public DiskArchiver(IDocumentSession documentSession)
-      : base(documentSession)
+    public DiskArchiver(IDocumentStore documentStore)
+      : base(documentStore)
     {
     }
 
@@ -16,8 +16,9 @@ namespace LogHub.Server.Archiving
       if (!retention.ArchiveToDisk)
         return;
 
+      var settings = GetSettings();
       var fileName = Path.GetFileName(filePath);
-      var destFileName = Path.Combine(Settings.Archive.DiskPath, fileName);
+      var destFileName = Path.Combine(settings.Archive.DiskPath, fileName);
       File.Copy(filePath, destFileName);
     }
   }

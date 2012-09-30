@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using LogHub.Core.Extensions;
 using LogHub.Core.Models;
+using LogHub.Web.Infrastructure.Common;
 using Raven.Client;
 
 namespace LogHub.Web.Controllers
@@ -15,7 +16,7 @@ namespace LogHub.Web.Controllers
 
     public ActionResult Index()
     {
-      var user = DocumentSession.Query<User>().FirstOrDefault(x => x.Username == User.Identity.Name);
+      var user = DocumentSession.GetUserByUsername(User.Identity.Name);
       if (user.IsNull())
       {
         return View("Error");

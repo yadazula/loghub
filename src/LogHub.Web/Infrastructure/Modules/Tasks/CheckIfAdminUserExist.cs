@@ -1,5 +1,7 @@
 using System.Linq;
+using LogHub.Core.Extensions;
 using LogHub.Core.Models;
+using LogHub.Web.Infrastructure.Common;
 using Raven.Client;
 
 namespace LogHub.Web.Infrastructure.Modules.Tasks
@@ -17,18 +19,24 @@ namespace LogHub.Web.Infrastructure.Modules.Tasks
     {
       using (var documentSession = documentStore.OpenSession())
       {
-        var admin = documentSession.Query<User>()
-                                   .FirstOrDefault(x => x.Username == "admin");
+        var admin = documentSession.GetUserByUsername(User.Admin);
 
-        if (admin == null)
+        if (admin.IsNull())
         {
-          var user = new User { Username = "admin", Name = "Administrator", Role = UserRole.Administrator };
+          var user = new User
+          {
+            Username = User.Admin,
+            Name = "Administrator",
+            Role = UserRole.Administrator,
+            Email = "admin@loghub.com"
+          };
+
           user.SetPassword("loghub");
 
           documentSession.Store(user);
           documentSession.SaveChanges();
         }
-      }      
+      }
     }
   }
 }

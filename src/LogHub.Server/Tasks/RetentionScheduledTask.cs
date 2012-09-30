@@ -109,9 +109,9 @@ namespace LogHub.Server.Tasks
     {
       using (var documentSession = documentStore.OpenSession())
       {
-        var cutoff = DateTimeOffset.Now.AddDays(-retention.Days);
+        var cutoffDate = DateTimeOffset.Now.AddDays(-retention.Days);
         var query = documentSession.Query<LogMessage, LogMessage_Search>()
-                                   .Where(x => x.Source == retention.Source && x.Date < cutoff)
+                                   .Where(x => x.Source == retention.Source && x.Date < cutoffDate)
                                    .ToString();
 
         documentStore.DatabaseCommands.DeleteByIndex(new LogMessage_Search().IndexName, new IndexQuery { Query = query });

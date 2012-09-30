@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Indexes\LogMessage_Search.cs" />
+    <Compile Include="Models\LogAlert.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />

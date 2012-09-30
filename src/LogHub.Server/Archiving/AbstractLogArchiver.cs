@@ -6,12 +6,20 @@ namespace LogHub.Server.Archiving
 {
   public abstract class AbstractLogArchiver : ILogArchiver
   {
-    protected AbstractLogArchiver(IDocumentSession documentSession)
+    private readonly IDocumentStore documentStore;
+
+    protected AbstractLogArchiver(IDocumentStore documentStore)
     {
-      Settings = documentSession.Query<Settings>().SingleOrDefault();
+      this.documentStore = documentStore;
     }
 
-    protected Settings Settings { get; set; }
+    protected Settings GetSettings()
+    {
+      using (var documentSession = documentStore.OpenSession())
+      {
+        return documentSession.Query<Settings>().Single();
+      }
+    }
 
     public abstract void Archive(Retention retention, string filePath);
   }

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using LogHub.Core.Models;
 using LogHub.Web.Infrastructure;
+using LogHub.Web.Infrastructure.Common;
 using LogHub.Web.ViewModels;
 using Raven.Client;
 using Raven.Client.Document;
@@ -39,8 +40,7 @@ namespace LogHub.Web.Controllers
         return RedirectToAction("Index");
       }
 
-      var user = DocumentSession.Query<User>()
-                                .FirstOrDefault(x => x.Username == loginInput.Username);
+      var user = DocumentSession.GetUserByUsername(loginInput.Username);
 
       if (user == null || !user.ValidatePassword(loginInput.Password))
       {

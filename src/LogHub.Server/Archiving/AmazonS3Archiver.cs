@@ -7,8 +7,8 @@ namespace LogHub.Server.Archiving
 {
   public class AmazonS3Archiver : AbstractLogArchiver
   {
-    public AmazonS3Archiver(IDocumentSession documentSession)
-      : base(documentSession)
+    public AmazonS3Archiver(IDocumentStore documentStore)
+      : base(documentStore)
     {
     }
 
@@ -17,11 +17,12 @@ namespace LogHub.Server.Archiving
       if (!retention.ArchiveToS3)
         return;
 
-      using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(Settings.Archive.S3AccessKey, Settings.Archive.S3SecretKey))
+      var settings = GetSettings();
+      using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(settings.Archive.S3AccessKey, settings.Archive.S3SecretKey))
       {
         var putObjectRequest = new PutObjectRequest();
         putObjectRequest.WithFilePath(filePath)
-                        .WithBucketName(Settings.Archive.S3BucketName)
+                        .WithBucketName(settings.Archive.S3BucketName)
                         .WithKey(Path.GetFileNameWithoutExtension(filePath));
 
         client.PutObject(putObjectRequest);

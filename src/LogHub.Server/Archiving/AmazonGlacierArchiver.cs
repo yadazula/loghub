@@ -7,8 +7,8 @@ namespace LogHub.Server.Archiving
 {
   public class AmazonGlacierArchiver : AbstractLogArchiver
   {
-    public AmazonGlacierArchiver(IDocumentSession documentSession)
-      : base(documentSession)
+    public AmazonGlacierArchiver(IDocumentStore documentStore)
+      : base(documentStore)
     {
     }
 
@@ -17,9 +17,10 @@ namespace LogHub.Server.Archiving
       if (!retention.ArchiveToGlacier)
         return;
 
-      using (var transferManager = new ArchiveTransferManager(Settings.Archive.GlacierAccessKey, Settings.Archive.GlacierSecretKey, Amazon.RegionEndpoint.GetBySystemName(Settings.Archive.GlacierRegionName)))
+      var settings = GetSettings();
+      using (var transferManager = new ArchiveTransferManager(settings.Archive.GlacierAccessKey, settings.Archive.GlacierSecretKey, Amazon.RegionEndpoint.GetBySystemName(settings.Archive.GlacierRegionName)))
       {
-        transferManager.Upload(Settings.Archive.GlacierVault, Path.GetFileNameWithoutExtension(filePath), filePath);
+        transferManager.Upload(settings.Archive.GlacierVault, Path.GetFileNameWithoutExtension(filePath), filePath);
       }
     }
   }

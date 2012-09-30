@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using LogHub.Core.Models;
 using LogHub.Web.ViewModels;
 
@@ -13,6 +14,12 @@ namespace LogHub.Web.Infrastructure.AutoMapper
 
       Mapper.CreateMap<UserInput, User>();
       Mapper.CreateMap<Settings, Settings>();
+
+      Mapper.CreateMap<LogAlert, LogAlertView>()
+            .ForMember(x => x.Minutes, o => o.MapFrom(m => m.Minutes.TotalMinutes));
+
+      Mapper.CreateMap<LogAlertView, LogAlert>()
+      .ForMember(x => x.Minutes, o => o.MapFrom(m => TimeSpan.FromMinutes(m.Minutes)));
     }
   }
 }

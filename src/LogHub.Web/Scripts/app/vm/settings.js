@@ -1,7 +1,7 @@
 ﻿var loghub = loghub || {};
 loghub.viewmodels = loghub.viewmodels || {};
 
-loghub.viewmodels.Settings = function () {
+loghub.viewmodels.settings = function () {
     var self = this;
     
     self.url = '/api/settings';

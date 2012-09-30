@@ -105,6 +105,10 @@ namespace LogHub.Server.Modules
       Bind<IScheduledTask>()
         .To<RetentionScheduledTask>()
         .InSingletonScope();
+
+      Bind<IScheduledTask>()
+        .To<NotificationScheduledTask>()
+        .InSingletonScope();
     }
   }
 }

@@ -1,15 +1,15 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
     <div class="widget-header">
         <div class="pull-left">
-            <h3>Retention & Archiving</h3>
+            <h3>Retention & Archiving <a href="#" rel="tooltip" title="Setup rules for cleaning up and archiving log messages." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
         </div>
         <div class="pull-right widget-action">
-            <button class="btn btn-primary" data-bind="click: create">Create new entry</button>
+            <button class="btn btn-primary" data-bind="click: create">Create new rule</button>
         </div>
     </div>
     <div class="widget-content">
         <div class="alert alert-info" data-bind="visible: items().length == 0">
-            No retention entry found.
+            No retention rule found.
         </div>
         <table class="table table-condensed table-hover" data-bind="visible: items().length > 0">
             <thead>

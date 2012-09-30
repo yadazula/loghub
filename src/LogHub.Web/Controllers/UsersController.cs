@@ -31,9 +31,8 @@ namespace LogHub.Web.Controllers
 
     public void Post(UserInput userInput)
     {
-      var user = DocumentSession.Query<User>()
-                                .FirstOrDefault(x => x.Username == userInput.Username);
-
+      var user = DocumentSession.GetUserByUsername(userInput.Username);
+      
       if (user.IsNotNull())
       {
         throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Username is used by another user."));
@@ -46,8 +45,7 @@ namespace LogHub.Web.Controllers
 
     public void Put(UserInput userInput)
     {
-      var user = DocumentSession.Query<User>()
-                                .FirstOrDefault(x => x.Username == userInput.Username);
+      var user = DocumentSession.GetUserByUsername(userInput.Username);
 
       if (user.IsNull())
       {
@@ -64,13 +62,12 @@ namespace LogHub.Web.Controllers
 
     public void Delete(string username)
     {
-      if (username == Core.Models.User.UndeletableAdminUser)
+      if (username == Core.Models.User.Admin)
       {
         throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Can not delete admin user !"));
       }
 
-      var user = DocumentSession.Query<User>()
-                                .Single(x => x.Username == username);
+      var user = DocumentSession.GetUserByUsername(username);
 
       DocumentSession.Delete(user);
     }

@@ -3,62 +3,52 @@
 loghub.app = new function () {
     var self = this;
 
-    self.dashboard = new loghub.viewmodels.page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogList-template', function (params) {
-        if (self.currentPage == self.dashboard) return;
-
-        self.viewModel = new loghub.viewmodels.recentLogList();
-        self.viewModel.load(function () {
-            self.setCurrentPage(self.dashboard, self.viewModel);
-        });
+    self.dashboard = new loghub.viewmodels.page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogs', function () {
+        self.setCurrentPage(self.dashboard, loghub.viewmodels.recentLogList);
     });
     
-    self.searches = new loghub.viewmodels.page('#search', 'icon-search', 'Search', 'SearchLogList-template', function (params) {
+    self.searches = new loghub.viewmodels.page('#search', 'icon-search', 'Search', 'Searches', function (params) {
         if (self.currentPage != self.searches)
             self.viewModel = new loghub.viewmodels.searchLogList();
 
         self.viewModel.currentFilter.page = params['p'] || 1;
         self.viewModel.load(function () {
             if (self.currentPage != self.searches)
-                self.setCurrentPage(self.searches, self.viewModel);
+                self.renderPage(self.searches, self.viewModel);
         });
     });
 
-    self.alerts = new loghub.viewmodels.page('#alerts', 'icon-bell', 'Alerts', '', function (params) {
+    self.alerts = new loghub.viewmodels.page('#alerts', 'icon-bell', 'Alerts', 'Alerts', function () {
+        self.setCurrentPage(self.alerts, loghub.viewmodels.alertList);
     });
     
-    self.users = new loghub.viewmodels.page('#users', 'icon-user', 'Users', 'UserList-template', function (params) {
-        if (self.currentPage == self.users) return;
-
-        self.viewModel = new loghub.viewmodels.userList();
-        self.viewModel.load(function () {
-            self.setCurrentPage(self.users, self.viewModel);
-        });
+    self.users = new loghub.viewmodels.page('#users', 'icon-user', 'Users', 'Users', function () {
+        self.setCurrentPage(self.users, loghub.viewmodels.userList);
     });
     
-    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention & Archiving', 'RetentionList-template', function (params) {
-        if (self.currentPage == self.retention) return;
-
-        self.viewModel = new loghub.viewmodels.retentionList();
-        self.viewModel.load(function () {
-            self.setCurrentPage(self.retention, self.viewModel);
-        });
+    self.retention = new loghub.viewmodels.page('#retention', 'icon-trash', 'Retention & Archiving', 'Retention', function () {
+        self.setCurrentPage(self.retention, loghub.viewmodels.retentionList);
     });
     
-    self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', 'Settings-template', function (params) {
-        if (self.currentPage == self.settings) return;
-
-        self.viewModel = new loghub.viewmodels.Settings();
-        self.viewModel.load(function () {
-            self.setCurrentPage(self.settings, self.viewModel);
-        });
+    self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', 'Settings', function () {
+        self.setCurrentPage(self.settings, loghub.viewmodels.settings);
     });
 
-    self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function (params) {
+    self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function () {
     });
     
     self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings, self.health];
 
     self.setCurrentPage = function (page, viewModel) {
+        if (self.currentPage == page) return;
+
+        self.viewModel = new viewModel();
+        self.viewModel.load(function() {
+            self.renderPage(page, self.viewModel);
+        });
+    };
+
+    self.renderPage = function (page, viewModel) {
         if (self.currentPage) {
             self.currentPage.isActive(false);
         }
