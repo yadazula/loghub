@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95147939
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forwarders", "Forwarders", "{5C5EC40D-2F4E-42D0-97FD-680A633483A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Log4Net", "src\LogHub.Log4Net\LogHub.Log4Net.csproj", "{CAB15F31-10FC-4468-8357-545E1A90A49D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,13 +89,24 @@ Global
 		{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}.Release|x86.ActiveCfg = Release|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{74C9D072-6FCA-4D26-8B06-78101518345C} = {95147939-B498-4DD3-99B3-F63276FD7AE9}
 		{F3CE3288-979A-419B-A57A-F6C059D6F1EC} = {95147939-B498-4DD3-99B3-F63276FD7AE9}
+		{74C9D072-6FCA-4D26-8B06-78101518345C} = {95147939-B498-4DD3-99B3-F63276FD7AE9}
 		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386} = {5C5EC40D-2F4E-42D0-97FD-680A633483A7}
+		{CAB15F31-10FC-4468-8357-545E1A90A49D} = {5C5EC40D-2F4E-42D0-97FD-680A633483A7}
 	EndGlobalSection
 EndGlobal

@@ -33,11 +33,8 @@ loghub.app = new function () {
     self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', 'Settings', function () {
         self.setCurrentPage(self.settings, loghub.viewmodels.settings);
     });
-
-    self.health = new loghub.viewmodels.page('#health', 'icon-plus-sign', 'Server Health', '', function () {
-    });
     
-    self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings, self.health];
+    self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings];
 
     self.setCurrentPage = function (page, viewModel) {
         if (self.currentPage == page) return;

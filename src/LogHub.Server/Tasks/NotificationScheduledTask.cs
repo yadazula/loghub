@@ -43,12 +43,12 @@ namespace LogHub.Server.Tasks
 
     private RavenQueryStatistics QueryStatistics(IDocumentSession documentSession, LogAlert logAlert)
     {
-      var cutOffDate = DateTime.UtcNow.AddMinutes(-logAlert.Minutes.TotalMinutes);
+      var cutoffDate = DateTime.UtcNow.AddMinutes(-logAlert.Minutes.TotalMinutes);
 
       RavenQueryStatistics stats;
       IQueryable<LogMessage> query = documentSession.Query<LogMessage, LogMessage_Search>()
                                                     .Statistics(out stats)
-                                                    .Where(x => x.Date >= cutOffDate);
+                                                    .Where(x => x.Date >= cutoffDate);
 
       if (logAlert.Host.IsNotNullOrWhiteSpace())
       {

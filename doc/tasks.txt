@@ -3,20 +3,20 @@ server
 counters
 blacklist
 chunked messages
-tcp & http channel
 fix max chunk size
-scheduled tasks
 bug - ravendb closed but no error logged
-
+tests
 
 client
 ------------------------
+role
 saved searches
 log message texts in views
-allow deleting logs manually
+tests
 
 forwarders
 ------------------------
 nlog
 log4net
 windows event log
+tests
