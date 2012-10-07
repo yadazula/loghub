@@ -26,15 +26,25 @@ namespace LogHub.Web.Controllers
 
     public void Post(Retention retention)
     {
-      retention.CreatedBy = User.Identity.Name;
-      retention.CreatedAt = DateTimeOffset.Now;
-      DocumentSession.Store(retention);
+	    Store(retention);
     }
 
-    public void Delete(string id)
+		public void Put(Retention retention)
+		{
+			Store(retention);
+		}
+
+	  public void Delete(string id)
     {
       var item = DocumentSession.Load<Retention>(id);
       DocumentSession.Delete(item);
     }
+
+	  private void Store(Retention retention)
+	  {
+		  retention.CreatedBy = User.Identity.Name;
+		  retention.CreatedAt = DateTimeOffset.Now;
+		  DocumentSession.Store(retention);
+	  }
   }
 }

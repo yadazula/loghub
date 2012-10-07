@@ -152,9 +152,11 @@
     <Compile Include="Infrastructure\Common\DocumentSessionExtensions.cs" />
     <Compile Include="Infrastructure\Modules\Tasks\CheckIfAdminUserExist.cs" />
     <Compile Include="Infrastructure\Modules\Tasks\IStartupTask.cs" />
+    <Content Include="Scripts\app\vm\base.js" />
+    <Content Include="Scripts\simple.js" />
     <Compile Include="ViewModels\LogAlertView.cs" />
     <Compile Include="ViewModels\LookupFilter.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="Filters\MvcAuthorizeAttribute.cs" />
     <Compile Include="Filters\LogHubPrincipal.cs" />
@@ -187,7 +189,7 @@
     <Content Include="Scripts\app\vm\alerts.js" />
     <Content Include="Scripts\app\vm\settings.js" />
     <Content Include="Scripts\app\vm\retention.js" />
-    <Content Include="Scripts\app\vm\users.js" />
+    <Content Include="Scripts\app\vm\user.js" />
     <Content Include="Scripts\app\vm\search.js" />
     <Content Include="Scripts\app\vm\page.js" />
     <Content Include="Scripts\app\restclient.js" />

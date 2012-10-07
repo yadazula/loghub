@@ -13,9 +13,9 @@ using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public class UsersController : AbstractApiController
+  public class UserController : AbstractApiController
   {
-    public UsersController(IDocumentSession documentSession)
+    public UserController(IDocumentSession documentSession)
       : base(documentSession)
     {
     }

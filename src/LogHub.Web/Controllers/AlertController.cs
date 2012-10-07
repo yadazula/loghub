@@ -27,15 +27,25 @@ namespace LogHub.Web.Controllers
 
     public void Post(LogAlertView logAlertView)
     {
-      var logAlert = logAlertView.MapTo<LogAlert>();
-      logAlert.User = DocumentSession.GetUserByUsername(User.Identity.Name).Id;
-      DocumentSession.Store(logAlert);
+	    Store(logAlertView);
     }
 
-    public void Delete(string id)
+		public void Put(LogAlertView logAlertView)
+		{
+			Store(logAlertView);
+		}
+
+	  public void Delete(string id)
     {
       var item = DocumentSession.Load<LogAlert>(id);
       DocumentSession.Delete(item);
     }
+
+	  private void Store(LogAlertView logAlertView)
+	  {
+		  var logAlert = logAlertView.MapTo<LogAlert>();
+		  logAlert.User = DocumentSession.GetUserByUsername(User.Identity.Name).Id;
+		  DocumentSession.Store(logAlert);
+	  }
   }
 }

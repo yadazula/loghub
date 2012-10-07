@@ -9,8 +9,8 @@ tests
 
 client
 ------------------------
+search date filter
 role
-saved searches
 log message texts in views
 tests
 
