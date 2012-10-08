@@ -9,7 +9,6 @@ tests
 
 client
 ------------------------
-search date filter
 role
 log message texts in views
 tests

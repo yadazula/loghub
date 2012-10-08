@@ -10,7 +10,7 @@ namespace LogHub.Web.Infrastructure.AutoMapper
     public static void Configure()
     {
       Mapper.CreateMap<LogMessage, LogMessageView>()
-            .ForMember(x => x.Date, o => o.MapFrom(m => m.Date.ToString("yyyy-MM-dd HH:mm:ss.fff K")));
+            .ForMember(x => x.Date, o => o.MapFrom(m => m.Date.ToString("dd-MM-yyyy HH:mm:ss.fff K")));
 
       Mapper.CreateMap<UserInput, User>();
       Mapper.CreateMap<Settings, Settings>();
