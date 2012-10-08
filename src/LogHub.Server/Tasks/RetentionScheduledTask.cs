@@ -6,7 +6,6 @@ using System.Linq;
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Archiving;
-using NLog;
 using Newtonsoft.Json;
 using Raven.Abstractions.Data;
 using Raven.Client;

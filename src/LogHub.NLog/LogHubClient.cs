@@ -109,8 +109,7 @@ namespace LogHub.NLog
 
       //Read the server ip address
       var ipAddresses = Dns.GetHostAddresses(Dns.GetHostName());
-      var ipAddress =
-          (from ip in ipAddresses where ip.AddressFamily == AddressFamily.InterNetwork select ip).FirstOrDefault();
+      var ipAddress = (from ip in ipAddresses where ip.AddressFamily == AddressFamily.InterNetwork select ip).FirstOrDefault();
 
       if (ipAddress == null)
         return null;
