@@ -7,6 +7,7 @@ namespace LogHub.Server.Buffers
 {
   public class BatchMessageBuffer<TMessage> : IMessageBuffer<TMessage>
   {
+    private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     private readonly IBufferConsumer<TMessage> bufferConsumer;
     private readonly int batchSize;
     private readonly int autoTriggerBatchPeriod;
@@ -22,7 +23,17 @@ namespace LogHub.Server.Buffers
 
     private void CreateBufferBlock()
     {
-      var messageHandlerBlock = new ActionBlock<TMessage[]>(messages => bufferConsumer.Consume(messages));
+      var messageHandlerBlock = new ActionBlock<TMessage[]>(messages =>
+        {
+          try
+          {
+            bufferConsumer.Consume(messages);
+          }
+          catch (Exception exception)
+          {
+            Logger.Error(exception);
+          }
+        });
 
       var batcherBlock = new BatchBlock<TMessage>(batchSize);
       batcherBlock.LinkTo(messageHandlerBlock);

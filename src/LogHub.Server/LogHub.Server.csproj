@@ -78,7 +78,6 @@
     <Compile Include="Convertors\LogMessageConvertor.cs" />
     <Compile Include="Convertors\MessageFormat.cs" />
     <Compile Include="Convertors\MessageFormatExtensions.cs" />
-    <Compile Include="Channels\TcpChannelListener.cs" />
     <Compile Include="Buffers\BatchMessageBuffer.cs" />
     <Compile Include="Buffers\IMessageBuffer.cs" />
     <Compile Include="Handlers\ILogMessageHandler.cs" />

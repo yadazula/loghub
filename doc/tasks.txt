@@ -4,7 +4,6 @@ counters
 blacklist
 chunked messages
 fix max chunk size
-bug - ravendb closed but no error logged
 tests
 
 client
