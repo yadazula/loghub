@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using LogHub.Web.Infrastructure.Modules;
-using LogHub.Web.Infrastructure.Modules.Tasks;
+using LogHub.Web.Infrastructure.Composition.Tasks;
 using Ninject.Modules;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Start")]

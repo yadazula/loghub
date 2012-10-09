@@ -150,8 +150,8 @@
     <Compile Include="Controllers\RetentionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Infrastructure\Common\DocumentSessionExtensions.cs" />
-    <Compile Include="Infrastructure\Modules\Tasks\CheckIfAdminUserExist.cs" />
-    <Compile Include="Infrastructure\Modules\Tasks\IStartupTask.cs" />
+    <Compile Include="Infrastructure\Composition\Tasks\CheckIfAdminUserExist.cs" />
+    <Compile Include="Infrastructure\Composition\Tasks\IStartupTask.cs" />
     <Content Include="Scripts\app\vm\base.js" />
     <Content Include="Scripts\simple.js" />
     <Compile Include="ViewModels\LogAlertView.cs" />
@@ -164,9 +164,9 @@
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Common\QueryableExtensions.cs" />
-    <Compile Include="Infrastructure\Modules\DefaultModule.cs" />
-    <Compile Include="Infrastructure\Modules\DependencyResolver.cs" />
-    <Compile Include="Infrastructure\Modules\DependencyScope.cs" />
+    <Compile Include="Infrastructure\Composition\DefaultModule.cs" />
+    <Compile Include="Infrastructure\Composition\DependencyResolver.cs" />
+    <Compile Include="Infrastructure\Composition\DependencyScope.cs" />
     <Compile Include="ViewModels\AbstractLogFilter.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
     <Compile Include="ViewModels\UserInput.cs" />

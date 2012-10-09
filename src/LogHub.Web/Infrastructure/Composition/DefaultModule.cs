@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using LogHub.Core.Indexes;
-using LogHub.Web.Infrastructure.Modules.Tasks;
+﻿using LogHub.Core.Indexes;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
@@ -8,7 +6,7 @@ using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 
-namespace LogHub.Web.Infrastructure.Modules
+namespace LogHub.Web.Infrastructure.Composition
 {
   public class DefaultModule : NinjectModule
   {

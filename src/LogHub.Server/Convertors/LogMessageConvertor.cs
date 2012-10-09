@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace LogHub.Server.Convertors
 {
-  public class LogMessageConvertor : ILogMessageConvertor
+  public class LogMessageConvertor : IMessageConvertor<RawMessage, LogMessage>
   {
     public LogMessage Convert(RawMessage rawMessage)
     {

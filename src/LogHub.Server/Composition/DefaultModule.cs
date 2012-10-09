@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Archiving;
@@ -15,7 +14,7 @@ using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 
-namespace LogHub.Server.Modules
+namespace LogHub.Server.Composition
 {
   public class DefaultModule : NinjectModule
   {
@@ -43,14 +42,14 @@ namespace LogHub.Server.Modules
         .InSingletonScope()
         .Named("ThroughputCounter");
 
-      Bind<ILogMessageConvertor>()
+      Bind<IMessageConvertor<RawMessage, LogMessage>>()
         .To<LogMessageConvertor>()
         .InSingletonScope();
 
       Bind<IMessageProcessor>().ToMethod(c =>
       {
         var throughputCounter = c.Kernel.Get<ILogMessageHandler>("ThroughputCounter");
-        var logMessageConvertor = c.Kernel.Get<ILogMessageConvertor>();
+        var logMessageConvertor = c.Kernel.Get<IMessageConvertor<RawMessage, LogMessage>>();
         var logMessageBuffer = c.Kernel.Get<IMessageBuffer<LogMessage>>();
         return new SingleMessageProcessor(logMessageConvertor, logMessageBuffer, throughputCounter);
       })

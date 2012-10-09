@@ -55,6 +55,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Indexes\LogMessage_Search.cs" />
+    <Compile Include="Models\ChunkedMessage.cs" />
     <Compile Include="Models\LogAlert.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\LogLevel.cs" />

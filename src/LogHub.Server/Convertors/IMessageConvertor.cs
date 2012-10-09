@@ -1,9 +1,7 @@
-﻿using LogHub.Core.Models;
-
-namespace LogHub.Server.Convertors
+﻿namespace LogHub.Server.Convertors
 {
-  public interface ILogMessageConvertor
+  public interface IMessageConvertor<in TInput, out TOutput>
   {
-    LogMessage Convert(RawMessage rawMessage);
+    TOutput Convert(TInput input);
   }
 }

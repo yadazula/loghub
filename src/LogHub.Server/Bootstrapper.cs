@@ -1,6 +1,6 @@
 ﻿using System;
 using LogHub.Server.Channels;
-using LogHub.Server.Modules;
+using LogHub.Server.Composition;
 using LogHub.Server.Tasks;
 using Ninject;
 using Raven.Client;

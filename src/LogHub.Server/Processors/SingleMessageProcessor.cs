@@ -1,5 +1,4 @@
-﻿using System;
-using LogHub.Core.Models;
+﻿using LogHub.Core.Models;
 using LogHub.Server.Buffers;
 using LogHub.Server.Convertors;
 using LogHub.Server.Handlers;
@@ -10,13 +9,13 @@ namespace LogHub.Server.Processors
   public class SingleMessageProcessor : IMessageProcessor
   {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-    private readonly ILogMessageConvertor logMessageConvertor;
+    private readonly IMessageConvertor<RawMessage, LogMessage> messageConvertor;
     private readonly IMessageBuffer<LogMessage> logMessageBuffer;
     private readonly ILogMessageHandler[] handlers;
 
-    public SingleMessageProcessor(ILogMessageConvertor logMessageConvertor, IMessageBuffer<LogMessage> logMessageBuffer, params ILogMessageHandler[] handlers)
+    public SingleMessageProcessor(IMessageConvertor<RawMessage, LogMessage> messageConvertor, IMessageBuffer<LogMessage> logMessageBuffer, params ILogMessageHandler[] handlers)
     {
-      this.logMessageConvertor = logMessageConvertor;
+      this.messageConvertor = messageConvertor;
       this.logMessageBuffer = logMessageBuffer;
       this.handlers = handlers;
     }
@@ -24,7 +23,7 @@ namespace LogHub.Server.Processors
     public void Process(RawMessage rawMessage)
     {
       Logger.Debug("Starting to process message [{0}]", rawMessage.TrackingId);
-      var logMessage = logMessageConvertor.Convert(rawMessage);
+      var logMessage = messageConvertor.Convert(rawMessage);
 
       if (!logMessage.IsValid())
       {
