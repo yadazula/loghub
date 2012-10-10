@@ -6,14 +6,14 @@ using NLog;
 
 namespace LogHub.Server.Processors
 {
-  public class SingleMessageProcessor : IMessageProcessor
+  public class RawMessageProcessor : IMessageProcessor
   {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     private readonly IMessageConvertor<RawMessage, LogMessage> messageConvertor;
     private readonly IMessageBuffer<LogMessage> logMessageBuffer;
     private readonly ILogMessageHandler[] handlers;
 
-    public SingleMessageProcessor(IMessageConvertor<RawMessage, LogMessage> messageConvertor, IMessageBuffer<LogMessage> logMessageBuffer, params ILogMessageHandler[] handlers)
+    public RawMessageProcessor(IMessageConvertor<RawMessage, LogMessage> messageConvertor, IMessageBuffer<LogMessage> logMessageBuffer, params ILogMessageHandler[] handlers)
     {
       this.messageConvertor = messageConvertor;
       this.logMessageBuffer = logMessageBuffer;

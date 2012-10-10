@@ -9,11 +9,5 @@ namespace LogHub.Core.Models
     public int PartNumber { get; set; }
     public byte[] Data { get; set; }
     public DateTime ArrivalDate { get; set; }
-    public Guid TrackingId { get; set; }
-
-    public ChunkedMessage()
-    {
-      TrackingId = Guid.NewGuid();
-    }
   }
 }

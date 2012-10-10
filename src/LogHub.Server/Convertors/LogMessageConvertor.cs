@@ -12,6 +12,8 @@ namespace LogHub.Server.Convertors
     {
       var json = GetJson(rawMessage);
       var logMessage = JsonConvert.DeserializeObject<LogMessage>(json);
+      logMessage.TrackingId = rawMessage.TrackingId;
+
       return logMessage;
     }
 

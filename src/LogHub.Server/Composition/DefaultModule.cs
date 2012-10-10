@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Archiving;
@@ -46,26 +47,39 @@ namespace LogHub.Server.Composition
         .To<LogMessageConvertor>()
         .InSingletonScope();
 
+      Bind<IMessageConvertor<RawMessage, ChunkedMessage>>()
+        .To<ChunkedMessageConvertor>()
+        .InSingletonScope();
+
+      Bind<IMessageConvertor<IList<ChunkedMessage>, RawMessage>>()
+        .To<RawMessageConvertor>()
+        .InSingletonScope();
+
       Bind<IMessageProcessor>().ToMethod(c =>
       {
         var throughputCounter = c.Kernel.Get<ILogMessageHandler>("ThroughputCounter");
         var logMessageConvertor = c.Kernel.Get<IMessageConvertor<RawMessage, LogMessage>>();
         var logMessageBuffer = c.Kernel.Get<IMessageBuffer<LogMessage>>();
-        return new SingleMessageProcessor(logMessageConvertor, logMessageBuffer, throughputCounter);
+        return new RawMessageProcessor(logMessageConvertor, logMessageBuffer, throughputCounter);
       })
       .InSingletonScope()
-      .Named("SingleMessageProcessor");
+      .Named("RawMessageProcessor");
 
-      Bind<IMessageProcessor>()
-        .To<ChunkedMessageProcessor>()
-        .InSingletonScope()
-        .Named("ChunkedMessageProcessor");
+      Bind<IMessageProcessor>().ToMethod(c =>
+      {
+        var chunkedMessageConvertor = c.Kernel.Get<IMessageConvertor<RawMessage, ChunkedMessage>>();
+        var rawMessageConvertor = c.Kernel.Get<IMessageConvertor<IList<ChunkedMessage>, RawMessage>>();
+        var rawMessageProcessor = c.Kernel.Get<IMessageProcessor>("RawMessageProcessor");
+        return new ChunkedMessageProcessor(chunkedMessageConvertor, rawMessageConvertor, rawMessageProcessor);
+      })
+      .InSingletonScope()
+      .Named("ChunkedMessageProcessor");
 
       Bind<IMessageProcessorFactory>().ToMethod(c =>
       {
-        var singleMessageProcessor = c.Kernel.Get<IMessageProcessor>("SingleMessageProcessor");
+        var rawMessageProcessor = c.Kernel.Get<IMessageProcessor>("RawMessageProcessor");
         var chunkedMessageProcessor = c.Kernel.Get<IMessageProcessor>("ChunkedMessageProcessor");
-        return new MessageProcessorFactory(singleMessageProcessor, chunkedMessageProcessor);
+        return new MessageProcessorFactory(rawMessageProcessor, chunkedMessageProcessor);
       })
       .InSingletonScope();
 

@@ -81,13 +81,14 @@
     <Compile Include="Convertors\MessageFormatExtensions.cs" />
     <Compile Include="Buffers\BatchMessageBuffer.cs" />
     <Compile Include="Buffers\IMessageBuffer.cs" />
+    <Compile Include="Convertors\RawMessageConvertor.cs" />
     <Compile Include="Handlers\ILogMessageHandler.cs" />
     <Compile Include="Handlers\ThroughputCounter.cs" />
     <Compile Include="Processors\ChunkedMessageProcessor.cs" />
     <Compile Include="Processors\IMessageProcessor.cs" />
     <Compile Include="Processors\IMessageProcessorFactory.cs" />
     <Compile Include="Processors\MessageProcessorFactory.cs" />
-    <Compile Include="Processors\SingleMessageProcessor.cs" />
+    <Compile Include="Processors\RawMessageProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Channels\IChannelListener.cs" />

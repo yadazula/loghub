@@ -16,7 +16,7 @@ namespace LogHub.Core.Models
     public IDictionary<string, object> Properties {  get; set;}
 
     [JsonIgnore]
-    public Guid TrackingId { get; set; }
+    public string TrackingId { get; set; }
 
     public bool IsValid()
     {

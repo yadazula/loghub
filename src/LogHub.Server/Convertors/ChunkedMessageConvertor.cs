@@ -30,14 +30,21 @@ namespace LogHub.Server.Convertors
 
     private string GetMessageId(byte[] payload)
     {
-      var bytes = payload.Skip(HEADER_ID_START).Take(HEADER_ID_LENGTH).Select(x => System.Convert.ToString(x));
-      var id = string.Concat(bytes);
+      var values = payload.Skip(HEADER_ID_START)
+                          .Take(HEADER_ID_LENGTH)
+                          .Select(b => b.ToString("x2"))
+                          .ToArray();
+
+      var id = string.Concat(values);
       return id;
     }
 
     private int GetPartNumber(byte[] payload)
     {
-      var bytes = payload.Skip(HEADER_PART_NUMBER_START).Take(HEADER_PART_NUMBER_LENGTH).Select(x => System.Convert.ToString(x));
+      var bytes = payload.Skip(HEADER_PART_NUMBER_START)
+                         .Take(HEADER_PART_NUMBER_LENGTH)
+                         .Select(x => System.Convert.ToString(x));
+
       var partNumberString = string.Concat(bytes);
       var partNumber = System.Convert.ToInt32(partNumberString);
       return partNumber;
@@ -45,7 +52,10 @@ namespace LogHub.Server.Convertors
 
     private int GetPartsCount(byte[] payload)
     {
-      var bytes = payload.Skip(HEADER_PARTS_COUNT_START).Take(HEADER_PARTS_COUNT_LENGTH).Select(x => System.Convert.ToString(x));
+      var bytes = payload.Skip(HEADER_PARTS_COUNT_START)
+                         .Take(HEADER_PARTS_COUNT_LENGTH)
+                         .Select(x => System.Convert.ToString(x));
+
       var partsCountString = string.Concat(bytes);
       var partsCount = System.Convert.ToInt32(partsCountString);
       return partsCount;
