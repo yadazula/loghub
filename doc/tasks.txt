@@ -1,8 +1,8 @@
 server
 ------------------------
 counters
-blacklist
-chunked messages
+-blacklist
+-http/tcp endpoint
 fix max chunk size
 tests
 
