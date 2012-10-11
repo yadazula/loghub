@@ -8,6 +8,8 @@ tests
 
 client
 ------------------------
+alarm => enable to enter to address
+alarm => amazon ses integration
 role
 log message texts in views
 tests
