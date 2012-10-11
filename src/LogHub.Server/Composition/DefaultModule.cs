@@ -1,9 +1,5 @@
-<<<<<<< HEAD:src/LogHub.Server/Composition/DefaultModule.cs
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Configuration;
-=======
-﻿using System.Configuration;
->>>>>>> 36ee636... minor:src/LogHub.Server/Composition/DefaultModule.cs
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Archiving;

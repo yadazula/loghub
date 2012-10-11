@@ -1,111 +1,126 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
-    <div class="widget-header">
-        <div class="pull-left">
-            <h3>Alerts <a href="#" rel="tooltip" title="A notification email is sent when the number of messages for the given timespan is exceeded." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
-        </div>
-        <div class="pull-right widget-action">
-            <button class="btn btn-primary" data-bind="click: create">Create new alert</button>
-        </div>
-    </div>
-    <div class="widget-content">
-        <div class="alert alert-info" data-bind="visible: items().length == 0">
-            No alert found.
-        </div>
-        <table class="table table-condensed table-hover" data-bind="visible: items().length > 0">
-            <thead>
-                <tr>
-                    <th style="width: 40%">Name</th>
-                    <th style="width: 20%">Number Of Messages</th>
-                    <th style="width: 20%">In Minutes</th>
-                    <th style="width: 10%"></th>
-                    <th style="width: 10%"></th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: items">
-                <tr>
-                    <td data-bind="text: name"></td>
-                    <td data-bind="text: messageCount"></td>
-                    <td data-bind="text: minutes"></td>
-                    <td>
-                        <a href="#" data-bind="click: $parent.edit.bind($parent)">Edit</a>
-                    </td>
-                    <td>
-                        <a href="#" data-bind="confirmDelete: $parent.delete, confirmMessage: 'Are you sure you want to delete this entry ?'">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	<div class="widget-header">
+		<div class="pull-left">
+			<h3>Alerts <a href="#" rel="tooltip" title="A notification email is sent when the number of messages for the given timespan is exceeded." data-placement="right" data-bind="tooltip: true"><i class="icon-info-sign"></i></a></h3>
+		</div>
+		<div class="pull-right widget-action">
+			<button class="btn btn-primary" data-bind="click: create">Create new alert</button>
+		</div>
+	</div>
+	<div class="widget-content">
+		<div class="alert alert-info" data-bind="visible: items().length == 0">
+			No alert found.
+		</div>
+		<table class="table table-condensed table-hover" data-bind="visible: items().length > 0">
+			<thead>
+				<tr>
+					<th style="width: 40%">Name</th>
+					<th style="width: 20%">Number Of Messages</th>
+					<th style="width: 20%">In Minutes</th>
+					<th style="width: 10%"></th>
+					<th style="width: 10%"></th>
+				</tr>
+			</thead>
+			<tbody data-bind="foreach: items">
+				<tr>
+					<td data-bind="text: name"></td>
+					<td data-bind="text: messageCount"></td>
+					<td data-bind="text: minutes"></td>
+					<td>
+						<a href="#" data-bind="click: $parent.edit.bind($parent)">Edit</a>
+					</td>
+					<td>
+						<a href="#" data-bind="confirmDelete: $parent.delete, confirmMessage: 'Are you sure you want to delete this entry ?'">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div class="modal hide fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-bind="with: currentItem">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="editModalLabel" data-bind="text: isNew() ? 'New alert' : 'Edit alert'"></h3>
-    </div>
-    <div class="modal-body">
-        <div class="alert alert-error" data-bind="visible: validationErrors().length > 0">
-            <ul data-bind="foreach: validationErrors">
-                <li data-bind="text: $data"></li>
-            </ul>
-        </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="editModalLabel" data-bind="text: isNew() ? 'New alert' : 'Edit alert'"></h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-error" data-bind="visible: validationErrors().length > 0">
+			<ul data-bind="foreach: validationErrors">
+				<li data-bind="text: $data"></li>
+			</ul>
+		</div>
 
-        <form class="form-horizontal">
-            <div class="control-group">
-                <label class="control-label" for="name">Name</label>
-                <div class="controls">
-                    <input type="text" name="name" data-bind="value: name" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="host">Host</label>
-                <div class="controls">
-                    <input type="text" name="host" data-bind="autoComplete: {target: host, source: loghub.lookups.getHosts}" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="source">Source</label>
-                <div class="controls">
-                    <input type="text" name="source" data-bind="autoComplete: {target: source, source: loghub.lookups.getSources}" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="message">Message</label>
-                <div class="controls">
-                    <input type="text" name="message" data-bind="value: message" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="level">Level</label>
-                <div class="controls">
-                    <select name="level" data-bind="value: level">
-                        <option value="None"></option>
-                        <option value="Trace">Trace</option>
-                        <option value="Debug">Debug</option>
-                        <option value="Info">Info</option>
-                        <option value="Warn">Warn</option>
-                        <option value="Error">Error</option>
-                        <option value="Fatal">Fatal</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputMessageCount">Number Of Messages</label>
-                <div class="controls">
-                    <input type="text" name="inputMessageCount" data-bind="value: messageCount" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputMinutes">In Minutes</label>
-                <div class="controls">
-                    <input type="text" name="inputMinutes" data-bind="value: minutes" />
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true" data-bind="disable: isLoading">Cancel</button>
-        <button class="btn btn-primary" data-bind="click: $parent.save.bind($parent), disable: isLoading">Save</button>
-        <img src="./images/loader.gif" data-bind="visible: isLoading" alt="" />
-    </div>
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="name">Name</label>
+				<div class="controls">
+					<input type="text" name="name" data-bind="value: name" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputMessageCount">Number Of Messages</label>
+				<div class="controls">
+					<input type="text" name="inputMessageCount" data-bind="value: messageCount" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputMinutes">In Minutes</label>
+				<div class="controls">
+					<input type="text" name="inputMinutes" data-bind="value: minutes" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputEmailTo">Email To</label>
+				<div class="controls">
+					<label class="checkbox">
+						<input type="checkbox" name="inputEmailTo" data-bind="checked: emailToMe">
+						just me
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" name="inputEmailTo" data-bind="checked: emailToOther">
+						other address
+					</label>
+					<input type="text" name="inputEmailTo" data-bind="visible: emailToOther, value: emailTo" />
+				</div>
+			</div>
+			<legend>Criterias</legend>
+			<div class="control-group">
+				<label class="control-label" for="host">Host</label>
+				<div class="controls">
+					<input type="text" name="host" data-bind="autoComplete: {target: host, source: loghub.lookups.getHosts}" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="source">Source</label>
+				<div class="controls">
+					<input type="text" name="source" data-bind="autoComplete: {target: source, source: loghub.lookups.getSources}" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="message">Message</label>
+				<div class="controls">
+					<input type="text" name="message" data-bind="value: message" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="level">Level</label>
+				<div class="controls">
+					<select name="level" data-bind="value: level">
+						<option value="None"></option>
+						<option value="Trace">Trace</option>
+						<option value="Debug">Debug</option>
+						<option value="Info">Info</option>
+						<option value="Warn">Warn</option>
+						<option value="Error">Error</option>
+						<option value="Fatal">Fatal</option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true" data-bind="disable: isLoading">Cancel</button>
+		<button class="btn btn-primary" data-bind="click: $parent.save.bind($parent), disable: isLoading">Save</button>
+		<img src="./images/loader.gif" data-bind="visible: isLoading" alt="" />
+	</div>
 </div>

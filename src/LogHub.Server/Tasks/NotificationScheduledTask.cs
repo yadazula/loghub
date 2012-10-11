@@ -77,10 +77,19 @@ namespace LogHub.Server.Tasks
     private void SendAlertMail(IDocumentSession documentSession, LogAlert logAlert, int messageCount)
     {
       var settings = documentSession.Query<Settings>().Single().Notification;
-      var user = documentSession.Load<User>(logAlert.User);
-
-      var mail = new MailMessage { From = new MailAddress(settings.FromAddress) };
-      mail.To.Add(user.Email);
+      
+			var mail = new MailMessage { From = new MailAddress(settings.FromAddress) };
+			
+			if (string.IsNullOrWhiteSpace(logAlert.EmailTo))
+			{
+				var user = documentSession.Load<User>(logAlert.User);
+				mail.To.Add(user.Email);
+			}
+			else
+			{
+				mail.To.Add(logAlert.EmailTo);
+			}
+				
       mail.Subject = string.Format("[loghub] Alert for {0}", logAlert.Name);
       mail.BodyEncoding = Encoding.UTF8;
       mail.Body = string.Format("Message limit is exceeded for alert named '{0}'. Received {1} messages between {2} and {3}.",

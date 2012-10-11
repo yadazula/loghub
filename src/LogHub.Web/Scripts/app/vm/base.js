@@ -15,6 +15,10 @@ loghub.viewmodels.baseEditableList = Class.extend({
 	},
 
 	validate: function (model, validationErrors) { },
+	
+	mapToViewModel: function(model) {
+		return ko.mapping.fromJS(model);
+	},
 
 	getIgnoredFields: function () {
 		return ['isNew', 'validationErrors', 'isLoading'];
@@ -46,8 +50,8 @@ loghub.viewmodels.baseEditableList = Class.extend({
 		editModel.isNew = false;
 		editModel.isLoading = false;
 		editModel.validationErrors = [];
-
-		var clonedEditModel = ko.mapping.fromJS(editModel);
+		
+		var clonedEditModel = this.mapToViewModel(editModel);
 		this.currentItem(clonedEditModel);
 		$('#editModal').modal('show');
 	},
