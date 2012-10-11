@@ -4,12 +4,12 @@ counters
 -blacklist
 -http/tcp endpoint
 fix max chunk size
+alarm => last sent date check
+alarm => amazon ses integration
 tests
 
 client
 ------------------------
-alarm => enable to enter to address
-alarm => amazon ses integration
 role
 log message texts in views
 tests

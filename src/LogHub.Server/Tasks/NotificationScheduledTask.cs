@@ -79,8 +79,8 @@ namespace LogHub.Server.Tasks
       var settings = documentSession.Query<Settings>().Single().Notification;
       
 			var mail = new MailMessage { From = new MailAddress(settings.FromAddress) };
-			
-			if (string.IsNullOrWhiteSpace(logAlert.EmailTo))
+
+			if (logAlert.EmailTo.IsNullOrWhiteSpace())
 			{
 				var user = documentSession.Load<User>(logAlert.User);
 				mail.To.Add(user.Email);
