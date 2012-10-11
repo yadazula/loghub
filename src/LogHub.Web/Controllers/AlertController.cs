@@ -17,8 +17,9 @@ namespace LogHub.Web.Controllers
 
     public IEnumerable<LogAlertView> Get()
     {
-      var items = DocumentSession.Query<LogAlert>()
-                                 .Customize(x => x.WaitForNonStaleResultsAsOfNow())
+	    var items = DocumentSession.Query<LogAlert>()
+																 .Customize(x => x.WaitForNonStaleResultsAsOfNow())
+																 .Where(x => x.User == CurrentUser.Id) 
                                  .ToList();
 
       var result = items.MapTo<LogAlertView>();
@@ -44,7 +45,7 @@ namespace LogHub.Web.Controllers
 	  private void Store(LogAlertView logAlertView)
 	  {
 		  var logAlert = logAlertView.MapTo<LogAlert>();
-		  logAlert.User = DocumentSession.GetUserByUsername(User.Identity.Name).Id;
+			logAlert.User = CurrentUser.Id;
 		  DocumentSession.Store(logAlert);
 	  }
   }

@@ -1,6 +1,6 @@
 ﻿var loghub = loghub || {};
 
-loghub.app = new function () {
+loghub.app = function (showAdminPages) {
 	var self = this;
 
 	self.dashboard = new loghub.viewmodels.page('#dashboard', 'icon-home', 'Dashboard', 'RecentLogs', function () {
@@ -22,7 +22,7 @@ loghub.app = new function () {
 	self.settings = new loghub.viewmodels.page('#settings', 'icon-wrench', 'Settings', 'Settings', function () {
 		self.setCurrentPage(self.settings, loghub.viewmodels.settings);
 	});
-	
+
 	self.searches = new loghub.viewmodels.page('#search', 'icon-search', 'Search', 'Searches', function (params) {
 		if (self.currentPage != self.searches)
 			self.viewModel = new loghub.viewmodels.searchLogList();
@@ -34,7 +34,10 @@ loghub.app = new function () {
 		});
 	});
 
-	self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings];
+	if (showAdminPages)
+		self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings];
+	else
+		self.pages = [self.dashboard, self.searches, self.alerts];
 
 	self.setCurrentPage = function (page, viewModel) {
 		if (self.currentPage == page) return;

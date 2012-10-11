@@ -214,6 +214,8 @@
     <Content Include="Scripts\sammy-latest.min.js" />
     <Content Include="Scripts\sammy.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\Alerts.html" />
     <Content Include="Templates\Settings.html" />
     <Content Include="Templates\Retention.html" />
