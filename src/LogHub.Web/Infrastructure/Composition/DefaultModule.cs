@@ -17,7 +17,6 @@ namespace LogHub.Web.Infrastructure.Composition
           {
             var store = new DocumentStore { ConnectionStringName = "RavenDB" }.Initialize();
             store.Conventions.SaveEnumsAsIntegers = true;
-            store.Conventions.DefaultQueryingConsistency = ConsistencyOptions.MonotonicRead;
             IndexCreation.CreateIndexes(typeof(LogMessage_Search).Assembly, store);
             return store;
           })

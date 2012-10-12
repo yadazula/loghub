@@ -68,13 +68,10 @@ namespace LogHub.Web.Infrastructure.Common
       return query;
     }
 
-    public static IQueryable<T> Paging<T>(this IQueryable<T> query, ushort? currentPage = null, int? pageSize = null)
+    public static IQueryable<T> Paging<T>(this IQueryable<T> query, ushort? currentPage = 1, int? pageSize = 20)
     {
-      var page = currentPage ?? 1;
-      var size = pageSize ?? 20;
-
-      return query.Skip((page - 1) * size)
-                  .Take(size);
+      return query.Skip((currentPage.Value - 1) * pageSize.Value)
+                  .Take(pageSize.Value);
     }
   }
 }

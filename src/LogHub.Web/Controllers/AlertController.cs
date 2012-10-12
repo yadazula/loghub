@@ -2,7 +2,6 @@
 using System.Linq;
 using LogHub.Core.Models;
 using LogHub.Web.Infrastructure.AutoMapper;
-using LogHub.Web.Infrastructure.Common;
 using LogHub.Web.ViewModels;
 using Raven.Client;
 
@@ -18,7 +17,6 @@ namespace LogHub.Web.Controllers
     public IEnumerable<LogAlertView> Get()
     {
 	    var items = DocumentSession.Query<LogAlert>()
-																 .Customize(x => x.WaitForNonStaleResultsAsOfNow())
 																 .Where(x => x.User == CurrentUser.Id) 
                                  .ToList();
 

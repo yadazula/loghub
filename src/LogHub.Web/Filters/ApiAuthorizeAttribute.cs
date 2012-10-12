@@ -44,23 +44,26 @@ namespace LogHub.Web.Filters
 
 		private bool CheckRoles(IPrincipal principal)
 		{
-			var roles = SplitStrings(Roles);
+			var roles = SplitByComma(Roles);
 			if (roles.Length == 0) return true;
 			return roles.Any(principal.IsInRole);
 		}
 
 		private bool CheckUsers(IPrincipal principal)
 		{
-			var users = SplitStrings(Users);
+			var users = SplitByComma(Users);
 			if (users.Length == 0) return true;
 			return users.Any(user => principal.Identity.Name == user);
 		}
 
-		protected static string[] SplitStrings(string input)
+		protected static string[] SplitByComma(string input)
 		{
-			if (string.IsNullOrWhiteSpace(input)) return new string[0];
+			if (string.IsNullOrWhiteSpace(input)) 
+				return new string[0];
+
 			var roles = input.Split(',')
 												.Where(role => !String.IsNullOrWhiteSpace(role.Trim()));
+
 			return roles.Select(role => role.Trim()).ToArray();
 		}
 	}
