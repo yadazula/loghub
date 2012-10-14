@@ -11,8 +11,14 @@ namespace LogHub.Tryouts
 	{
 		private static void Main()
 		{
-			dynamic logger = GetNLogLogger();
-			//dynamic logger = GetLog4NetLogger();
+			dynamic nLogLogger = GetNLogLogger();
+			nLogLogger.Debug("hello");
+			
+			dynamic log4NetLogger = GetLog4NetLogger();
+			log4NetLogger.Debug("hello");
+
+			Console.ReadLine();
+			return;
 
 			var random = new Random();
 			int i = 0;
@@ -22,24 +28,21 @@ namespace LogHub.Tryouts
 				switch (level)
 				{
 					case 1:
-						logger.Debug("message " + (i++));
+						nLogLogger.Debug("message " + (i++));
 						break;
 					case 2:
-						logger.Info("message " + (i++));
+						nLogLogger.Info("message " + (i++));
 						break;
 					case 3:
-						logger.Warn("message " + (i++));
+						nLogLogger.Warn("message " + (i++));
 						break;
 					case 4:
-						logger.Error("message " + (i++));
+						nLogLogger.Error("message " + (i++));
 						break;
 					case 5:
-						logger.Fatal("message " + (i++));
+						nLogLogger.Fatal("message " + (i++));
 						break;
 				}
-
-				Console.ReadLine();
-				return;
 			}
 		}
 

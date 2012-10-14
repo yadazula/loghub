@@ -12,7 +12,7 @@
 							serverport="11000"
 							host="Host-Foo"
 							source="LogHub TestClient"
-							layout="${threadid} ${message} ${exception:format=tostring}" />
+							layout="[${threadid}] ${message} ${exception:format=tostring}" />
 		</target>
 	</targets>
 
