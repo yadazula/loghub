@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Server", "src\LogHub.Server\LogHub.Server.csproj", "{9B17311A-EA66-4BB3-A575-F3148734E791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.TestClient", "test\LogHub.TestClient\LogHub.TestClient.csproj", "{74C9D072-6FCA-4D26-8B06-78101518345C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.NLog", "src\LogHub.NLog\LogHub.NLog.csproj", "{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Web", "src\LogHub.Web\LogHub.Web.csproj", "{81324006-2CD8-4175-AEC2-38677E1D5DB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Tests", "test\LogHub.Tests\LogHub.Tests.csproj", "{F3CE3288-979A-419B-A57A-F6C059D6F1EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Core", "src\LogHub.Core\LogHub.Core.csproj", "{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95147939-B498-4DD3-99B3-F63276FD7AE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Tryouts", "test\LogHub.Tryouts\LogHub.Tryouts.csproj", "{74C9D072-6FCA-4D26-8B06-78101518345C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forwarders", "Forwarders", "{5C5EC40D-2F4E-42D0-97FD-680A633483A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Forwarder.Core", "src\LogHub.Forwarder.Core\LogHub.Forwarder.Core.csproj", "{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Log4Net", "src\LogHub.Log4Net\LogHub.Log4Net.csproj", "{CAB15F31-10FC-4468-8357-545E1A90A49D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forwarders", "Forwarders", "{043441E2-D33C-4718-B877-065BB0AE29FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Forwarder.NLog", "src\LogHub.Forwarder.NLog\LogHub.Forwarder.NLog.csproj", "{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogHub.Forwarder.Log4Net", "src\LogHub.Forwarder.Log4Net\LogHub.Forwarder.Log4Net.csproj", "{CAB15F31-10FC-4468-8357-545E1A90A49D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,26 +39,6 @@ Global
 		{9B17311A-EA66-4BB3-A575-F3148734E791}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9B17311A-EA66-4BB3-A575-F3148734E791}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9B17311A-EA66-4BB3-A575-F3148734E791}.Release|x86.ActiveCfg = Release|Any CPU
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|x86.ActiveCfg = Debug|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|x86.Build.0 = Debug|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|Any CPU.ActiveCfg = Release|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|Mixed Platforms.Build.0 = Release|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|x86.ActiveCfg = Release|x86
-		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|x86.Build.0 = Release|x86
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|x86.ActiveCfg = Release|Any CPU
 		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81324006-2CD8-4175-AEC2-38677E1D5DB0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -89,6 +69,36 @@ Global
 		{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C7F34118-E705-41A0-BFB4-5CC53D6AB49C}.Release|x86.ActiveCfg = Release|Any CPU
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|x86.ActiveCfg = Debug|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Debug|x86.Build.0 = Debug|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|Any CPU.ActiveCfg = Release|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|x86.ActiveCfg = Release|x86
+		{74C9D072-6FCA-4D26-8B06-78101518345C}.Release|x86.Build.0 = Release|x86
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386}.Release|x86.ActiveCfg = Release|Any CPU
 		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB15F31-10FC-4468-8357-545E1A90A49D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -104,9 +114,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F3CE3288-979A-419B-A57A-F6C059D6F1EC} = {95147939-B498-4DD3-99B3-F63276FD7AE9}
-		{74C9D072-6FCA-4D26-8B06-78101518345C} = {95147939-B498-4DD3-99B3-F63276FD7AE9}
-		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386} = {5C5EC40D-2F4E-42D0-97FD-680A633483A7}
-		{CAB15F31-10FC-4468-8357-545E1A90A49D} = {5C5EC40D-2F4E-42D0-97FD-680A633483A7}
+		{71294F56-A88D-43C3-AA73-D5B21EC5EB1C} = {043441E2-D33C-4718-B877-065BB0AE29FC}
+		{55B9BBFF-A6F9-4EB8-85D1-39BF38E8A386} = {043441E2-D33C-4718-B877-065BB0AE29FC}
+		{CAB15F31-10FC-4468-8357-545E1A90A49D} = {043441E2-D33C-4718-B877-065BB0AE29FC}
 	EndGlobalSection
 EndGlobal

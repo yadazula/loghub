@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LogHub.NLog
+namespace LogHub.Forwarder.Core
 {
   public class LogHubMessage
   {

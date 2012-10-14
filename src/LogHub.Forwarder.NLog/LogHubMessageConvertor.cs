@@ -1,15 +1,15 @@
 ﻿using System.Net;
+using LogHub.Forwarder.Core;
 using NLog;
 using Newtonsoft.Json;
 
-namespace LogHub.NLog
+namespace LogHub.Forwarder.NLog
 {
   public class LogHubMessageConvertor
   {
-    public string Convert(LogEventInfo logEventInfo, string host, string source)
+		public string Convert(LogEventInfo logEventInfo, string message, string host, string source)
     {
-      var logEventMessage = logEventInfo.FormattedMessage;
-      if (logEventMessage == null) return null;
+      if (message == null) return null;
 
       if (logEventInfo.Exception != null)
       {
@@ -22,7 +22,7 @@ namespace LogHub.NLog
       {
         Host = host ?? Dns.GetHostName(),
         Source = source,
-        Message = logEventMessage,
+        Message = message,
         Level = Convert(logEventInfo.Level),
         Logger = logEventInfo.LoggerName,
         Date = logEventInfo.TimeStamp
@@ -31,9 +31,9 @@ namespace LogHub.NLog
       foreach (var property in logEventInfo.Properties)
       {
         var key = property.Key as string;
-        var value = property.Value as string;
-
-        if (key == null) continue;
+				if (key == null) continue;
+				
+				var value = property.Value as string;
         logHubMessage.Properties.Add(key, value);
       }
 

@@ -1,6 +1,6 @@
 server
 ------------------------
-counters
+counters ?
 -blacklist
 -http/tcp endpoint
 fix max chunk size
@@ -15,7 +15,5 @@ tests
 
 forwarders
 ------------------------
-nlog
-log4net
 windows event log
 tests

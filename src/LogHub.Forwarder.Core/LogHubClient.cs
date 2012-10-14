@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace LogHub.NLog
+namespace LogHub.Forwarder.Core
 {
   public class LogHubClient : IDisposable
   {

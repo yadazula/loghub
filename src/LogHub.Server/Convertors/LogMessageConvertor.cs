@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using LogHub.Core.Models;
-using Newtonsoft.Json;
+using Raven.Imports.Newtonsoft.Json;
 
 namespace LogHub.Server.Convertors
 {

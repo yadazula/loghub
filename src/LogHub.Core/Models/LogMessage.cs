@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Raven.Imports.Newtonsoft.Json;
 
 namespace LogHub.Core.Models
 {
