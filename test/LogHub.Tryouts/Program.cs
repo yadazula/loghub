@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ET.FakeText;
 using NLog;
 using NLog.Config;
 using log4net;
@@ -11,39 +12,42 @@ namespace LogHub.Tryouts
 	{
 		private static void Main()
 		{
+			var textGenerator = new TextGenerator();
+			var text = textGenerator.GenerateText(4000);
+
 			dynamic nLogLogger = GetNLogLogger();
-			nLogLogger.Debug("hello");
+			nLogLogger.Debug(text);
 			
-			dynamic log4NetLogger = GetLog4NetLogger();
-			log4NetLogger.Debug("hello");
+			//dynamic log4NetLogger = GetLog4NetLogger();
+			//log4NetLogger.Debug("hello");
 
 			Console.ReadLine();
 			return;
 
-			var random = new Random();
-			int i = 0;
-			while (true)
-			{
-				var level = random.Next(1, 5);
-				switch (level)
-				{
-					case 1:
-						nLogLogger.Debug("message " + (i++));
-						break;
-					case 2:
-						nLogLogger.Info("message " + (i++));
-						break;
-					case 3:
-						nLogLogger.Warn("message " + (i++));
-						break;
-					case 4:
-						nLogLogger.Error("message " + (i++));
-						break;
-					case 5:
-						nLogLogger.Fatal("message " + (i++));
-						break;
-				}
-			}
+			//var random = new Random();
+			//int i = 0;
+			//while (true)
+			//{
+			//	var level = random.Next(1, 5);
+			//	switch (level)
+			//	{
+			//		case 1:
+			//			nLogLogger.Debug("message " + (i++));
+			//			break;
+			//		case 2:
+			//			nLogLogger.Info("message " + (i++));
+			//			break;
+			//		case 3:
+			//			nLogLogger.Warn("message " + (i++));
+			//			break;
+			//		case 4:
+			//			nLogLogger.Error("message " + (i++));
+			//			break;
+			//		case 5:
+			//			nLogLogger.Fatal("message " + (i++));
+			//			break;
+			//	}
+			//}
 		}
 
 		public static Logger GetNLogLogger()

@@ -10,23 +10,24 @@ using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public class RecentController : AbstractApiController
-  {
-    public RecentController(IDocumentSession documentSession)
-      : base(documentSession)
-    {
-    }
+	public class RecentController : AbstractApiController
+	{
+		public RecentController(IDocumentSession documentSession)
+			: base(documentSession)
+		{
+		}
 
-    public IEnumerable<LogMessageView> Get([FromUri]RecentLogFilter recentLogFilter)
-    {
-      var logMessages = DocumentSession.Query<LogMessage, LogMessage_Search>()
-                                 .FilterBy(recentLogFilter)
-                                 .OrderByDescending(x => x.Date)
-                                 .Paging(pageSize: recentLogFilter.MessageCount)
-                                 .ToList()
-                                 .MapTo<LogMessageView>();
+		public IEnumerable<LogMessageView> Get([FromUri]RecentLogFilter recentLogFilter)
+		{
+			var logMessages = DocumentSession.Query<LogMessage, LogMessage_Search>()
+																 .FilterBy(recentLogFilter)
+																 .OrderByDescending(x => x.Date)
+																 .Paging(pageSize: recentLogFilter.MessageCount)
+																 .As<LogMessage>()
+																 .ToList()
+																 .MapTo<LogMessageView>();
 
-      return logMessages;
-    }
-  }
+			return logMessages;
+		}
+	}
 }
