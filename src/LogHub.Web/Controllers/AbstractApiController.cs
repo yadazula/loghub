@@ -27,22 +27,23 @@ namespace LogHub.Web.Controllers
 			}
 		}
 
-		public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
+		public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext,
+		                                                       CancellationToken cancellationToken)
 		{
 			return base.ExecuteAsync(controllerContext, cancellationToken)
-								 .ContinueWith(task =>
-									{
-										using (DocumentSession)
-										{
-											if (task.Status != TaskStatus.Faulted && DocumentSession != null)
-											{
-												DocumentSession.SaveChanges();
-											}
-										}
+				.ContinueWith(task =>
+					{
+						using (DocumentSession)
+						{
+							if (task.Status != TaskStatus.Faulted && DocumentSession != null)
+							{
+								DocumentSession.SaveChanges();
+							}
+						}
 
-										return task;
-									})
-									.Unwrap();
+						return task;
+					})
+				.Unwrap();
 		}
 	}
 }

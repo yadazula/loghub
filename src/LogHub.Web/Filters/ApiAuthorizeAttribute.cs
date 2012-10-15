@@ -16,7 +16,7 @@ namespace LogHub.Web.Filters
 			var cookieName = FormsAuthentication.FormsCookieName;
 
 			if (!HttpContext.Current.User.Identity.IsAuthenticated ||
-					HttpContext.Current.Request.Cookies[cookieName] == null)
+			    HttpContext.Current.Request.Cookies[cookieName] == null)
 			{
 				HandleUnauthorizedRequest(actionContext);
 				return;
@@ -27,7 +27,7 @@ namespace LogHub.Web.Filters
 			var formsIdentity = new FormsIdentity(authTicket);
 			var userPrincipal = new LogHubPrincipal(formsIdentity, authTicket.UserData);
 			HttpContext.Current.User = userPrincipal;
-			if(!CheckRoles(userPrincipal) || !CheckUsers(userPrincipal))
+			if (!CheckRoles(userPrincipal) || !CheckUsers(userPrincipal))
 			{
 				HandleUnauthorizedRequest(actionContext);
 			}
@@ -36,10 +36,10 @@ namespace LogHub.Web.Filters
 		protected override void HandleUnauthorizedRequest(System.Web.Http.Controllers.HttpActionContext actionContext)
 		{
 			actionContext.Response = new HttpResponseMessage
-			{
-				StatusCode = HttpStatusCode.Unauthorized,
-				RequestMessage = actionContext.ControllerContext.Request
-			};
+				{
+					StatusCode = HttpStatusCode.Unauthorized,
+					RequestMessage = actionContext.ControllerContext.Request
+				};
 		}
 
 		private bool CheckRoles(IPrincipal principal)
@@ -58,11 +58,11 @@ namespace LogHub.Web.Filters
 
 		protected static string[] SplitByComma(string input)
 		{
-			if (string.IsNullOrWhiteSpace(input)) 
+			if (string.IsNullOrWhiteSpace(input))
 				return new string[0];
 
 			var roles = input.Split(',')
-												.Where(role => !String.IsNullOrWhiteSpace(role.Trim()));
+				.Where(role => !String.IsNullOrWhiteSpace(role.Trim()));
 
 			return roles.Select(role => role.Trim()).ToArray();
 		}

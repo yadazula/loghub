@@ -10,29 +10,30 @@ namespace LogHub.Core.Indexes
 		public LogMessage_Search()
 		{
 			Map = logs => from log in logs
-										select new
-											{
-												log.Host,
-												log.Source,
-												log.Message,
-												log.Logger,
-												log.Level,
-												log.Date
-											};
+			              select new
+				              {
+					              log.Host,
+					              log.Source,
+					              log.Message,
+					              log.Logger,
+					              log.Level,
+					              log.Date
+				              };
 
 			TransformResults = (database, logs) => from log in logs
-																						 let message = (log.Message.Length > 250) ? log.Message.Substring(0, 250) : log.Message
-																						 select new
-																							 {
-																								 log.Id,
-																								 log.Host,
-																								 log.Source,
-																								 log.Logger,
-																								 log.Level,
-																								 Message = message,
-																								 log.Date,
-																								 log.Properties
-																							 };
+			                                       let message =
+				                                       (log.Message.Length > 250) ? log.Message.Substring(0, 250) : log.Message
+			                                       select new
+				                                       {
+					                                       log.Id,
+					                                       log.Host,
+					                                       log.Source,
+					                                       log.Logger,
+					                                       log.Level,
+					                                       Message = message,
+					                                       log.Date,
+					                                       log.Properties
+				                                       };
 
 			Indexes.Add(x => x.Host, FieldIndexing.Analyzed);
 			Indexes.Add(x => x.Source, FieldIndexing.Analyzed);

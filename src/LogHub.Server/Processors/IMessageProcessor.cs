@@ -2,8 +2,8 @@
 
 namespace LogHub.Server.Processors
 {
-  public interface IMessageProcessor
-  {
-    void Process(RawMessage rawMessage);
-  }
+	public interface IMessageProcessor
+	{
+		void Process(RawMessage rawMessage);
+	}
 }

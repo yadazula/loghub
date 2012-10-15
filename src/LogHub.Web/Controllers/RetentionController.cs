@@ -21,8 +21,8 @@ namespace LogHub.Web.Controllers
 		public IEnumerable<Retention> Get()
 		{
 			var items = DocumentSession.Query<Retention>()
-																 .Customize(x => x.WaitForNonStaleResultsAsOfNow())
-																 .ToList();
+				.Customize(x => x.WaitForNonStaleResultsAsOfNow())
+				.ToList();
 
 			return items;
 		}

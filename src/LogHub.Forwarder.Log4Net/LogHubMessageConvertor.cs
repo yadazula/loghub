@@ -20,14 +20,14 @@ namespace LogHub.Forwarder.Log4Net
 			}
 
 			var logHubMessage = new LogHubMessage
-			{
-				Host = host ?? Dns.GetHostName(),
-				Source = source,
-				Message = message,
-				Level = Convert(loggingEvent.Level),
-				Logger = loggingEvent.LoggerName,
-				Date = loggingEvent.TimeStamp
-			};
+				{
+					Host = host ?? Dns.GetHostName(),
+					Source = source,
+					Message = message,
+					Level = Convert(loggingEvent.Level),
+					Logger = loggingEvent.LoggerName,
+					Date = loggingEvent.TimeStamp
+				};
 
 			foreach (DictionaryEntry property in loggingEvent.Properties)
 			{
@@ -45,10 +45,10 @@ namespace LogHub.Forwarder.Log4Net
 		private static int Convert(Level level)
 		{
 			if (level == Level.Fine ||
-					level == Level.Finer ||
-					level == Level.Finest ||
-					level == Level.Verbose ||
-					level == Level.Trace)
+			    level == Level.Finer ||
+			    level == Level.Finest ||
+			    level == Level.Verbose ||
+			    level == Level.Trace)
 				return 1;
 
 			if (level == Level.Debug)
@@ -58,17 +58,17 @@ namespace LogHub.Forwarder.Log4Net
 				return 3;
 
 			if (level == Level.Notice ||
-					level == Level.Warn)
+			    level == Level.Warn)
 				return 4;
 
 			if (level == Level.Error)
 				return 5;
 
 			if (level == Level.Critical ||
-					level == Level.Severe ||
-					level == Level.Alert ||
-					level == Level.Emergency ||
-					level == Level.Fatal)
+			    level == Level.Severe ||
+			    level == Level.Alert ||
+			    level == Level.Emergency ||
+			    level == Level.Fatal)
 				return 6;
 
 			return 0;

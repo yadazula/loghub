@@ -2,108 +2,108 @@
 @using LogHub.Web.Infrastructure.Common
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>LogHub</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" />
-	<link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/bootstrap/css/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/bootstrap/css/datepicker.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="#">LogHub</a>
-				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i>&nbsp;@ViewBag.User.Name
-						<span class="caret"></span>
+	<head>
+		<meta charset="utf-8">
+		<title>LogHub</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" />
+		<link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
+		<link href="@Url.Content("~/Content/bootstrap/css/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css"/>
+		<link href="@Url.Content("~/Content/bootstrap/css/datepicker.css")" rel="stylesheet" type="text/css"/>
+		<link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
 					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#users"><i class="icon-user"></i>&nbsp;Profile</a></li>
-						<li class="divider"></li>
-						<li><a href="@Url.Action("SignOut", "Login")" id="logout"><i class="icon-off"></i>&nbsp;Logout</a></li>
-					</ul>
+					<a class="brand" href="#">LogHub</a>
+					<div class="btn-group pull-right">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							<i class="icon-user"></i>&nbsp;@ViewBag.User.Name
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#users"><i class="icon-user"></i>&nbsp;Profile</a></li>
+							<li class="divider"></li>
+							<li><a href="@Url.Action("SignOut", "Login")" id="logout"><i class="icon-off"></i>&nbsp;Logout</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span2">
-				<div class="well sidebar-nav">
-					<ul class="nav nav-list" data-bind="foreach: pages" id="pages">
-						<li data-bind="css: {active: isActive}"><a data-bind="attr: { href: url }"><i data-bind="attr: {class: icon}"></i>&nbsp;<span data-bind="text: name"></span></a></li>
-					</ul>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-list" data-bind="foreach: pages" id="pages">
+							<li data-bind="css: {active: isActive}"><a data-bind="attr: { href: url }"><i data-bind="attr: {class: icon}"></i>&nbsp;<span data-bind="text: name"></span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="span10" id="pageContainer">
 				</div>
 			</div>
-			<div class="span10" id="pageContainer">
+		</div>
+		<div class="modal hide fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="confirmModalLabel">Confirm Delete</h3>
+			</div>
+			<div class="modal-body" data-bind="text: message">
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+				<button class="btn btn-danger" data-bind="click: onDelete">Delete</button>
 			</div>
 		</div>
-	</div>
-	<div class="modal hide fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="confirmModalLabel">Confirm Delete</h3>
+		<div class="modal hide fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="errorModalLabel">Error</h3>
+			</div>
+			<div class="modal-body text-error" data-bind="html: message">
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-bind="click: hide">Close</button>
+			</div>
 		</div>
-		<div class="modal-body" data-bind="text: message">
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-			<button class="btn btn-danger" data-bind="click: onDelete">Delete</button>
-		</div>
-	</div>
-	<div class="modal hide fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="errorModalLabel">Error</h3>
-		</div>
-		<div class="modal-body text-error" data-bind="html: message">
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-bind="click: hide">Close</button>
-		</div>
-	</div>
-	@Html.RenderTemplates("~/Templates/")
-	<script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
-	<script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
-	<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
-	<script src="@Url.Content("~/Content/bootstrap/js/bootstrap-datepicker.js")"></script>
-	<script src="@Url.Content("~/Scripts/sammy.js")"></script>
-	<script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
-	<script src="@Url.Content("~/Scripts/knockout.mapping-latest.debug.js")"></script>
-	<script src="@Url.Content("~/Scripts/simple.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/bindings.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/restclient.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/utils.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/lookups.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/base.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/page.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/recent.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/search.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/user.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/retention.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/settings.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/vm/alerts.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/routes.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/errorHandler.js")"></script>
-	<script src="@Url.Content("~/Scripts/app/app.js")"></script>
-	@{
-		var showAdminPages = @ViewBag.User.Role == UserRole.Administrator ? 1 : 0;
-	}
-	<script type="text/javascript">
-		$(function () {
-			ko.applyBindings(new loghub.app(@showAdminPages), $('#pages')[0]);
-			ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
-		});
-	</script>
-</body>
+		@Html.RenderTemplates("~/Templates/")
+		<script src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
+		<script src="@Url.Content("~/Scripts/underscore.min.js")"></script>
+		<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+		<script src="@Url.Content("~/Content/bootstrap/js/bootstrap-datepicker.js")"></script>
+		<script src="@Url.Content("~/Scripts/sammy.js")"></script>
+		<script src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
+		<script src="@Url.Content("~/Scripts/knockout.mapping-latest.debug.js")"></script>
+		<script src="@Url.Content("~/Scripts/simple.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/bindings.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/restclient.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/utils.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/lookups.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/base.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/page.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/recent.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/search.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/user.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/retention.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/settings.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/vm/alerts.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/routes.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/errorHandler.js")"></script>
+		<script src="@Url.Content("~/Scripts/app/app.js")"></script>
+		@{
+			var showAdminPages = @ViewBag.User.Role == UserRole.Administrator ? 1 : 0;
+		}
+		<script type="text/javascript">
+			$(function() {
+				ko.applyBindings(new loghub.app(@showAdminPages), $('#pages')[0]);
+				ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
+			});
+		</script>
+	</body>
 </html>

@@ -9,15 +9,16 @@ using System.Web.Http.ModelBinding;
 
 namespace LogHub.Web.Filters
 {
-  [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-  public class ValidationFilterAttribute : ActionFilterAttribute
-  {
-    public override void OnActionExecuting(HttpActionContext actionContext)
-    {
-      if (!actionContext.ModelState.IsValid)
-      {
-        actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
-      }
-    }
-  }
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+	public class ValidationFilterAttribute : ActionFilterAttribute
+	{
+		public override void OnActionExecuting(HttpActionContext actionContext)
+		{
+			if (!actionContext.ModelState.IsValid)
+			{
+				actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+				                                                                   actionContext.ModelState);
+			}
+		}
+	}
 }

@@ -17,7 +17,7 @@ namespace LogHub.Tryouts
 
 			dynamic nLogLogger = GetNLogLogger();
 			nLogLogger.Debug(text);
-			
+
 			//dynamic log4NetLogger = GetLog4NetLogger();
 			//log4NetLogger.Debug("hello");
 
@@ -60,7 +60,7 @@ namespace LogHub.Tryouts
 		public static ILog GetLog4NetLogger()
 		{
 			log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo("Log4NetConfig.xml"));
-			var logger = log4net.LogManager.GetLogger(typeof(Program));
+			var logger = log4net.LogManager.GetLogger(typeof (Program));
 			return logger;
 		}
 	}

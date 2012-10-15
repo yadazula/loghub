@@ -1,6 +1,6 @@
 namespace LogHub.Web.ViewModels
 {
-  public class RecentLogFilter : AbstractLogFilter
-  {
-  }
+	public class RecentLogFilter : AbstractLogFilter
+	{
+	}
 }

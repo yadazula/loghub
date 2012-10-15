@@ -3,24 +3,24 @@ using Ninject;
 
 namespace LogHub.Web.Infrastructure.Composition
 {
-  public class DependencyResolver : DependencyScope, IDependencyResolver
-  {
-    private readonly IKernel kernel;
+	public class DependencyResolver : DependencyScope, IDependencyResolver
+	{
+		private readonly IKernel kernel;
 
-    public DependencyResolver(IKernel kernel)
-      : base(kernel)
-    {
-      this.kernel = kernel;
-    }
+		public DependencyResolver(IKernel kernel)
+			: base(kernel)
+		{
+			this.kernel = kernel;
+		}
 
-    public IDependencyScope BeginScope()
-    {
-      return new DependencyScope(kernel);
-    }
+		public IDependencyScope BeginScope()
+		{
+			return new DependencyScope(kernel);
+		}
 
-    public override void Dispose()
-    {
-      kernel.Dispose();
-    }
-  }
+		public override void Dispose()
+		{
+			kernel.Dispose();
+		}
+	}
 }

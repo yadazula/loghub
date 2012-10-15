@@ -2,8 +2,8 @@
 
 namespace LogHub.Server.Processors
 {
-  public interface IMessageProcessorFactory
-  {
-    IMessageProcessor Get(MessageFormat messageFormat);
-  }
+	public interface IMessageProcessorFactory
+	{
+		IMessageProcessor Get(MessageFormat messageFormat);
+	}
 }

@@ -3,93 +3,90 @@ using System.Linq;
 using LogHub.Web.Infrastructure.Composition.Tasks;
 using Ninject.Modules;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(LogHub.Web.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivator.PreApplicationStartMethod(typeof (LogHub.Web.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof (LogHub.Web.App_Start.NinjectWebCommon), "Stop")]
 
 namespace LogHub.Web.App_Start
 {
-  using System;
-  using System.Web;
+	using System;
+	using System.Web;
+	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+	using Ninject;
+	using Ninject.Web.Common;
 
-  using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+	public static class NinjectWebCommon
+	{
+		private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-  using Ninject;
-  using Ninject.Web.Common;
+		/// <summary>
+		/// Starts the application
+		/// </summary>
+		public static void Start()
+		{
+			DynamicModuleUtility.RegisterModule(typeof (OnePerRequestHttpModule));
+			DynamicModuleUtility.RegisterModule(typeof (NinjectHttpModule));
+			bootstrapper.Initialize(CreateKernel);
+		}
 
-  public static class NinjectWebCommon
-  {
-    private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+		/// <summary>
+		/// Stops the application.
+		/// </summary>
+		public static void Stop()
+		{
+			bootstrapper.ShutDown();
+		}
 
-    /// <summary>
-    /// Starts the application
-    /// </summary>
-    public static void Start()
-    {
-      DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
-      DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-      bootstrapper.Initialize(CreateKernel);
-    }
+		/// <summary>
+		/// Creates the kernel that will manage your application.
+		/// </summary>
+		/// <returns>The created kernel.</returns>
+		private static IKernel CreateKernel()
+		{
+			var kernel = new StandardKernel();
+			kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+			kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-    /// <summary>
-    /// Stops the application.
-    /// </summary>
-    public static void Stop()
-    {
-      bootstrapper.ShutDown();
-    }
+			RegisterServices(kernel);
+			return kernel;
+		}
 
-    /// <summary>
-    /// Creates the kernel that will manage your application.
-    /// </summary>
-    /// <returns>The created kernel.</returns>
-    private static IKernel CreateKernel()
-    {
-      var kernel = new StandardKernel();
-      kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-      kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+		/// <summary>
+		/// Load your modules or register your services here!
+		/// </summary>
+		/// <param name="kernel">The kernel.</param>
+		private static void RegisterServices(IKernel kernel)
+		{
+			RegisterModules(kernel);
+			ExecuteStartupTasks(kernel);
+		}
 
-      RegisterServices(kernel);
-      return kernel;
-    }
+		private static void RegisterModules(IKernel kernel)
+		{
+			var types = typeof (NinjectWebCommon).Assembly.GetTypes();
+			var typeNinjectModule = typeof (INinjectModule);
+			var ninjectModules = types.Where(x => x.IsClass && typeNinjectModule.IsAssignableFrom(x));
+			foreach (var ninjectModule in ninjectModules)
+			{
+				var instance = (INinjectModule) Activator.CreateInstance(ninjectModule);
+				kernel.Load(instance);
+			}
+		}
 
-    /// <summary>
-    /// Load your modules or register your services here!
-    /// </summary>
-    /// <param name="kernel">The kernel.</param>
-    private static void RegisterServices(IKernel kernel)
-    {
-      RegisterModules(kernel);
-      ExecuteStartupTasks(kernel);
-    }
+		private static void ExecuteStartupTasks(IKernel kernel)
+		{
+			var types = typeof (NinjectWebCommon).Assembly.GetTypes();
+			var typeStartupTask = typeof (IStartupTask);
+			var startupTasks = types.Where(x => x.IsClass && typeStartupTask.IsAssignableFrom(x));
+			foreach (var startupTask in startupTasks)
+			{
+				var o = (IStartupTask) kernel.Get(startupTask);
+				o.Execute();
+			}
+		}
 
-    private static void RegisterModules(IKernel kernel)
-    {
-      var types = typeof(NinjectWebCommon).Assembly.GetTypes();
-      var typeNinjectModule = typeof(INinjectModule);
-      var ninjectModules = types.Where(x => x.IsClass && typeNinjectModule.IsAssignableFrom(x));
-      foreach (var ninjectModule in ninjectModules)
-      {
-        var instance = (INinjectModule)Activator.CreateInstance(ninjectModule);
-        kernel.Load(instance);
-      }
-    }
-
-    private static void ExecuteStartupTasks(IKernel kernel)
-    {
-      var types = typeof(NinjectWebCommon).Assembly.GetTypes();
-      var typeStartupTask = typeof(IStartupTask);
-      var startupTasks = types.Where(x => x.IsClass && typeStartupTask.IsAssignableFrom(x));
-      foreach (var startupTask in startupTasks)
-      {
-        var o = (IStartupTask)kernel.Get(startupTask);
-        o.Execute();
-      }
-    }
-
-    public static IKernel Kernel
-    {
-      get { return bootstrapper.Kernel; }
-    }
-
-  }
+		public static IKernel Kernel
+		{
+			get { return bootstrapper.Kernel; }
+		}
+	}
 }

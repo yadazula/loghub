@@ -2,9 +2,9 @@
 
 namespace LogHub.Server.Tasks
 {
-  public interface IScheduledTask
-  {
-    TimeSpan Period { get; }
-    void Execute();
-  }
+	public interface IScheduledTask
+	{
+		TimeSpan Period { get; }
+		void Execute();
+	}
 }

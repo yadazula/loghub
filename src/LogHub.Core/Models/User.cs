@@ -4,47 +4,45 @@ using System.Text;
 
 namespace LogHub.Core.Models
 {
-  public class User
-  {
-    const string ConstantSalt = "!Ogw5Z*26xW#R";
-    public const string Admin = "admin";
+	public class User
+	{
+		private const string ConstantSalt = "!Ogw5Z*26xW#R";
+		public const string Admin = "admin";
 
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Username { get; set; }
-    public string Email { get; set; }
-    public UserRole Role { get; set; }
+		public string Id { get; set; }
+		public string Name { get; set; }
+		public string Username { get; set; }
+		public string Email { get; set; }
+		public UserRole Role { get; set; }
 
-    protected string HashedPassword { get; private set; }
-    private string passwordSalt;
-    private string PasswordSalt
-    {
-      get
-      {
-        return passwordSalt ?? (passwordSalt = Guid.NewGuid().ToString("N"));
-      }
-      set { passwordSalt = value; }
-    }
+		protected string HashedPassword { get; private set; }
+		private string passwordSalt;
 
-    public void SetPassword(string password)
-    {
-      HashedPassword = GetHashedPassword(password);
-    }
+		private string PasswordSalt
+		{
+			get { return passwordSalt ?? (passwordSalt = Guid.NewGuid().ToString("N")); }
+			set { passwordSalt = value; }
+		}
 
-    public bool ValidatePassword(string maybePassword)
-    {
-      if (HashedPassword == null)
-        return true;
-      return HashedPassword == GetHashedPassword(maybePassword);
-    }
+		public void SetPassword(string password)
+		{
+			HashedPassword = GetHashedPassword(password);
+		}
 
-    private string GetHashedPassword(string password)
-    {
-      using (var sha = SHA256.Create())
-      {
-        var computedHash = sha.ComputeHash(Encoding.Unicode.GetBytes(PasswordSalt + password + ConstantSalt));
-        return Convert.ToBase64String(computedHash);
-      }
-    }
-  }
+		public bool ValidatePassword(string maybePassword)
+		{
+			if (HashedPassword == null)
+				return true;
+			return HashedPassword == GetHashedPassword(maybePassword);
+		}
+
+		private string GetHashedPassword(string password)
+		{
+			using (var sha = SHA256.Create())
+			{
+				var computedHash = sha.ComputeHash(Encoding.Unicode.GetBytes(PasswordSalt + password + ConstantSalt));
+				return Convert.ToBase64String(computedHash);
+			}
+		}
+	}
 }

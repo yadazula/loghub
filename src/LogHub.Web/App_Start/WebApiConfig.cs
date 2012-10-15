@@ -5,21 +5,21 @@ using Newtonsoft.Json.Serialization;
 
 namespace LogHub.Web.App_Start
 {
-  public static class WebApiConfig
-  {
-    public static void Register(HttpConfiguration config)
-    {
-      config.DependencyResolver = new DependencyResolver(NinjectWebCommon.Kernel);
+	public static class WebApiConfig
+	{
+		public static void Register(HttpConfiguration config)
+		{
+			config.DependencyResolver = new DependencyResolver(NinjectWebCommon.Kernel);
 
-      config.Filters.Add(new ApiAuthorizeAttribute());
-      config.Filters.Add(new ValidationFilterAttribute());
+			config.Filters.Add(new ApiAuthorizeAttribute());
+			config.Filters.Add(new ValidationFilterAttribute());
 
-      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-      config.Routes.MapHttpRoute(
-          name: "DefaultApi",
-          routeTemplate: "api/{controller}/{id}",
-          defaults: new { id = RouteParameter.Optional }
-      );
-    }
-  }
+			config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			config.Routes.MapHttpRoute(
+				name: "DefaultApi",
+				routeTemplate: "api/{controller}/{id}",
+				defaults: new {id = RouteParameter.Optional}
+				);
+		}
+	}
 }

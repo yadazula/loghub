@@ -17,15 +17,15 @@ namespace LogHub.Web.Controllers
 		{
 		}
 
-		public IEnumerable<LogMessageView> Get([FromUri]RecentLogFilter recentLogFilter)
+		public IEnumerable<LogMessageView> Get([FromUri] RecentLogFilter recentLogFilter)
 		{
 			var logMessages = DocumentSession.Query<LogMessage, LogMessage_Search>()
-																 .FilterBy(recentLogFilter)
-																 .OrderByDescending(x => x.Date)
-																 .Paging(pageSize: recentLogFilter.MessageCount)
-																 .As<LogMessage>()
-																 .ToList()
-																 .MapTo<LogMessageView>();
+				.FilterBy(recentLogFilter)
+				.OrderByDescending(x => x.Date)
+				.Paging(pageSize: recentLogFilter.MessageCount)
+				.As<LogMessage>()
+				.ToList()
+				.MapTo<LogMessageView>();
 
 			return logMessages;
 		}

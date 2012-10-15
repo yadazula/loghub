@@ -7,44 +7,44 @@ using Raven.Client;
 
 namespace LogHub.Web.Controllers
 {
-  public class AlertController : AbstractApiController
-  {
-    public AlertController(IDocumentSession documentSession)
-      : base(documentSession)
-    {
-    }
+	public class AlertController : AbstractApiController
+	{
+		public AlertController(IDocumentSession documentSession)
+			: base(documentSession)
+		{
+		}
 
-    public IEnumerable<LogAlertView> Get()
-    {
-	    var items = DocumentSession.Query<LogAlert>()
-																 .Where(x => x.User == CurrentUser.Id) 
-                                 .ToList();
+		public IEnumerable<LogAlertView> Get()
+		{
+			var items = DocumentSession.Query<LogAlert>()
+				.Where(x => x.User == CurrentUser.Id)
+				.ToList();
 
-      var result = items.MapTo<LogAlertView>();
-      return result;
-    }
+			var result = items.MapTo<LogAlertView>();
+			return result;
+		}
 
-    public void Post(LogAlertView logAlertView)
-    {
-	    Store(logAlertView);
-    }
+		public void Post(LogAlertView logAlertView)
+		{
+			Store(logAlertView);
+		}
 
 		public void Put(LogAlertView logAlertView)
 		{
 			Store(logAlertView);
 		}
 
-	  public void Delete(string id)
-    {
-      var item = DocumentSession.Load<LogAlert>(id);
-      DocumentSession.Delete(item);
-    }
+		public void Delete(string id)
+		{
+			var item = DocumentSession.Load<LogAlert>(id);
+			DocumentSession.Delete(item);
+		}
 
-	  private void Store(LogAlertView logAlertView)
-	  {
-		  var logAlert = logAlertView.MapTo<LogAlert>();
+		private void Store(LogAlertView logAlertView)
+		{
+			var logAlert = logAlertView.MapTo<LogAlert>();
 			logAlert.User = CurrentUser.Id;
-		  DocumentSession.Store(logAlert);
-	  }
-  }
+			DocumentSession.Store(logAlert);
+		}
+	}
 }

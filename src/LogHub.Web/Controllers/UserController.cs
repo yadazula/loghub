@@ -25,8 +25,8 @@ namespace LogHub.Web.Controllers
 		public IEnumerable<User> Get()
 		{
 			var users = DocumentSession.Query<User>()
-																 .OrderBy(x => x.Username)
-																 .ToList();
+				.OrderBy(x => x.Username)
+				.ToList();
 
 			return users;
 		}
@@ -37,7 +37,8 @@ namespace LogHub.Web.Controllers
 
 			if (user.IsNotNull())
 			{
-				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Username is used by another user."));
+				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+				                                                            "Username is used by another user."));
 			}
 
 			user = userInput.MapTo<User>();
