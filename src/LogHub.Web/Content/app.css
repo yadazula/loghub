@@ -4,11 +4,10 @@
   padding-bottom: 40px;
 }
 
-.typeahead
+.typeahead, .tooltip
 {
   z-index: 3000;
 }
-
 
 .form-horizontal .control-label
 {

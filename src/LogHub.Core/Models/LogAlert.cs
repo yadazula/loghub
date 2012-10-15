@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LogHub.Core.Models
 {
@@ -13,6 +14,11 @@ namespace LogHub.Core.Models
 		public int MessageCount { get; set; }
 		public TimeSpan Minutes { get; set; }
 		public string User { get; set; }
-		public string EmailTo { get; set; }
+		public IList<string> EmailToList { get; set; }
+
+		public LogAlert()
+		{
+			EmailToList = new List<string>();
+		}
 	}
 }

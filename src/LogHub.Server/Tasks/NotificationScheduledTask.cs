@@ -80,14 +80,17 @@ namespace LogHub.Server.Tasks
 
 			var mail = new MailMessage {From = new MailAddress(settings.FromAddress)};
 
-			if (logAlert.EmailTo.IsNullOrWhiteSpace())
+			if (logAlert.EmailToList.Count == 0)
 			{
 				var user = documentSession.Load<User>(logAlert.User);
 				mail.To.Add(user.Email);
 			}
 			else
 			{
-				mail.To.Add(logAlert.EmailTo);
+				foreach (var emailTo in logAlert.EmailToList)
+				{
+					mail.To.Add(emailTo);	
+				}
 			}
 
 			mail.Subject = string.Format("[loghub] Alert for {0}", logAlert.Name);
