@@ -4,7 +4,7 @@ loghub.viewmodels = loghub.viewmodels || {};
 loghub.viewmodels.settings = function () {
     var self = this;
     
-    self.url = '/api/settings';
+    self.url = './api/settings';
     
     self.isLoading = ko.observable(false);
 

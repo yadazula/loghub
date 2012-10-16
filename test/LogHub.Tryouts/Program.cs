@@ -12,14 +12,14 @@ namespace LogHub.Tryouts
 	{
 		private static void Main()
 		{
-			var textGenerator = new TextGenerator();
-			var text = textGenerator.GenerateText(4000);
+      //var textGenerator = new TextGenerator();
+      //var text = textGenerator.GenerateText(4000);
 
-			dynamic nLogLogger = GetNLogLogger();
-			nLogLogger.Debug(text);
+      //dynamic nLogLogger = GetNLogLogger();
+      //nLogLogger.Debug(text);
 
-			//dynamic log4NetLogger = GetLog4NetLogger();
-			//log4NetLogger.Debug("hello");
+      dynamic log4NetLogger = GetLog4NetLogger();
+      log4NetLogger.Debug("hello");
 
 			Console.ReadLine();
 			return;

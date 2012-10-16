@@ -3,7 +3,7 @@ loghub.viewmodels = loghub.viewmodels || {};
 
 loghub.viewmodels.retentionList = loghub.viewmodels.baseEditableList.extend({
 
-	url: '/api/retention',
+	url: './api/retention',
 
 	getNewModel: function () {
 		return {

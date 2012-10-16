@@ -5,7 +5,7 @@ loghub.viewmodels.recentLogList = function () {
     var self = this;
 
     self.url = function () {
-        return '/api/recent?' + $.param(self.currentFilter);
+        return './api/recent?' + $.param(self.currentFilter);
     };
 
     self.filterModel = {

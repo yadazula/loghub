@@ -6,6 +6,8 @@ counters ?
 fix max chunk size
 alarm => last sent date check
 alarm => amazon ses integration
+add default retention
+windows service
 tests
 
 client

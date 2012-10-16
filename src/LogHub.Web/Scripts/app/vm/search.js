@@ -5,7 +5,7 @@ loghub.viewmodels.searchLogList = function () {
     var self = this;
 
     self.url = function () {
-        return '/api/search?' + $.param(self.currentFilter);
+        return './api/search?' + $.param(self.currentFilter);
     };
 
     self.filterModel = {

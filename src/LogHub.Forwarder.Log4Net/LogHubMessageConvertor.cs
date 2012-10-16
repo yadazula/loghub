@@ -44,14 +44,13 @@ namespace LogHub.Forwarder.Log4Net
 
 		private static int Convert(Level level)
 		{
-			if (level == Level.Fine ||
-			    level == Level.Finer ||
+			if (level == Level.Finer ||
 			    level == Level.Finest ||
 			    level == Level.Verbose ||
 			    level == Level.Trace)
 				return 1;
 
-			if (level == Level.Debug)
+      if (level == Level.Fine || level == Level.Debug)
 				return 2;
 
 			if (level == Level.Info)

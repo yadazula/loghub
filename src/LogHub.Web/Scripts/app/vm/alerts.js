@@ -3,7 +3,7 @@ loghub.viewmodels = loghub.viewmodels || {};
 
 loghub.viewmodels.alertList = loghub.viewmodels.baseEditableList.extend({
 
-	url: '/api/alert',
+	url: './api/alert',
 
 	getNewModel: function () {
 		var alert = {

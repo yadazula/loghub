@@ -3,7 +3,7 @@ loghub.viewmodels = loghub.viewmodels || {};
 
 loghub.viewmodels.userList = loghub.viewmodels.baseEditableList.extend({
 
-	url: '/api/user',
+	url: './api/user',
 	
 	getNewModel: function () {
 		return {
