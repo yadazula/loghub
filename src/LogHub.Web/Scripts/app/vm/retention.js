@@ -16,10 +16,6 @@ loghub.viewmodels.retentionList = loghub.viewmodels.baseEditableList.extend({
 	},
 
 	validate: function (item, validationErrors) {
-		if (!item.source()) {
-			validationErrors.push('Please fill source field.');
-		}
-
 		if (!item.days()) {
 			validationErrors.push('Please fill days field.');
 		} else if (!loghub.utils.isNumber(item.days())) {

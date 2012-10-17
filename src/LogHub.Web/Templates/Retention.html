@@ -27,7 +27,7 @@
             </thead>
             <tbody data-bind="foreach: items">
                 <tr>
-                    <td data-bind="text: source"></td>
+                    <td data-bind="text: source() === null ? 'All Sources' : source()"></td>
                     <td data-bind="text: days() + ' Days'"></td>
                     <td>
                         <input type="checkbox" disabled="disabled" data-bind="checked: archiveToGlacier"></td>

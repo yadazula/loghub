@@ -18,7 +18,7 @@ namespace LogHub.Server.Handlers
 					Interlocked.Exchange(ref throughputCount, 0);
 					if (current > 0)
 					{
-						Logger.Info("Throughput : {0}", current);
+						Logger.Debug("Throughput : {0}", current);
 					}
 				}, null, 5000, 5000);
 		}
