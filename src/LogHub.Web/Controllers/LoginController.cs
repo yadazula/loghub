@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using LogHub.Core.Extensions;
 using LogHub.Web.Infrastructure.Common;
 using LogHub.Web.ViewModels;
 using Raven.Client;

@@ -1,9 +1,8 @@
 using LogHub.Core.Extensions;
 using LogHub.Core.Models;
-using LogHub.Web.Infrastructure.Common;
 using Raven.Client;
 
-namespace LogHub.Web.Infrastructure.Composition.Tasks
+namespace LogHub.Server.Tasks.Startup
 {
 	public class CheckIfAdminUserExist : IStartupTask
 	{

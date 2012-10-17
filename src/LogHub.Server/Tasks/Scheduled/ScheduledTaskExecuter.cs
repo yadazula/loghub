@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using NLog;
 
-namespace LogHub.Server.Tasks
+namespace LogHub.Server.Tasks.Scheduled
 {
 	public class ScheduledTaskExecuter : IScheduledTaskExecuter
 	{

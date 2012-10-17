@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Linq;
-using LogHub.Web.Infrastructure.Composition.Tasks;
 using Ninject.Modules;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof (LogHub.Web.App_Start.NinjectWebCommon), "Start")]
@@ -57,7 +55,6 @@ namespace LogHub.Web.App_Start
 		private static void RegisterServices(IKernel kernel)
 		{
 			RegisterModules(kernel);
-			ExecuteStartupTasks(kernel);
 		}
 
 		private static void RegisterModules(IKernel kernel)
@@ -69,18 +66,6 @@ namespace LogHub.Web.App_Start
 			{
 				var instance = (INinjectModule) Activator.CreateInstance(ninjectModule);
 				kernel.Load(instance);
-			}
-		}
-
-		private static void ExecuteStartupTasks(IKernel kernel)
-		{
-			var types = typeof (NinjectWebCommon).Assembly.GetTypes();
-			var typeStartupTask = typeof (IStartupTask);
-			var startupTasks = types.Where(x => x.IsClass && typeStartupTask.IsAssignableFrom(x));
-			foreach (var startupTask in startupTasks)
-			{
-				var o = (IStartupTask) kernel.Get(startupTask);
-				o.Execute();
 			}
 		}
 

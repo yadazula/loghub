@@ -148,9 +148,6 @@
     <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\RetentionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Infrastructure\Common\DocumentSessionExtensions.cs" />
-    <Compile Include="Infrastructure\Composition\Tasks\CheckIfAdminUserExist.cs" />
-    <Compile Include="Infrastructure\Composition\Tasks\IStartupTask.cs" />
     <Content Include="Scripts\app\vm\base.js" />
     <Content Include="Scripts\simple.js" />
     <Compile Include="ViewModels\LogAlertView.cs" />

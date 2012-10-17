@@ -99,11 +99,13 @@
     <Compile Include="Archiving\AmazonS3Archiver.cs" />
     <Compile Include="Archiving\DiskArchiver.cs" />
     <Compile Include="Archiving\ILogArchiver.cs" />
-    <Compile Include="Tasks\NotificationScheduledTask.cs" />
-    <Compile Include="Tasks\RetentionScheduledTask.cs" />
-    <Compile Include="Tasks\ScheduledTaskExecuter.cs" />
-    <Compile Include="Tasks\IScheduledTask.cs" />
-    <Compile Include="Tasks\IScheduledTaskExecuter.cs" />
+    <Compile Include="Tasks\Startup\CheckIfAdminUserExist.cs" />
+    <Compile Include="Tasks\Startup\IStartupTask.cs" />
+    <Compile Include="Tasks\Scheduled\NotificationScheduledTask.cs" />
+    <Compile Include="Tasks\Scheduled\RetentionScheduledTask.cs" />
+    <Compile Include="Tasks\Scheduled\ScheduledTaskExecuter.cs" />
+    <Compile Include="Tasks\Scheduled\IScheduledTask.cs" />
+    <Compile Include="Tasks\Scheduled\IScheduledTaskExecuter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

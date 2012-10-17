@@ -13,7 +13,7 @@ using Raven.Client.Linq;
 using Raven.Imports.Newtonsoft.Json;
 using Raven.Json.Linq;
 
-namespace LogHub.Server.Tasks
+namespace LogHub.Server.Tasks.Scheduled
 {
   public class RetentionScheduledTask : IScheduledTask
   {

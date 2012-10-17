@@ -1,6 +1,6 @@
 using System;
 
-namespace LogHub.Server.Tasks
+namespace LogHub.Server.Tasks.Scheduled
 {
 	public interface IScheduledTaskExecuter : IDisposable
 	{

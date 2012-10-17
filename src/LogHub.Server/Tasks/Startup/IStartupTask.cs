@@ -1,4 +1,4 @@
-﻿namespace LogHub.Web.Infrastructure.Composition.Tasks
+﻿namespace LogHub.Server.Tasks.Startup
 {
 	public interface IStartupTask
 	{

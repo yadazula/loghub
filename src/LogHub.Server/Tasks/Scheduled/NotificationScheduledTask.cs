@@ -8,7 +8,7 @@ using LogHub.Core.Models;
 using Raven.Client;
 using Raven.Client.Linq;
 
-namespace LogHub.Server.Tasks
+namespace LogHub.Server.Tasks.Scheduled
 {
 	public class NotificationScheduledTask : IScheduledTask
 	{

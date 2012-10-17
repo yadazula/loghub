@@ -2,7 +2,7 @@
 using LogHub.Core.Models;
 using Raven.Client;
 
-namespace LogHub.Web.Infrastructure.Common
+namespace LogHub.Core.Extensions
 {
 	public static class DocumentSessionExtensions
 	{

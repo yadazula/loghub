@@ -9,6 +9,7 @@ using LogHub.Server.Convertors;
 using LogHub.Server.Handlers;
 using LogHub.Server.Processors;
 using LogHub.Server.Tasks;
+using LogHub.Server.Tasks.Scheduled;
 using Ninject;
 using Ninject.Modules;
 using Raven.Client;
@@ -114,14 +115,6 @@ namespace LogHub.Server.Composition
 				.To<DiskArchiver>()
 				.InSingletonScope()
 				.Named("DiskArchiver");
-
-			Bind<IScheduledTask>()
-				.To<RetentionScheduledTask>()
-				.InSingletonScope();
-
-			Bind<IScheduledTask>()
-				.To<NotificationScheduledTask>()
-				.InSingletonScope();
 		}
 	}
 }
