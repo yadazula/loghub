@@ -26,44 +26,35 @@ namespace LogHub.Forwarder.Core
 		{
 			var compressedMessage = CompressMessage(message);
 
-			if (compressedMessage.Length > MaxMessageSizeInUdp)
+			if (compressedMessage.Length <= MaxMessageSizeInUdp)
 			{
-				var numberOfChunksRequired = compressedMessage.Length/MaxMessageSizeInChunk + 1;
-				if (numberOfChunksRequired > MaxNumberOfChunksAllowed) return;
-
-				var messageId = GenerateMessageId(compressedMessage);
-
-				for (var i = 0; i < numberOfChunksRequired; i++)
-				{
-					var skip = i*MaxMessageSizeInChunk;
-					var messageChunkHeader = ConstructChunkHeader(messageId, i, numberOfChunksRequired);
-					var messageChunkData = compressedMessage.Skip(skip).Take(MaxMessageSizeInChunk).ToArray();
-
-					var messageChunkFull = new byte[messageChunkHeader.Length + messageChunkData.Length];
-					messageChunkHeader.CopyTo(messageChunkFull, 0);
-					messageChunkData.CopyTo(messageChunkFull, messageChunkHeader.Length);
-
-					udpClient.Send(messageChunkFull, messageChunkFull.Length, serverIp, serverPort);
-				}
-
+				udpClient.Send(compressedMessage, compressedMessage.Length, serverIp, serverPort);
+				return;
+			}
+			
+			var numberOfChunksRequired = compressedMessage.Length/MaxMessageSizeInChunk + 1;
+			if (numberOfChunksRequired > MaxNumberOfChunksAllowed)
+			{
 				return;
 			}
 
-			udpClient.Send(compressedMessage, compressedMessage.Length, serverIp, serverPort);
+			var messageId = GenerateMessageId(compressedMessage);
+
+			for (var i = 0; i < numberOfChunksRequired; i++)
+			{
+				var skip = i*MaxMessageSizeInChunk;
+				var messageChunkHeader = BuildChunkHeader(messageId, i, numberOfChunksRequired);
+				var messageChunkData = compressedMessage.Skip(skip).Take(MaxMessageSizeInChunk).ToArray();
+
+				var messageChunkFull = new byte[messageChunkHeader.Length + messageChunkData.Length];
+				messageChunkHeader.CopyTo(messageChunkFull, 0);
+				messageChunkData.CopyTo(messageChunkFull, messageChunkHeader.Length);
+
+				udpClient.Send(messageChunkFull, messageChunkFull.Length, serverIp, serverPort);
+			}
 		}
 
-		/// <summary>
-		/// Chunk header structure is:
-		/// - Chunke ID: 0x1e 0x0f (identifying this message as a chunked message)
-		/// - Message ID: 8 bytes (Must be the same for every chunk of this message. Identifying the whole message itself and is used to reassemble the chunks later.)
-		/// - Sequence Number: 1 byte (The sequence number of this chunk)
-		/// - Total Number: 1 byte (How many chunks does this message consist of in total)
-		/// </summary>
-		/// <param name="messageId">Unique identifier of the whole message (not just this chunk)</param>
-		/// <param name="chunkSequenceNumber">Sequence number of this chunk</param>
-		/// <param name="chunkCount">Total number of chunks whole message consists of</param>
-		/// <returns>Chunk header in bytes</returns>
-		private static byte[] ConstructChunkHeader(byte[] messageId, int chunkSequenceNumber, int chunkCount)
+		private static byte[] BuildChunkHeader(byte[] messageId, int chunkSequenceNumber, int chunkCount)
 		{
 			var b = new byte[12];
 
@@ -76,11 +67,6 @@ namespace LogHub.Forwarder.Core
 			return b;
 		}
 
-		/// <summary>
-		/// Compresses the given message using GZip algorithm
-		/// </summary>
-		/// <param name="message">Message to be compressed</param>
-		/// <returns>Compressed message in bytes</returns>
 		private static byte[] CompressMessage(String message)
 		{
 			var compressedMessageStream = new MemoryStream();
@@ -93,15 +79,6 @@ namespace LogHub.Forwarder.Core
 			return compressedMessageStream.ToArray();
 		}
 
-		/// <summary>
-		/// Generates a unique identifier for the whole message.
-		/// Message id is composed of
-		/// - 3rd segment of the IP address - 8 bits
-		/// - 4th segment of the IP address - 8 bits
-		/// - DateTime.Now.Second - 6 bits
-		/// - First 42 bits of MD5 hash of compressed message
-		/// </summary>
-		/// <returns></returns>
 		private static byte[] GenerateMessageId(byte[] compressedMessage)
 		{
 			//create a bit array to store the entire message id (which is 8 bytes)
@@ -147,14 +124,6 @@ namespace LogHub.Forwarder.Core
 			return result;
 		}
 
-		/// <summary>
-		/// Inserts bits from the given byte into the given BitArray instance.
-		/// </summary>
-		/// <param name="bitArray">BitArray instance to be populated with bits</param>
-		/// <param name="bitArrayIndex">Index pointer in BitArray to start inserting bits from</param>
-		/// <param name="byteData">Byte to extract bits from and insert into the given BitArray instance</param>
-		/// <param name="byteDataIndex">Index pointer in byteData to start extracting bits from</param>
-		/// <param name="length">Number of bits to extract from byteData</param>
 		private static void AddToBitArray(BitArray bitArray, int bitArrayIndex, byte byteData, int byteDataIndex, int length)
 		{
 			var localBitArray = new BitArray(new[] {byteData});

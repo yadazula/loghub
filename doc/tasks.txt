@@ -13,6 +13,7 @@ client
 ------------------------
 async page load - show info
 health page => database size, database stats, server status
+highlight todays items
 tests
 
 forwarders
