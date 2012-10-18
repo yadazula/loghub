@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LogHub.Core.Extensions;
 using Raven.Imports.Newtonsoft.Json;
 
 namespace LogHub.Core.Models
@@ -20,7 +21,7 @@ namespace LogHub.Core.Models
 
 		public bool IsValid()
 		{
-			return (!string.IsNullOrWhiteSpace(Host) && !string.IsNullOrWhiteSpace(Message));
+			return (Host.IsNotNullOrWhiteSpace() && Message.IsNotNullOrWhiteSpace());
 		}
 	}
 }

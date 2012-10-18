@@ -1,0 +1,37 @@
+﻿<div class="modal hide fade" id="logDetailModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" style="width: 800px;" data-bind="with: currentItem">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="editModalLabel">Log Detail <span style="font-weight: normal" data-bind="text:  '(' + id() + ')'"></span></h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+			<tr>
+				<td style="font-weight: bold">Host</td>
+				<td data-bind="text: host"></td>
+			</tr>
+			<tr>
+				<td style="font-weight: bold">Source</td>
+				<td data-bind="text: source"></td>
+			</tr>
+			<tr>
+				<td style="font-weight: bold">Date</td>
+				<td data-bind="text: date"></td>
+			</tr>
+			<tr>
+				<td style="font-weight: bold">Logger</td>
+				<td data-bind="text: logger"></td>
+			</tr>
+			<tr>
+				<td style="font-weight: bold">Level</td>
+				<td data-bind="text: level"></td>
+			</tr>
+			<tr>
+				<td style="font-weight: bold">Message</td>
+				<td data-bind="text: message"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	</div>
+</div>

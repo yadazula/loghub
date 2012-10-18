@@ -100,7 +100,7 @@
     <Compile Include="Archiving\DiskArchiver.cs" />
     <Compile Include="Archiving\ILogArchiver.cs" />
     <Compile Include="Tasks\Startup\CheckDefaultRetention.cs" />
-    <Compile Include="Tasks\Startup\CheckIfAdminUserExist.cs" />
+    <Compile Include="Tasks\Startup\CheckDefaultUser.cs" />
     <Compile Include="Tasks\Startup\IStartupTask.cs" />
     <Compile Include="Tasks\Scheduled\NotificationScheduledTask.cs" />
     <Compile Include="Tasks\Scheduled\RetentionScheduledTask.cs" />

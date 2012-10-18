@@ -2,6 +2,7 @@ namespace LogHub.Web.ViewModels
 {
 	public class LogMessageView
 	{
+		public string Id { get; set; }
 		public string Host { get; set; }
 		public string Source { get; set; }
 		public string Logger { get; set; }

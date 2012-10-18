@@ -4,11 +4,11 @@ using Raven.Client;
 
 namespace LogHub.Server.Tasks.Startup
 {
-	public class CheckIfAdminUserExist : IStartupTask
+	public class CheckDefaultUser : IStartupTask
 	{
 		private readonly IDocumentStore documentStore;
 
-		public CheckIfAdminUserExist(IDocumentStore documentStore)
+		public CheckDefaultUser(IDocumentStore documentStore)
 		{
 			this.documentStore = documentStore;
 		}

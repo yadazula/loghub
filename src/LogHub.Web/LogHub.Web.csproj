@@ -145,6 +145,7 @@
     <Compile Include="Controllers\AbstractApiController.cs" />
     <Compile Include="Controllers\AbstractMvcController.cs" />
     <Compile Include="Controllers\AlertController.cs" />
+    <Compile Include="Controllers\RecentController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\RetentionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -193,7 +194,7 @@
     <Content Include="Content\app.css" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\RecentController.cs" />
+    <Compile Include="Controllers\LogDetailController.cs" />
     <Compile Include="ViewModels\SearchLogFilter.cs" />
     <Compile Include="ViewModels\RecentLogFilter.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -213,6 +214,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\Alerts.html" />
+    <Content Include="Templates\LogDetail.html" />
     <Content Include="Templates\Settings.html" />
     <Content Include="Templates\Retention.html" />
     <Content Include="Templates\Users.html" />
