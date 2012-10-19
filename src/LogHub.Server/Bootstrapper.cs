@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogHub.Server.Channels;
 using LogHub.Server.Composition;
-using LogHub.Server.Tasks;
 using LogHub.Server.Tasks.Scheduled;
 using LogHub.Server.Tasks.Startup;
 using NLog;
@@ -14,9 +14,10 @@ namespace LogHub.Server
 {
 	public class Bootstrapper : IDisposable
 	{
+		public static DateTimeOffset StartTime { get; private set; }
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		private readonly IKernel kernel;
-		private readonly IChannelListener channelListener;
+		private readonly IEnumerable<IChannelListener> channelListeners;
 		private readonly IDocumentStore documentStore;
 		private readonly IScheduledTaskExecuter scheduledTaskExecuter;
 
@@ -25,9 +26,9 @@ namespace LogHub.Server
 			ObserveUnhandledTaskExceptions();
 
 			kernel = new StandardKernel();
-			kernel.Load<DefaultModule>();
+			kernel.Load<NinjectDependencyLoader>();
 
-			channelListener = kernel.Get<IChannelListener>();
+			channelListeners = kernel.GetAll<IChannelListener>();
 			documentStore = kernel.Get<IDocumentStore>();
 			scheduledTaskExecuter = kernel.Get<IScheduledTaskExecuter>();
 
@@ -75,14 +76,26 @@ namespace LogHub.Server
 
 		public void Start()
 		{
-			channelListener.Listen();
+			foreach (var channelListener in channelListeners)
+			{
+				channelListener.Listen();
+			}
+
+			StartTime = DateTimeOffset.Now;
 		}
 
 		public void Dispose()
 		{
 			scheduledTaskExecuter.Dispose();
-			channelListener.Dispose();
+			
+			foreach (var channelListener in channelListeners)
+			{
+				channelListener.Dispose();
+			}
+
 			documentStore.Dispose();
+
+			kernel.Dispose();
 		}
 	}
 }

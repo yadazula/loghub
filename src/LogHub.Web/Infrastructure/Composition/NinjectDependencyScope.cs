@@ -7,11 +7,11 @@ using Ninject.Syntax;
 
 namespace LogHub.Web.Infrastructure.Composition
 {
-	public class DependencyScope : IDependencyScope
+	public class NinjectDependencyScope : IDependencyScope
 	{
 		protected IResolutionRoot resolutionRoot;
 
-		public DependencyScope(IResolutionRoot kernel)
+		public NinjectDependencyScope(IResolutionRoot kernel)
 		{
 			resolutionRoot = kernel;
 		}

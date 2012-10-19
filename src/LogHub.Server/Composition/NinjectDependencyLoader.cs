@@ -8,7 +8,6 @@ using LogHub.Server.Channels;
 using LogHub.Server.Convertors;
 using LogHub.Server.Handlers;
 using LogHub.Server.Processors;
-using LogHub.Server.Tasks;
 using LogHub.Server.Tasks.Scheduled;
 using Ninject;
 using Ninject.Modules;
@@ -18,7 +17,7 @@ using Raven.Client.Indexes;
 
 namespace LogHub.Server.Composition
 {
-	public class DefaultModule : NinjectModule
+	public class NinjectDependencyLoader : NinjectModule
 	{
 		public override void Load()
 		{
@@ -96,6 +95,11 @@ namespace LogHub.Server.Composition
 				.To<UdpChannelListener>()
 				.InSingletonScope()
 				.WithConstructorArgument("port", int.Parse(ConfigurationManager.AppSettings["UdpListenPort"]));
+
+			Bind<IChannelListener>()
+				.To<HttpChannelListener>()
+				.InSingletonScope()
+				.WithConstructorArgument("port", int.Parse(ConfigurationManager.AppSettings["HttpListenPort"]));
 
 			Bind<IScheduledTaskExecuter>()
 				.To<ScheduledTaskExecuter>()

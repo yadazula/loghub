@@ -9,7 +9,7 @@ namespace LogHub.Web.App_Start
 	{
 		public static void Register(HttpConfiguration config)
 		{
-			config.DependencyResolver = new DependencyResolver(NinjectWebCommon.Kernel);
+			config.DependencyResolver = new NinjectDependencyResolver(NinjectWebCommon.Kernel);
 
 			config.Filters.Add(new ApiAuthorizeAttribute());
 			config.Filters.Add(new ValidationFilterAttribute());

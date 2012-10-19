@@ -8,7 +8,7 @@ using Raven.Client.Indexes;
 
 namespace LogHub.Web.Infrastructure.Composition
 {
-	public class DefaultModule : NinjectModule
+	public class NinjectDependencyLoader : NinjectModule
 	{
 		public override void Load()
 		{

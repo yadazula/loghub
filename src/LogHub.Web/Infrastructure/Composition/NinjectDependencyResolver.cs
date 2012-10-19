@@ -3,11 +3,11 @@ using Ninject;
 
 namespace LogHub.Web.Infrastructure.Composition
 {
-	public class DependencyResolver : DependencyScope, IDependencyResolver
+	public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
 	{
 		private readonly IKernel kernel;
 
-		public DependencyResolver(IKernel kernel)
+		public NinjectDependencyResolver(IKernel kernel)
 			: base(kernel)
 		{
 			this.kernel = kernel;
@@ -15,7 +15,7 @@ namespace LogHub.Web.Infrastructure.Composition
 
 		public IDependencyScope BeginScope()
 		{
-			return new DependencyScope(kernel);
+			return new NinjectDependencyScope(kernel);
 		}
 
 		public override void Dispose()

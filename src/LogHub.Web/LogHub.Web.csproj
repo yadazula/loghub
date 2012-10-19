@@ -151,6 +151,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Content Include="Scripts\app\vm\base.js" />
     <Content Include="Scripts\simple.js" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="ViewModels\LogAlertView.cs" />
     <Compile Include="ViewModels\LookupFilter.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -161,9 +162,9 @@
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Common\QueryableExtensions.cs" />
-    <Compile Include="Infrastructure\Composition\DefaultModule.cs" />
-    <Compile Include="Infrastructure\Composition\DependencyResolver.cs" />
-    <Compile Include="Infrastructure\Composition\DependencyScope.cs" />
+    <Compile Include="Infrastructure\Composition\NinjectDependencyLoader.cs" />
+    <Compile Include="Infrastructure\Composition\NinjectDependencyResolver.cs" />
+    <Compile Include="Infrastructure\Composition\NinjectDependencyScope.cs" />
     <Compile Include="ViewModels\AbstractLogFilter.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
     <Compile Include="ViewModels\UserInput.cs" />
