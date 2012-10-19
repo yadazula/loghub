@@ -54,12 +54,13 @@
     <Compile Include="Indexes\LogMessage_Search.cs" />
     <Compile Include="Models\ChunkedMessage.cs" />
     <Compile Include="Models\LogAlert.cs" />
-    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\SystemStatus.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\LogLevel.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\Retention.cs" />
     <Compile Include="Models\RawMessage.cs" />
+    <Compile Include="Models\ThroughputInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

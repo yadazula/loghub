@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
+using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using LogHub.Web.Filters;
 using LogHub.Web.Infrastructure.AutoMapper;
@@ -27,13 +28,13 @@ namespace LogHub.Web.Controllers
 		{
 			var settings = DocumentSession.Query<Settings>().SingleOrDefault();
 
-			if (settings != null)
+			if (settings.IsNull())
 			{
-				posted.MapPropertiesToInstance(settings);
+				settings = posted;				
 			}
 			else
 			{
-				settings = posted;
+				posted.MapPropertiesToInstance(settings);
 			}
 
 			settings.CreatedBy = User.Identity.Name;

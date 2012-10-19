@@ -12,7 +12,7 @@ namespace LogHub.Server.Channels
 		private HttpSelfHostConfiguration config;
 		private HttpSelfHostServer server;
 
-		public HttpChannelListener(int port, IKernel kernel)
+		public HttpChannelListener(IKernel kernel, int port)
 		{
 			this.port = port;
 			this.kernel = kernel;

@@ -14,16 +14,16 @@ namespace LogHub.Web.Controllers
 		{
 		}
 
-		public Status Get()
+		public SystemStatus Get()
 		{
-			var status = new Status();
+			var systemStatus = new SystemStatus();
 
-			GetRavenStats(status);
+			GetRavenStats(systemStatus);
 
-			return status;
+			return systemStatus;
 		}
 
-		private void GetRavenStats(Status status)
+		private void GetRavenStats(SystemStatus systemStatus)
 		{
 			var documentStore = (DocumentStore)DocumentSession.Advanced.DocumentStore;
 			try
@@ -36,11 +36,11 @@ namespace LogHub.Web.Controllers
 
 				var databaseStatistics = documentStore.DatabaseCommands.GetStatistics();
 
-				status.Database.Version = version.Value<string>("ProductVersion");
-				status.Database.Size = dbSize.Value<string>("DatabaseSizeHumane");
-				status.Database.CountOfDocuments = databaseStatistics.CountOfDocuments;
-				status.Database.CountOfIndexes = databaseStatistics.CountOfIndexes;
-				status.Database.Status = Status.Connection.Online;
+				systemStatus.Database.Version = version.Value<string>("ProductVersion");
+				systemStatus.Database.Size = dbSize.Value<string>("DatabaseSizeHumane");
+				systemStatus.Database.CountOfDocuments = databaseStatistics.CountOfDocuments;
+				systemStatus.Database.CountOfIndexes = databaseStatistics.CountOfIndexes;
+				systemStatus.Database.Status = SystemStatus.ConnectionState.Online;
 			}
 			catch (WebException e)
 			{
@@ -60,7 +60,7 @@ namespace LogHub.Web.Controllers
 					case SocketError.HostDown:
 					case SocketError.HostUnreachable:
 					case SocketError.HostNotFound:
-						status.Database.Status = Status.Connection.Offline;
+						systemStatus.Database.Status = SystemStatus.ConnectionState.Offline;
 						break;
 					default:
 						throw;

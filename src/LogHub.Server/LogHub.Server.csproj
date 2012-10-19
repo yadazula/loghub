@@ -41,9 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AWSSDK.1.5.4.1\lib\AWSSDK.dll</HintPath>
     </Reference>
-    <Reference Include="NDesk.Options">
-      <HintPath>..\..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -103,7 +100,7 @@
     <Compile Include="Buffers\IMessageBuffer.cs" />
     <Compile Include="Convertors\RawMessageConvertor.cs" />
     <Compile Include="Handlers\ILogMessageHandler.cs" />
-    <Compile Include="Handlers\ThroughputCounter.cs" />
+    <Compile Include="Handlers\ThroughputHandler.cs" />
     <Compile Include="Processors\ChunkedMessageProcessor.cs" />
     <Compile Include="Processors\IMessageProcessor.cs" />
     <Compile Include="Processors\IMessageProcessorFactory.cs" />
@@ -117,8 +114,7 @@
     <Compile Include="Archiving\AmazonS3Archiver.cs" />
     <Compile Include="Archiving\DiskArchiver.cs" />
     <Compile Include="Archiving\ILogArchiver.cs" />
-    <Compile Include="Tasks\Startup\CheckDefaultRetention.cs" />
-    <Compile Include="Tasks\Startup\CheckDefaultUser.cs" />
+    <Compile Include="Tasks\Startup\CheckInitialData.cs" />
     <Compile Include="Tasks\Startup\IStartupTask.cs" />
     <Compile Include="Tasks\Scheduled\NotificationScheduledTask.cs" />
     <Compile Include="Tasks\Scheduled\RetentionScheduledTask.cs" />

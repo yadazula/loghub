@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Dynamic;
 using System.Web.Http;
 using LogHub.Core.Models;
 using Raven.Client;
@@ -14,12 +15,20 @@ namespace LogHub.Server.Api
 			this.documentStore = documentStore;
 		}
 
-		public Status.ServerInfo Get()
+		public dynamic Get()
 		{
-			var serverInfo = new Status.ServerInfo();
-			serverInfo.Version = FileVersionInfo.GetVersionInfo(typeof (StatusController).Assembly.Location).ProductVersion;
-			serverInfo.StartTime = Bootstrapper.StartTime;
-			return serverInfo;
+			dynamic status = new ExpandoObject();
+			status.Version = FileVersionInfo.GetVersionInfo(typeof(StatusController).Assembly.Location).ProductVersion;
+			status.StartTime = Bootstrapper.StartTime;
+
+			using (var documentSession = documentStore.OpenSession())
+			{
+				var throughputInfo = documentSession.Load<ThroughputInfo>(ThroughputInfo.DocId);
+				status.CurrentThroughput = throughputInfo.Current;
+				status.HighestThroughput = throughputInfo.Highest;
+			}
+
+			return status;
 		}
 	}
 }

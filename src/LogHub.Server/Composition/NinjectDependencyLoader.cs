@@ -39,9 +39,9 @@ namespace LogHub.Server.Composition
 				.WithConstructorArgument("batchSize", 4096);
 
 			Bind<ILogMessageHandler>()
-				.To<ThroughputCounter>()
+				.To<ThroughputHandler>()
 				.InSingletonScope()
-				.Named("ThroughputCounter");
+				.Named("ThroughputHandler");
 
 			Bind<IMessageConvertor<RawMessage, LogMessage>>()
 				.To<LogMessageConvertor>()
@@ -57,7 +57,7 @@ namespace LogHub.Server.Composition
 
 			Bind<IMessageProcessor>().ToMethod(c =>
 				{
-					var throughputCounter = c.Kernel.Get<ILogMessageHandler>("ThroughputCounter");
+					var throughputCounter = c.Kernel.Get<ILogMessageHandler>("ThroughputHandler");
 					var logMessageConvertor = c.Kernel.Get<IMessageConvertor<RawMessage, LogMessage>>();
 					var logMessageBuffer = c.Kernel.Get<IMessageBuffer<LogMessage>>();
 					return new RawMessageProcessor(logMessageConvertor, logMessageBuffer, throughputCounter);

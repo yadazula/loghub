@@ -36,7 +36,7 @@ namespace LogHub.Web.Controllers
 					{
 						using (DocumentSession)
 						{
-							if (task.Status != TaskStatus.Faulted && DocumentSession != null)
+							if (task.Status != TaskStatus.Faulted && DocumentSession.IsNotNull())
 							{
 								DocumentSession.SaveChanges();
 							}
