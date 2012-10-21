@@ -47,13 +47,13 @@ namespace LogHub.Web.Controllers
 				databaseInfo.Size = dbSize.Value<string>("DatabaseSizeHumane");
 				databaseInfo.CountOfDocuments = databaseStatistics.CountOfDocuments;
 				databaseInfo.CountOfIndexes = databaseStatistics.CountOfIndexes;
-				databaseInfo.Status = SystemStatus.ConnectionState.Online;
+				databaseInfo.Status = SystemStatus.ConnectionOnline;
 				return databaseInfo;
 			}
 			catch (Exception exception)
 			{
 				Logger.Error(exception);
-				var databaseInfo = new SystemStatus.DatabaseInfo { Status = SystemStatus.ConnectionState.Offline };
+				var databaseInfo = new SystemStatus.DatabaseInfo { Status = SystemStatus.ConnectionOffline };
 				return databaseInfo;
 			}
 		}
@@ -67,14 +67,14 @@ namespace LogHub.Web.Controllers
 					var statusUrl = string.Format("{0}/api/status", ConfigurationManager.AppSettings["ServerAddress"]);
 					var responseString = await httpClient.GetStringAsync(statusUrl);
 					var serverInfo = JsonConvert.DeserializeObject<SystemStatus.ServerInfo>(responseString);
-					serverInfo.Status = SystemStatus.ConnectionState.Online;
+					serverInfo.Status = SystemStatus.ConnectionOnline;
 					return serverInfo;
 				}
 			}
 			catch (Exception exception)
 			{
 				Logger.Error(exception);
-				var serverInfo = new SystemStatus.ServerInfo { Status = SystemStatus.ConnectionState.Offline };
+				var serverInfo = new SystemStatus.ServerInfo { Status = SystemStatus.ConnectionOffline };
 				return serverInfo;
 			}
 		}

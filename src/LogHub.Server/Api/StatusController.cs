@@ -19,7 +19,7 @@ namespace LogHub.Server.Api
 		{
 			dynamic status = new ExpandoObject();
 			status.Version = FileVersionInfo.GetVersionInfo(typeof(StatusController).Assembly.Location).ProductVersion;
-			status.StartTime = Bootstrapper.StartTime;
+			status.StartTime = Bootstrapper.StartTime.ToString("dd.MM.yyyy HH:mm:ss.fff K");
 
 			using (var documentSession = documentStore.OpenSession())
 			{

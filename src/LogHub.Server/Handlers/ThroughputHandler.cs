@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using NLog;
 using Raven.Client;

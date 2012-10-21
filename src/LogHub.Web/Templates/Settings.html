@@ -1,130 +1,130 @@
 ﻿<div class="widget" data-bind="fadeIn: 600">
-    <div class="widget-header">
-        <div class="pull-left">
-            <h3>Settings</h3>
-        </div>
-    </div>
-    <div class="widget-content">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#notification" data-toggle="tab">Notification Settings</a></li>
-            <li><a href="#archive2" data-toggle="tab">Archive Settings</a></li>
-        </ul>
-        <div class="tab-content" data-bind="with: item">
-            <div class="tab-pane active" id="notification">
-                <div class="alert alert-error" data-bind="visible: $parent.validationErrors().length > 0">
-                    <ul data-bind="foreach: $parent.validationErrors">
-                        <li data-bind="text: $data"></li>
-                    </ul>
-                </div>
-                <form class="form-horizontal">
-                    <legend>Smtp</legend>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputServer">Server</label>
-                        <div class="controls">
-                            <input type="text" id="inputServer" placeholder="Server" data-bind="value: notification.smtpServer">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputPort">Port</label>
-                        <div class="controls">
-                            <input type="text" id="inputPort" placeholder="Port" data-bind="value: notification.smtpPort">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputUsername">Username</label>
-                        <div class="controls">
-                            <input type="text" id="inputUsername" placeholder="Username" data-bind="value: notification.smtpUsername">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputPassword">Password</label>
-                        <div class="controls">
-                            <input type="password" id="inputPassword" data-bind="value: notification.smtpPassword">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputEnableSsl">Enable Ssl</label>
-                        <div class="controls">
-                            <input type="checkbox" id="inputEnableSsl" data-bind="checked: notification.smtpEnableSsl">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputFromAddress">Sender Email</label>
-                        <div class="controls">
-                            <input type="text" id="inputFromAddress" placeholder="Sender Email" data-bind="value: notification.fromAddress">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label"></label>
-                        <div class="controls">
-                            <button class="btn btn-primary" data-bind="click: $parent.saveNotification, disable: $parent.isLoading">Save</button>
-                            <img src="./images/loader.gif" data-bind="visible: $parent.isLoading" alt="" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="tab-pane" id="archive2">
-                <form class="form-horizontal">
-                    <legend>Amazon Glacier</legend>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputGlacierAccessKey">Access Key</label>
-                        <div class="controls">
-                            <input type="text" id="inputGlacierAccessKey" placeholder="Access Key" data-bind="value: archive.glacierAccessKey">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputGlacierSecretKey">Secret Key</label>
-                        <div class="controls">
-                            <input type="text" id="inputGlacierSecretKey" placeholder="Secret Key" data-bind="value: archive.glacierSecretKey">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputGlacierRegion">Region</label>
-                        <div class="controls">
-                            <input type="text" id="inputGlacierRegion" placeholder="Region" data-bind="value: archive.glacierRegionName">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputGlacierVault">Vault</label>
-                        <div class="controls">
-                            <input type="text" id="inputGlacierVault" placeholder="Vault" data-bind="value: archive.glacierVault">
-                        </div>
-                    </div>
-                    <legend>Amazon S3</legend>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputS3AccessKey">Access Key</label>
-                        <div class="controls">
-                            <input type="text" id="inputS3AccessKey" placeholder="Access Key" data-bind="value: archive.s3AccessKey">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputS3SecretKey">Secret Key</label>
-                        <div class="controls">
-                            <input type="text" id="inputS3SecretKey" placeholder="Secret Key" data-bind="value: archive.s3SecretKey">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputS3Bucket">Bucket</label>
-                        <div class="controls">
-                            <input type="text" id="inputS3Bucket" placeholder="Bucket" data-bind="value: archive.s3BucketName">
-                        </div>
-                    </div>
-                    <legend>Local Disk</legend>
-                    <div class="control-group">
-                        <label class="control-label" style="font-weight: normal" for="inputDiskPath">Path</label>
-                        <div class="controls">
-                            <input type="text" id="inputDiskPath" placeholder="Path" data-bind="value: archive.diskPath">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label"></label>
-                        <div class="controls">
-                            <button class="btn btn-primary" data-bind="click: $parent.save, disable: $parent.isLoading">Save</button>
-                            <img src="./images/loader.gif" data-bind="visible: $parent.isLoading" alt="" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="widget-header" style="min-height: 35px;">
+		<div class="pull-left">
+			<h3>Settings</h3>
+		</div>
+	</div>
+	<div class="widget-content">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#notification" data-toggle="tab">Notification Settings</a></li>
+			<li><a href="#archive2" data-toggle="tab">Archive Settings</a></li>
+		</ul>
+		<div class="tab-content" data-bind="with: item">
+			<div class="tab-pane active" id="notification">
+				<div class="alert alert-error" data-bind="visible: $parent.validationErrors().length > 0">
+					<ul data-bind="foreach: $parent.validationErrors">
+						<li data-bind="text: $data"></li>
+					</ul>
+				</div>
+				<form class="form-horizontal">
+					<legend>Smtp</legend>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputServer">Server</label>
+						<div class="controls">
+							<input type="text" id="inputServer" placeholder="Server" data-bind="value: notification.smtpServer">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputPort">Port</label>
+						<div class="controls">
+							<input type="text" id="inputPort" placeholder="Port" data-bind="value: notification.smtpPort">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputUsername">Username</label>
+						<div class="controls">
+							<input type="text" id="inputUsername" placeholder="Username" data-bind="value: notification.smtpUsername">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputPassword">Password</label>
+						<div class="controls">
+							<input type="password" id="inputPassword" data-bind="value: notification.smtpPassword">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputEnableSsl">Enable Ssl</label>
+						<div class="controls">
+							<input type="checkbox" id="inputEnableSsl" data-bind="checked: notification.smtpEnableSsl">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputFromAddress">Sender Email</label>
+						<div class="controls">
+							<input type="text" id="inputFromAddress" placeholder="Sender Email" data-bind="value: notification.fromAddress">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<button class="btn btn-primary" data-bind="click: $parent.saveNotification, disable: $parent.isLoading">Save</button>
+							<img src="./images/loader.gif" data-bind="visible: $parent.isLoading" alt="" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="tab-pane" id="archive2">
+				<form class="form-horizontal">
+					<legend>Amazon Glacier</legend>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputGlacierAccessKey">Access Key</label>
+						<div class="controls">
+							<input type="text" id="inputGlacierAccessKey" placeholder="Access Key" data-bind="value: archive.glacierAccessKey">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputGlacierSecretKey">Secret Key</label>
+						<div class="controls">
+							<input type="text" id="inputGlacierSecretKey" placeholder="Secret Key" data-bind="value: archive.glacierSecretKey">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputGlacierRegion">Region</label>
+						<div class="controls">
+							<input type="text" id="inputGlacierRegion" placeholder="Region" data-bind="value: archive.glacierRegionName">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputGlacierVault">Vault</label>
+						<div class="controls">
+							<input type="text" id="inputGlacierVault" placeholder="Vault" data-bind="value: archive.glacierVault">
+						</div>
+					</div>
+					<legend>Amazon S3</legend>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputS3AccessKey">Access Key</label>
+						<div class="controls">
+							<input type="text" id="inputS3AccessKey" placeholder="Access Key" data-bind="value: archive.s3AccessKey">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputS3SecretKey">Secret Key</label>
+						<div class="controls">
+							<input type="text" id="inputS3SecretKey" placeholder="Secret Key" data-bind="value: archive.s3SecretKey">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputS3Bucket">Bucket</label>
+						<div class="controls">
+							<input type="text" id="inputS3Bucket" placeholder="Bucket" data-bind="value: archive.s3BucketName">
+						</div>
+					</div>
+					<legend>Local Disk</legend>
+					<div class="control-group">
+						<label class="control-label" style="font-weight: normal" for="inputDiskPath">Path</label>
+						<div class="controls">
+							<input type="text" id="inputDiskPath" placeholder="Path" data-bind="value: archive.diskPath">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<button class="btn btn-primary" data-bind="click: $parent.save, disable: $parent.isLoading">Save</button>
+							<img src="./images/loader.gif" data-bind="visible: $parent.isLoading" alt="" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

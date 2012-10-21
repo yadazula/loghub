@@ -1,0 +1,64 @@
+﻿<div class="widget" data-bind="fadeIn: 600">
+	<div class="widget-header" style="min-height: 35px;">
+		<div class="pull-left">
+			<h3>System Status</h3>
+		</div>
+	</div>
+	<div class="widget-content" data-bind="with: item">
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="2">LogHub Server</th>
+				</tr>
+			</thead>
+			<tr>
+				<td style="width: 30%">Version</td>
+				<td data-bind="text: server.version"></td>
+			</tr>
+			<tr>
+				<td>Start Time</td>
+				<td data-bind="text: server.startTime"></td>
+			</tr>
+			<tr>
+				<td>Current Throughput</td>
+				<td data-bind="text: server.currentThroughput() + ' (messages / 5 seconds)'"></td>
+			</tr>
+			<tr>
+				<td>Highest Throughput</td>
+				<td data-bind="text: server.highestThroughput() + ' (messages / 5 seconds)'"></td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td data-bind="status: server.status"></td>
+			</tr>
+		</table>
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="2">RavenDB Server</th>
+				</tr>
+			</thead>
+			<tr>
+				<td style="width: 30%">Version</td>
+				<td data-bind="text: database.version"></td>
+			</tr>
+			<tr>
+				<td>Size</td>
+				<td data-bind="text: database.size"></td>
+			</tr>
+			<tr>
+				<td>Count Of Documents</td>
+				<td data-bind="text: database.countOfDocuments"></td>
+			</tr>
+			<tr>
+				<td>Count Of Indexes</td>
+				<td data-bind="text: database.countOfIndexes"></td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td data-bind="status: database.status"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+

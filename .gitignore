@@ -10,3 +10,4 @@ build/
 _ReSharper.*/
 *.user
 packages
+App_Data

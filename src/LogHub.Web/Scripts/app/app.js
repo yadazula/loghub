@@ -34,10 +34,14 @@ loghub.app = function (showAdminPages) {
 		});
 	});
 
+	self.status = new loghub.viewmodels.page('#status', 'icon-signal', 'System Status', 'Status', function () {
+		self.setCurrentPage(self.status, loghub.viewmodels.status);
+	});
+
 	if (showAdminPages)
-		self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings];
+		self.pages = [self.dashboard, self.searches, self.alerts, self.users, self.retention, self.settings, self.status];
 	else
-		self.pages = [self.dashboard, self.searches, self.alerts];
+		self.pages = [self.dashboard, self.searches, self.alerts, self.status];
 
 	self.setCurrentPage = function (page, viewModel) {
 		if (self.currentPage == page) return;

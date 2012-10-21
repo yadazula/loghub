@@ -153,6 +153,7 @@
     <Compile Include="Controllers\RetentionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Content Include="Scripts\app\vm\base.js" />
+    <Content Include="Scripts\app\vm\status.js" />
     <Content Include="Scripts\simple.js" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="ViewModels\LogAlertView.cs" />
@@ -218,6 +219,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\Alerts.html" />
+    <Content Include="Templates\Status.html" />
     <Content Include="Templates\LogDetail.html" />
     <Content Include="Templates\Settings.html" />
     <Content Include="Templates\Retention.html" />
