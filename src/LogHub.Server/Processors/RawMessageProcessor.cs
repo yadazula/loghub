@@ -14,7 +14,8 @@ namespace LogHub.Server.Processors
 		private readonly ILogMessageHandler[] handlers;
 
 		public RawMessageProcessor(IMessageConvertor<RawMessage, LogMessage> messageConvertor,
-		                           IMessageBuffer<LogMessage> logMessageBuffer, params ILogMessageHandler[] handlers)
+															 IMessageBuffer<LogMessage> logMessageBuffer,
+															 params ILogMessageHandler[] handlers)
 		{
 			this.messageConvertor = messageConvertor;
 			this.logMessageBuffer = logMessageBuffer;
@@ -40,7 +41,7 @@ namespace LogHub.Server.Processors
 				if (discard)
 				{
 					Logger.Debug("Handler [{0}] marked message [{1}] to be discarded. Skipping message.", handler.Name,
-					             logMessage.TrackingId);
+											 logMessage.TrackingId);
 					return;
 				}
 			}

@@ -100,6 +100,7 @@
     <Compile Include="Buffers\IMessageBuffer.cs" />
     <Compile Include="Convertors\RawMessageConvertor.cs" />
     <Compile Include="Handlers\ILogMessageHandler.cs" />
+    <Compile Include="Handlers\MessageCountHandler.cs" />
     <Compile Include="Handlers\ThroughputHandler.cs" />
     <Compile Include="Processors\ChunkedMessageProcessor.cs" />
     <Compile Include="Processors\IMessageProcessor.cs" />

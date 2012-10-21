@@ -54,6 +54,7 @@
     <Compile Include="Indexes\LogMessage_Search.cs" />
     <Compile Include="Models\ChunkedMessage.cs" />
     <Compile Include="Models\LogAlert.cs" />
+    <Compile Include="Models\MessageCount.cs" />
     <Compile Include="Models\SystemStatus.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\LogLevel.cs" />

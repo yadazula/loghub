@@ -4,7 +4,7 @@ process buffer handler =>
 	validate message
 	uncompress message to json string
 	convert json to logevent model
-	apply filters (counters, blacklist)
+	apply handlers (counters, blacklist)
 	add to output buffer		      	
 output buffer handler => 
 	persist to ravendb

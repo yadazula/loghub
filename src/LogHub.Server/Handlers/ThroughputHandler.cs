@@ -8,9 +8,10 @@ namespace LogHub.Server.Handlers
 {
 	public class ThroughputHandler : ILogMessageHandler
 	{
+		private const int Period = 5000;
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		private readonly IDocumentStore documentStore;
-		private readonly Timer throughputTimer;
+		private readonly Timer timer;
 		private int currentThroughput;
 		private int highestThroughput;
 
@@ -19,7 +20,7 @@ namespace LogHub.Server.Handlers
 			this.documentStore = documentStore;
 			InitializeHighest();
 
-			throughputTimer = new Timer(_ =>
+			timer = new Timer(_ =>
 			{
 				var current = Thread.VolatileRead(ref currentThroughput);
 				Interlocked.Exchange(ref currentThroughput, 0);
@@ -30,7 +31,7 @@ namespace LogHub.Server.Handlers
 				}
 
 				PersistThroughput(current, highestThroughput);
-			}, null, 5000, 5000);
+			}, null, Period, Period);
 		}
 
 		public string Name

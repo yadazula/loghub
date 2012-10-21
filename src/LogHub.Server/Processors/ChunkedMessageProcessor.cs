@@ -14,16 +14,14 @@ namespace LogHub.Server.Processors
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		private readonly IMessageConvertor<RawMessage, ChunkedMessage> chunkedMessageConvertor;
 		private readonly IMessageConvertor<IList<ChunkedMessage>, RawMessage> rawMessageConvertor;
+		private readonly ConcurrentDictionary<string, IList<ChunkedMessage>> messages = new ConcurrentDictionary<string, IList<ChunkedMessage>>();
 		private readonly IMessageProcessor rawMessageProcessor;
-
-		private readonly ConcurrentDictionary<string, IList<ChunkedMessage>> messages =
-			new ConcurrentDictionary<string, IList<ChunkedMessage>>();
 
 		private const int ExpireLimit = 5;
 
 		public ChunkedMessageProcessor(IMessageConvertor<RawMessage, ChunkedMessage> chunkedMessageConvertor,
-		                               IMessageConvertor<IList<ChunkedMessage>, RawMessage> rawMessageConvertor,
-		                               IMessageProcessor rawMessageProcessor)
+																	 IMessageConvertor<IList<ChunkedMessage>, RawMessage> rawMessageConvertor,
+																	 IMessageProcessor rawMessageProcessor)
 		{
 			this.chunkedMessageConvertor = chunkedMessageConvertor;
 			this.rawMessageConvertor = rawMessageConvertor;
@@ -44,12 +42,12 @@ namespace LogHub.Server.Processors
 			else
 			{
 				messages.AddOrUpdate(chunkedMessage.MessageId,
-				                     x => new List<ChunkedMessage> {chunkedMessage},
-				                     (x, y) =>
-					                     {
-						                     y.Add(chunkedMessage);
-						                     return y;
-					                     });
+														 x => new List<ChunkedMessage> { chunkedMessage },
+														 (x, y) =>
+														 {
+															 y.Add(chunkedMessage);
+															 return y;
+														 });
 			}
 
 			Logger.Debug("Finished processing message [{0}], part {0}", chunkedMessage.MessageId, chunkedMessage.PartNumber);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using ET.FakeText;
 using NLog;
 using NLog.Config;
@@ -38,6 +39,8 @@ namespace LogHub.Tryouts
 						logger.Fatal(message);
 						break;
 				}
+
+				Thread.Sleep(100);
 			}
 		}
 

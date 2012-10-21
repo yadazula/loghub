@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using LogHub.Core.Indexes;
 using LogHub.Core.Models;
 using LogHub.Server.Archiving;
@@ -40,8 +41,11 @@ namespace LogHub.Server.Composition
 
 			Bind<ILogMessageHandler>()
 				.To<ThroughputHandler>()
-				.InSingletonScope()
-				.Named("ThroughputHandler");
+				.InSingletonScope();
+
+			Bind<ILogMessageHandler>()
+				.To<MessageCountHandler>()
+				.InSingletonScope();
 
 			Bind<IMessageConvertor<RawMessage, LogMessage>>()
 				.To<LogMessageConvertor>()
@@ -57,10 +61,10 @@ namespace LogHub.Server.Composition
 
 			Bind<IMessageProcessor>().ToMethod(c =>
 				{
-					var throughputCounter = c.Kernel.Get<ILogMessageHandler>("ThroughputHandler");
+					var handlers = c.Kernel.GetAll<ILogMessageHandler>();
 					var logMessageConvertor = c.Kernel.Get<IMessageConvertor<RawMessage, LogMessage>>();
 					var logMessageBuffer = c.Kernel.Get<IMessageBuffer<LogMessage>>();
-					return new RawMessageProcessor(logMessageConvertor, logMessageBuffer, throughputCounter);
+					return new RawMessageProcessor(logMessageConvertor, logMessageBuffer, handlers.ToArray());
 				})
 				.InSingletonScope()
 				.Named("RawMessageProcessor");
