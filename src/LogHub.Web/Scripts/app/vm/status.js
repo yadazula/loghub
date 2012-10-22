@@ -23,7 +23,6 @@ loghub.viewmodels.status = function () {
 		var data = google.visualization.arrayToDataTable(self.messageCounts);
 
 		var options = {
-			vAxis: { maxValue: 1000, },
 			series: [{ color: '#5391EF', visibleInLegend: false }]
 		};
 
