@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using LogHub.Core.Models;
@@ -8,6 +9,7 @@ using Newtonsoft.Json;
 using Raven.Client;
 using Raven.Client.Connection;
 using Raven.Client.Document;
+using Raven.Client.Linq;
 
 namespace LogHub.Web.Controllers
 {
@@ -26,6 +28,10 @@ namespace LogHub.Web.Controllers
 			systemStatus.Database = await GetDatabaseInfo();
 			systemStatus.Server = await GetServerInfo();
 
+			var offset = DateTimeOffset.Now.AddHours(-2);
+			var messageCounts = DocumentSession.Query<MessageCount>().Where(x => x.Date >= offset).ToList();
+			systemStatus.MessageCounts = messageCounts.Select(x => new object[] { x.Date.ToString("hh:mm"), x.Total }).ToList();
+			systemStatus.MessageCounts.Insert(0, new object[] { "Date", "Total" });
 			return systemStatus;
 		}
 

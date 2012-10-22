@@ -102,9 +102,10 @@
 	}
 	<script type="text/javascript">
 		$(function () {
-			ko.applyBindings(new loghub.app(@showAdminPages), $('#pages')[0]);
-				ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
-			});
+			window.app = new loghub.app(@showAdminPages);
+			ko.applyBindings(window.app, $('#pages')[0]);
+			ko.applyBindings(loghub.errorHandler, $('#errorModal')[0]);
+		});
 	</script>
 </body>
 </html>

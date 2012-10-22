@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace LogHub.Core.Models
 {
@@ -9,11 +10,13 @@ namespace LogHub.Core.Models
 
 		public DatabaseInfo Database { get; set; }
 		public ServerInfo Server { get; set; }
+		public IList<object[]> MessageCounts { get; set; }
 
 		public SystemStatus()
 		{
 			Database = new DatabaseInfo();
 			Server = new ServerInfo();
+			MessageCounts = new List<object[]>();
 		}
 
 		public class DatabaseInfo
