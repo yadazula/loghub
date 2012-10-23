@@ -43,7 +43,8 @@ namespace LogHub.Web.Controllers
 				var versionRequestParams = new CreateHttpJsonRequestParams(null, documentStore.Url + "/build/version", "GET", documentStore.Credentials, documentStore.Conventions);
 				var version = await documentStore.JsonRequestFactory.CreateHttpJsonRequest(versionRequestParams).ReadResponseJsonAsync();
 
-				var dbSizeRequestParams = new CreateHttpJsonRequestParams(null, documentStore.Url + "/database/size", "GET", documentStore.Credentials, documentStore.Conventions);
+				var url = string.Format("{0}/databases/{1}/database/size", documentStore.Url, documentStore.DefaultDatabase);
+				var dbSizeRequestParams = new CreateHttpJsonRequestParams(null, url, "GET", documentStore.Credentials, documentStore.Conventions);
 				var dbSize = await documentStore.JsonRequestFactory.CreateHttpJsonRequest(dbSizeRequestParams).ReadResponseJsonAsync();
 
 				var databaseStatistics = await documentStore.AsyncDatabaseCommands.GetStatisticsAsync();
