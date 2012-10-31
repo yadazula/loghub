@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using Raven.Client;
 
@@ -17,7 +17,7 @@ namespace LogHub.Server.Archiving
 		{
 			using (var documentSession = documentStore.OpenSession())
 			{
-				return documentSession.Query<Settings>().Single();
+				return documentSession.GetSettings();
 			}
 		}
 

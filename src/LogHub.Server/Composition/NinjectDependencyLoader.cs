@@ -36,8 +36,7 @@ namespace LogHub.Server.Composition
 
 			Bind<IMessageBuffer<LogMessage>>()
 				.To<BatchMessageBuffer<LogMessage>>()
-				.InSingletonScope()
-				.WithConstructorArgument("batchSize", 4096);
+				.InSingletonScope();
 
 			Bind<ILogMessageHandler>()
 				.To<ThroughputHandler>()

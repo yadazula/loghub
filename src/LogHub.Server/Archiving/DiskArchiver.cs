@@ -1,4 +1,5 @@
 using System.IO;
+using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using Raven.Client;
 
@@ -16,10 +17,22 @@ namespace LogHub.Server.Archiving
 			if (!retention.ArchiveToDisk)
 				return;
 
-			var settings = GetSettings();
+			var archiveSettings = GetSettings().Archive;
+
+			if (IsValid(archiveSettings) == false)
+				return;
+
 			var fileName = Path.GetFileName(filePath);
-			var destFileName = Path.Combine(settings.Archive.DiskPath, fileName);
+			var destFileName = Path.Combine(archiveSettings.DiskPath, fileName);
 			File.Copy(filePath, destFileName);
+		}
+
+		private bool IsValid(Settings.ArchiveSettings archiveSettings)
+		{
+			if (archiveSettings.DiskPath.IsNullOrWhiteSpace())
+				return false;
+
+			return true;
 		}
 	}
 }

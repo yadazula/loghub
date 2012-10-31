@@ -22,6 +22,7 @@ namespace LogHub.Server.Tasks.Startup
 				CheckDefaultAdminUser(documentSession);
 				CheckDefaultRetentionRule(documentSession);
 				CheckThroughputInfo(documentSession);
+				CheckSettings(documentSession);
 				
 				documentSession.SaveChanges();
 			}
@@ -66,11 +67,21 @@ namespace LogHub.Server.Tasks.Startup
 
 		private void CheckThroughputInfo(IDocumentSession documentSession)
 		{
-			var throughputInfo = documentSession.Load<ThroughputInfo>(ThroughputInfo.DocId);
+			var throughputInfo = documentSession.GetThroughputInfo();
 			if (throughputInfo.IsNull())
 			{
 				throughputInfo = new ThroughputInfo { Id = ThroughputInfo.DocId };
 				documentSession.Store(throughputInfo);
+			}
+		}
+
+		private void CheckSettings(IDocumentSession documentSession)
+		{
+			var settings = documentSession.GetSettings();
+			if (settings.IsNull())
+			{
+				settings = new Settings { Id = Settings.DocId };
+				documentSession.Store(settings);
 			}
 		}
 	}

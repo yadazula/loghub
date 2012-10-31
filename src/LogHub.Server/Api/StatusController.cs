@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Dynamic;
 using System.Web.Http;
+using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using Raven.Client;
 
@@ -23,7 +24,7 @@ namespace LogHub.Server.Api
 
 			using (var documentSession = documentStore.OpenSession())
 			{
-				var throughputInfo = documentSession.Load<ThroughputInfo>(ThroughputInfo.DocId);
+				var throughputInfo = documentSession.GetThroughputInfo();
 				status.CurrentThroughput = throughputInfo.Current;
 				status.HighestThroughput = throughputInfo.Highest;
 			}

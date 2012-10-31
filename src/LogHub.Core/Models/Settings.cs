@@ -4,6 +4,9 @@ namespace LogHub.Core.Models
 {
 	public class Settings
 	{
+		public const string DocId = "Settings/1";
+
+		public string Id { get; set; }
 		public ArchiveSettings Archive { get; set; }
 		public NotificationSettings Notification { get; set; }
 		public string CreatedBy { get; set; }

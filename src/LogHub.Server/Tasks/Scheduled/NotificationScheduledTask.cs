@@ -76,9 +76,14 @@ namespace LogHub.Server.Tasks.Scheduled
 
 		private void SendAlertMail(IDocumentSession documentSession, LogAlert logAlert, int messageCount)
 		{
-			var settings = documentSession.Query<Settings>().Single().Notification;
+			var notificationSettings = documentSession.GetSettings().Notification;
 
-			var mail = new MailMessage {From = new MailAddress(settings.FromAddress)};
+			if(IsValid(notificationSettings) == false)
+			{
+				return;
+			}
+
+			var mail = new MailMessage {From = new MailAddress(notificationSettings.FromAddress)};
 
 			if (logAlert.EmailToList.Count == 0)
 			{
@@ -103,10 +108,30 @@ namespace LogHub.Server.Tasks.Scheduled
 				              DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff K")
 					);
 
-			var smtpClient = new SmtpClient(settings.SmtpServer, settings.SmtpPort);
-			smtpClient.Credentials = new System.Net.NetworkCredential(settings.SmtpUsername, settings.SmtpPassword);
-			smtpClient.EnableSsl = settings.SmtpEnableSsl;
+			var smtpClient = new SmtpClient(notificationSettings.SmtpServer, notificationSettings.SmtpPort);
+			smtpClient.Credentials = new System.Net.NetworkCredential(notificationSettings.SmtpUsername, notificationSettings.SmtpPassword);
+			smtpClient.EnableSsl = notificationSettings.SmtpEnableSsl;
 			smtpClient.Send(mail);
+		}
+
+		private bool IsValid(Settings.NotificationSettings notificationSettings)
+		{
+			if (notificationSettings.SmtpServer.IsNullOrWhiteSpace())
+				return false;
+
+			if (notificationSettings.SmtpPort <= 0)
+				return false;
+
+			if (notificationSettings.SmtpUsername.IsNullOrWhiteSpace())
+				return false;
+
+			if (notificationSettings.SmtpPassword.IsNullOrWhiteSpace())
+				return false;
+
+			if (notificationSettings.FromAddress.IsNullOrWhiteSpace())
+				return false;
+
+			return true;
 		}
 	}
 }

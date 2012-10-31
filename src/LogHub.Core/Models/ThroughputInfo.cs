@@ -2,7 +2,7 @@
 {
 	public class ThroughputInfo
 	{
-		public const string DocId = "1";
+		public const string DocId = "ThroughputInfos/1";
 
 		public string Id { get; set; }
 		public int Current { get; set; }

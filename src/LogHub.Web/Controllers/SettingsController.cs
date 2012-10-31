@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Web.Http;
-using AutoMapper;
 using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using LogHub.Web.Filters;
@@ -20,13 +17,13 @@ namespace LogHub.Web.Controllers
 
 		public Settings Get()
 		{
-			var settings = DocumentSession.Query<Settings>().SingleOrDefault() ?? new Settings();
+			var settings = DocumentSession.GetSettings();
 			return settings;
 		}
 
 		public void Post(Settings posted)
 		{
-			var settings = DocumentSession.Query<Settings>().SingleOrDefault();
+			var settings = DocumentSession.GetSettings();
 
 			if (settings.IsNull())
 			{

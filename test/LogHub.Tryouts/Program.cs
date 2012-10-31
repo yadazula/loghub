@@ -17,31 +17,40 @@ namespace LogHub.Tryouts
 			dynamic logger = GetNLogLogger();
 			var random = new Random();
 
-			while (true)
-			{
-				var level = random.Next(1, 5);
-				var message = textGenerator.GenerateText(20);
-				switch (level)
-				{
-					case 1:
-						logger.Debug(message);
-						break;
-					case 2:
-						logger.Info(message);
-						break;
-					case 3:
-						logger.Warn(message);
-						break;
-					case 4:
-						logger.Error(message);
-						break;
-					case 5:
-						logger.Fatal(message);
-						break;
-				}
+			var message = textGenerator.GenerateText(random.Next(50, 150));
 
-				Thread.Sleep(100);
+			int i = 0;
+			while (i < 500000)
+			{
+				for (int j = 0; j < 1000; j++)
+				{
+				var level = random.Next(1, 5);
+					switch (level)
+					{
+						case 1:
+							logger.Debug(message);
+							break;
+						case 2:
+							logger.Info(message);
+							break;
+						case 3:
+							logger.Warn(message);
+							break;
+						case 4:
+							logger.Error(message);
+							break;
+						case 5:
+							logger.Fatal(message);
+							break;
+					}
+					i++;
+				}
+				Console.WriteLine(i);
+				Thread.Sleep(200);
 			}
+
+			Console.WriteLine("finito");
+			Console.ReadLine();
 		}
 
 		public static Logger GetNLogLogger()
@@ -54,7 +63,7 @@ namespace LogHub.Tryouts
 		public static ILog GetLog4NetLogger()
 		{
 			log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo("Log4NetConfig.xml"));
-			var logger = log4net.LogManager.GetLogger(typeof (Program));
+			var logger = log4net.LogManager.GetLogger(typeof(Program));
 			return logger;
 		}
 	}

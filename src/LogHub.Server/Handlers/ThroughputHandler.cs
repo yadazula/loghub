@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using LogHub.Core.Extensions;
 using LogHub.Core.Models;
 using NLog;
 using Raven.Client;
@@ -49,7 +50,7 @@ namespace LogHub.Server.Handlers
 		{
 			using (var documentSession = documentStore.OpenSession())
 			{
-				var throughputStatistic = documentSession.Load<ThroughputInfo>(ThroughputInfo.DocId);
+				var throughputStatistic = documentSession.GetThroughputInfo();
 				highestThroughput = throughputStatistic.Highest;
 			}
 		}
