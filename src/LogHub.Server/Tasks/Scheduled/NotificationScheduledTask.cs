@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -31,21 +32,26 @@ namespace LogHub.Server.Tasks.Scheduled
 				var logAlerts = documentSession.Query<LogAlert>().ToList();
 				foreach (var logAlert in logAlerts)
 				{
-					var statistics = QueryStatistics(documentSession, logAlert);
+					RavenQueryStatistics stats;
+					var messages = QueryMessages(documentSession, logAlert, out stats);
+					var isOverLimit = stats.TotalResults >= logAlert.MessageCount;
+					var isNotifiedBefore = logAlert.LastNotificationDate.AddMinutes(logAlert.Minutes.TotalMinutes) >= DateTime.UtcNow;
 
-					if (statistics.TotalResults >= logAlert.MessageCount)
+					if (isOverLimit && isNotifiedBefore == false)
 					{
-						SendAlertMail(documentSession, logAlert, statistics.TotalResults);
+						SendAlertMail(documentSession, logAlert, messages, stats);
+						logAlert.LastNotificationDate = DateTime.UtcNow;
 					}
 				}
+
+				documentSession.SaveChanges();
 			}
 		}
 
-		private RavenQueryStatistics QueryStatistics(IDocumentSession documentSession, LogAlert logAlert)
+		private IList<LogMessage> QueryMessages(IDocumentSession documentSession, LogAlert logAlert, out RavenQueryStatistics stats)
 		{
 			var cutoffDate = DateTime.UtcNow.AddMinutes(-logAlert.Minutes.TotalMinutes);
 
-			RavenQueryStatistics stats;
 			IQueryable<LogMessage> query = documentSession.Query<LogMessage, LogMessage_Search>()
 				.Statistics(out stats)
 				.Where(x => x.Date >= cutoffDate);
@@ -70,20 +76,20 @@ namespace LogHub.Server.Tasks.Scheduled
 				query = query.Where(x => x.Level >= logAlert.Level);
 			}
 
-			query.Take(0).ToList();
-			return stats;
+			var logMessages = query.Take(10).ToList();
+			return logMessages;
 		}
 
-		private void SendAlertMail(IDocumentSession documentSession, LogAlert logAlert, int messageCount)
+		private void SendAlertMail(IDocumentSession documentSession, LogAlert logAlert, IList<LogMessage> messages, RavenQueryStatistics stats)
 		{
 			var notificationSettings = documentSession.GetSettings().Notification;
 
-			if(IsValid(notificationSettings) == false)
+			if (IsValid(notificationSettings) == false)
 			{
 				return;
 			}
 
-			var mail = new MailMessage {From = new MailAddress(notificationSettings.FromAddress)};
+			var mail = new MailMessage { From = new MailAddress(notificationSettings.FromAddress) };
 
 			if (logAlert.EmailToList.Count == 0)
 			{
@@ -94,19 +100,30 @@ namespace LogHub.Server.Tasks.Scheduled
 			{
 				foreach (var emailTo in logAlert.EmailToList)
 				{
-					mail.To.Add(emailTo);	
+					mail.To.Add(emailTo);
 				}
+			}
+
+			var messageText = new StringBuilder(); 
+			foreach (var message in messages)
+			{
+				messageText.AppendFormat("{0} {1} {2} {3} {4} {5}\n",
+																	message.Date.ToOffsetString(),
+																	message.Host,
+																	message.Source,
+																	message.Logger,
+																	message.Level,
+																	message.Message);
 			}
 
 			mail.Subject = string.Format("[loghub] Alert for {0}", logAlert.Name);
 			mail.BodyEncoding = Encoding.UTF8;
-			mail.Body =
-				string.Format("Message limit is exceeded for alert named '{0}'. Received {1} messages between {2} and {3}.",
-				              logAlert.Name,
-				              messageCount,
-				              DateTime.UtcNow.AddMinutes(-logAlert.Minutes.TotalMinutes).ToString("yyyy-MM-dd HH:mm:ss.fff K"),
-				              DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff K")
-					);
+			mail.Body = string.Format("Message limit is exceeded for alert named '{0}'. Received {1} messages between {2} and {3}.\n\n{4}",
+																logAlert.Name,
+																stats.TotalResults,
+																DateTime.UtcNow.AddMinutes(-logAlert.Minutes.TotalMinutes).ToOffsetString(),
+																DateTime.UtcNow.ToOffsetString(),
+																messageText);
 
 			var smtpClient = new SmtpClient(notificationSettings.SmtpServer, notificationSettings.SmtpPort);
 			smtpClient.Credentials = new System.Net.NetworkCredential(notificationSettings.SmtpUsername, notificationSettings.SmtpPassword);

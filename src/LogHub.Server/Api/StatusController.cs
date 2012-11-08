@@ -2,7 +2,6 @@
 using System.Dynamic;
 using System.Web.Http;
 using LogHub.Core.Extensions;
-using LogHub.Core.Models;
 using Raven.Client;
 
 namespace LogHub.Server.Api
@@ -20,7 +19,7 @@ namespace LogHub.Server.Api
 		{
 			dynamic status = new ExpandoObject();
 			status.Version = FileVersionInfo.GetVersionInfo(typeof(StatusController).Assembly.Location).ProductVersion;
-			status.StartTime = Bootstrapper.StartTime.ToString("dd.MM.yyyy HH:mm:ss.fff K");
+			status.StartTime = Bootstrapper.StartTime.ToOffsetString();
 
 			using (var documentSession = documentStore.OpenSession())
 			{

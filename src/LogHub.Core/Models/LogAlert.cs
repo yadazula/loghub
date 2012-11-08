@@ -15,6 +15,7 @@ namespace LogHub.Core.Models
 		public TimeSpan Minutes { get; set; }
 		public string User { get; set; }
 		public IList<string> EmailToList { get; set; }
+		public DateTimeOffset LastNotificationDate { get; set; }
 
 		public LogAlert()
 		{
