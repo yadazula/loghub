@@ -10,7 +10,7 @@ using NLog;
 using Ninject;
 using Raven.Client;
 
-namespace LogHub.Server
+namespace LogHub.Server.Startup
 {
 	public class Bootstrapper : IDisposable
 	{

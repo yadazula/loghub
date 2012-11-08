@@ -2,6 +2,7 @@
 using System.Dynamic;
 using System.Web.Http;
 using LogHub.Core.Extensions;
+using LogHub.Server.Startup;
 using Raven.Client;
 
 namespace LogHub.Server.Api
