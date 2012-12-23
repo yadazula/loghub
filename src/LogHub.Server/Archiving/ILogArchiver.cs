@@ -4,6 +4,6 @@ namespace LogHub.Server.Archiving
 {
 	public interface ILogArchiver
 	{
-		void Archive(Retention retention, string filePath);
+		void Archive(Settings.ArchiveSettings archiveSettings, Retention retention, string filePath);
 	}
 }

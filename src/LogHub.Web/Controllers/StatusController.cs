@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using LogHub.Core.Models;
+using LogHub.Web.ViewModels;
 using NLog;
 using Newtonsoft.Json;
 using Raven.Client;

@@ -35,13 +35,14 @@ namespace LogHub.Server.Tasks.Scheduled
     {
       using (var documentSession = documentStore.OpenSession())
       {
-        var retentions = documentSession.Query<Retention>();
-
-        foreach (var retention in retentions)
+	      var archiveSettings = documentSession.GetSettings().Archive;
+	      var retentions = documentSession.Query<Retention>();
+	      
+				foreach (var retention in retentions)
         {
           if (retention.NeedsArchiving)
           {
-            Archive(retention);
+						Archive(archiveSettings, retention);
           }
 
           Delete(retention);
@@ -49,12 +50,12 @@ namespace LogHub.Server.Tasks.Scheduled
       }
     }
 
-    private void Archive(Retention retention)
+    private void Archive(Settings.ArchiveSettings archiveSettings, Retention retention)
     {
       var filePath = Export(retention);
       foreach (var logArchiver in logArchivers)
       {
-        logArchiver.Archive(retention, filePath);
+				logArchiver.Archive(archiveSettings, retention, filePath);
       }
 
       File.Delete(filePath);

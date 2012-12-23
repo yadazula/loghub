@@ -2,27 +2,13 @@
 using Amazon.S3.Model;
 using LogHub.Core.Extensions;
 using LogHub.Core.Models;
-using Raven.Client;
 
 namespace LogHub.Server.Archiving
 {
 	public class AmazonS3Archiver : AbstractLogArchiver
 	{
-		public AmazonS3Archiver(IDocumentStore documentStore)
-			: base(documentStore)
+		protected override void DoArchive(Settings.ArchiveSettings archiveSettings, Retention retention, string filePath)
 		{
-		}
-
-		public override void Archive(Retention retention, string filePath)
-		{
-			if (!retention.ArchiveToS3)
-				return;
-
-			var archiveSettings = GetSettings().Archive;
-
-			if (IsValid(archiveSettings) == false)
-				return;
-
 			using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(archiveSettings.S3AccessKey, archiveSettings.S3SecretKey))
 			{
 				var putObjectRequest = new PutObjectRequest();
@@ -34,8 +20,11 @@ namespace LogHub.Server.Archiving
 			}
 		}
 
-		private bool IsValid(Settings.ArchiveSettings archiveSettings)
+		protected override bool IsValid(Settings.ArchiveSettings archiveSettings, Retention retention)
 		{
+			if (!retention.ArchiveToS3)
+				return false;
+
 			if (archiveSettings.S3AccessKey.IsNullOrWhiteSpace())
 				return false;
 

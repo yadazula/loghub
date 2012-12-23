@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace LogHub.Core.Models
+namespace LogHub.Web.ViewModels
 {
 	public class SystemStatus
 	{

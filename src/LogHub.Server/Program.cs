@@ -16,20 +16,20 @@ namespace LogHub.Server
 		{
 			if (Environment.UserInteractive)
 			{
-				InteractiveRun(args);
+				RunInConsoleMode(args);
 				return;
 			}
 
-			ServiceBase.Run(new LogHubService());
+			RunInServiceMode();
 		}
 
-		private static void InteractiveRun(string[] args)
+		private static void RunInConsoleMode(string[] args)
 		{
 			Action actionToTake = null;
 			var optionSet = new OptionSet
       {
-        {"install", "Installs the loghub service", key => actionToTake = InstallAndStart},
-        {"uninstall", "Uninstalls the loghub service", key => actionToTake = EnsureStoppedAndUninstall},
+        {"install", "Installs the loghub service", key => actionToTake = InstallService},
+        {"uninstall", "Uninstalls the loghub service", key => actionToTake = UninstallService},
         {"start", "Starts the loghub servce", key => actionToTake = StartService},
         {"restart", "Restarts the loghub service", key => actionToTake = RestartService},
         {"stop", "Stops the loghub service", key => actionToTake = StopService},
@@ -43,16 +43,21 @@ namespace LogHub.Server
 			catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
-				PrintUsage(optionSet);
+				PrintOptions(optionSet);
 			}
 
 			if (actionToTake == null)
-				actionToTake = () => PrintUsage(optionSet);
+				actionToTake = () => PrintOptions(optionSet);
 
 			actionToTake();
 		}
 
-		private static void PrintUsage(OptionSet optionSet)
+		private static void RunInServiceMode()
+		{
+			ServiceBase.Run(new LogHubService());
+		}
+
+		private static void PrintOptions(OptionSet optionSet)
 		{
 			Console.WriteLine(@"Command line options :");
 			optionSet.WriteOptionDescriptions(Console.Out);
@@ -70,7 +75,7 @@ namespace LogHub.Server
 			}
 		}
 
-		private static void EnsureStoppedAndUninstall()
+		private static void UninstallService()
 		{
 			if (ServiceIsInstalled() == false)
 			{
@@ -126,7 +131,7 @@ namespace LogHub.Server
 
 		}
 
-		private static void InstallAndStart()
+		private static void InstallService()
 		{
 			if (ServiceIsInstalled())
 			{

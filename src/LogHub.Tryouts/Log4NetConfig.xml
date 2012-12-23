@@ -1,0 +1,16 @@
+﻿<log4net>
+	<appender name="LogHubAppender" type="LogHub.Forwarder.Log4Net.LogHubAppender, LogHub.Forwarder.Log4Net">
+		<param name="ServerIp" value="127.0.0.1" />
+		<param name="ServerPort" value="11000" />
+		<param name="Host" value="Host-Foo" />
+		<param name="Source" value="LogHub TestClient" />
+		<layout type="log4net.Layout.PatternLayout">
+			<conversionPattern value="[%t] %m"/>
+		</layout>
+	</appender>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="LogHubAppender" />
+	</root>
+</log4net>

@@ -2,27 +2,13 @@ using System.IO;
 using Amazon.Glacier.Transfer;
 using LogHub.Core.Extensions;
 using LogHub.Core.Models;
-using Raven.Client;
 
 namespace LogHub.Server.Archiving
 {
 	public class AmazonGlacierArchiver : AbstractLogArchiver
 	{
-		public AmazonGlacierArchiver(IDocumentStore documentStore)
-			: base(documentStore)
+		protected override void DoArchive(Settings.ArchiveSettings archiveSettings, Retention retention, string filePath)
 		{
-		}
-
-		public override void Archive(Retention retention, string filePath)
-		{
-			if (!retention.ArchiveToGlacier)
-				return;
-
-			var archiveSettings = GetSettings().Archive;
-			
-			if(IsValid(archiveSettings) == false)
-				return;
-
 			var region = Amazon.RegionEndpoint.GetBySystemName(archiveSettings.GlacierRegionName);
 
 			using (var transferManager = new ArchiveTransferManager(archiveSettings.GlacierAccessKey, archiveSettings.GlacierSecretKey, region))
@@ -31,8 +17,11 @@ namespace LogHub.Server.Archiving
 			}
 		}
 
-		private bool IsValid(Settings.ArchiveSettings archiveSettings)
+		protected override bool IsValid(Settings.ArchiveSettings archiveSettings, Retention retention)
 		{
+			if (!retention.ArchiveToGlacier)
+				return false;
+
 			if (archiveSettings.GlacierRegionName.IsNullOrWhiteSpace())
 				return false;
 

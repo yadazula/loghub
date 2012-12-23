@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using LogHub.Server.Api;
 using LogHub.Server.Channels;
 using LogHub.Server.Composition;
+using LogHub.Server.Models;
 using LogHub.Server.Tasks.Scheduled;
 using LogHub.Server.Tasks.Startup;
 using NLog;
@@ -14,7 +17,6 @@ namespace LogHub.Server.Startup
 {
 	public class Bootstrapper : IDisposable
 	{
-		public static DateTimeOffset StartTime { get; private set; }
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		private readonly IKernel kernel;
 		private readonly IEnumerable<IChannelListener> channelListeners;
@@ -81,7 +83,18 @@ namespace LogHub.Server.Startup
 				channelListener.Listen();
 			}
 
-			StartTime = DateTimeOffset.Now;
+			RegisterServerInfo();
+		}
+
+		private void RegisterServerInfo()
+		{
+			var serverInfo = new ServerInfo
+			{
+				StartTime = DateTimeOffset.Now,
+				Version = FileVersionInfo.GetVersionInfo(typeof(Bootstrapper).Assembly.Location).ProductVersion
+			};
+
+			kernel.Bind<ServerInfo>().ToConstant(serverInfo);
 		}
 
 		public void Dispose()

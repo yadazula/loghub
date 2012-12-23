@@ -1,26 +1,18 @@
-﻿using LogHub.Core.Extensions;
-using LogHub.Core.Models;
-using Raven.Client;
+﻿using LogHub.Core.Models;
 
 namespace LogHub.Server.Archiving
 {
 	public abstract class AbstractLogArchiver : ILogArchiver
 	{
-		private readonly IDocumentStore documentStore;
-
-		protected AbstractLogArchiver(IDocumentStore documentStore)
+		public void Archive(Settings.ArchiveSettings archiveSettings, Retention retention, string filePath)
 		{
-			this.documentStore = documentStore;
+			if (IsValid(archiveSettings, retention) == false)
+				return;
+
+			DoArchive(archiveSettings, retention, filePath);
 		}
 
-		protected Settings GetSettings()
-		{
-			using (var documentSession = documentStore.OpenSession())
-			{
-				return documentSession.GetSettings();
-			}
-		}
-
-		public abstract void Archive(Retention retention, string filePath);
+		protected abstract bool IsValid(Settings.ArchiveSettings archiveSettings, Retention retention);
+		protected abstract void DoArchive(Settings.ArchiveSettings archiveSettings, Retention retention, string filePath);
 	}
 }

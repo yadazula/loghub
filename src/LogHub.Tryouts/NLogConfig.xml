@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<extensions>
+		<add assembly="LogHub.Forwarder.NLog"/>
+	</extensions>
+
+	<targets>
+		<target type="AsyncWrapper" name="AsyncLog" queueLimit="10000000" batchSize="100000">
+			<target type="LogHub"
+							name="LogHub"
+							serverip="127.0.0.1"
+							serverport="11000"
+							host="Host-Foo"
+							source="LogHub TestClient"
+							layout="[${threadid}] ${message} ${exception:format=tostring}" />
+		</target>
+	</targets>
+
+	<rules>
+		<logger name="LogHub.*" minlevel="Debug" writeTo="AsyncLog" />
+	</rules>
+</nlog>
